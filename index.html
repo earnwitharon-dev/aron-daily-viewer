@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#071115">
+<title>ARON Daily Viewer</title>
+<style>
+:root{--bg:#061014;--panel:#0d191e;--line:#20333a;--text:#eef9f6;--muted:#8ea4a7;--accent:#31dcb7;--accent2:#88f4dd}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 10% 0%,rgba(49,220,183,.14),transparent 30%),radial-gradient(circle at 88% 2%,rgba(74,103,255,.10),transparent 26%),var(--bg)}
+button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;border:1px solid rgba(136,244,221,.25);background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.online{font-size:10px;color:var(--muted);padding:7px 10px;border:1px solid var(--line);border-radius:999px}.card{background:linear-gradient(180deg,rgba(14,26,32,.96),rgba(8,18,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 75px rgba(0,0,0,.38)}.search{padding:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:13px}.input{width:100%;background:#071216;color:var(--text);border:1px solid var(--line);outline:none;border-radius:12px;padding:13px 14px}.input:focus{border-color:rgba(49,220,183,.63);box-shadow:0 0 0 3px rgba(49,220,183,.07)}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04231b}.ghost{background:#081317;color:var(--text);border:1px solid var(--line)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:13px}.viewer{overflow:hidden}.screen{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center}.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.empty{text-align:center;color:var(--muted);max-width:520px;padding:28px;line-height:1.55}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:7px}.controls{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}.group{display:flex;gap:7px;flex-wrap:wrap}.info{padding:12px 14px 14px;border-top:1px solid var(--line)}.info h1{font-size:15px;margin:0 0 4px}.meta{font-size:9.5px;color:var(--muted);word-break:break-all;line-height:1.55}.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.help{font-size:10px;line-height:1.55;color:var(--muted);border:1px solid var(--line);background:#071216;border-radius:11px;padding:10px;margin-bottom:11px}.field{margin-bottom:10px}.field label{display:block;font-size:9.5px;font-weight:800;color:var(--muted);margin:0 0 5px 2px}.history{display:grid;gap:7px}.history button{text-align:left;color:var(--text);background:#071216;border:1px solid var(--line);padding:9px;border-radius:10px}.history small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.sharebox{display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:12px}.notice{font-size:9.5px;color:var(--muted);margin-top:10px;line-height:1.45}.cinema .top,.cinema .search,.cinema .side{display:none}.cinema .shell{max-width:none;padding:0}.cinema .layout{display:block}.cinema .viewer{border-radius:0;border:0}.cinema .screen{height:calc(100dvh - 105px);aspect-ratio:auto}
+@media(max-width:850px){.shell{padding:9px}.layout{grid-template-columns:1fr}.search{grid-template-columns:1fr}.side{order:2}.online{display:none}.brand b{font-size:13px}.controls .btn{padding:10px 11px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">
+        <svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#88f4dd" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dcb7" stroke-width="1.2" opacity=".72"/></svg>
+      </div>
+      <div><b>ARON DAILY VIEWER</b><small>mobile-ready cinema shell</small></div>
+    </div>
+    <div class="online">GitHub Pages • HTTPS</div>
+  </div>
+
+  <div class="card search">
+    <input id="urlInput" class="input" value="https://www.dailymotion.com/video/xbf1yae" placeholder="Paste Dailymotion link or video ID">
+    <button id="watchBtn" class="btn primary">▶ WATCH</button>
+  </div>
+
+  <div class="layout">
+    <main class="card viewer">
+      <div id="screen" class="screen"><div class="empty"><strong>Ready.</strong>Paste a Dailymotion link above or press WATCH for the sample video.</div></div>
+      <div class="controls">
+        <div class="group">
+          <button id="cinemaBtn" class="btn ghost">▣ Cinema</button>
+          <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
+        </div>
+        <div class="group">
+          <button id="shareBtn" class="btn ghost">↗ Share Video</button>
+          <button id="dmBtn" class="btn ghost">Dailymotion</button>
+        </div>
+      </div>
+      <div class="info"><h1 id="title">Nothing playing</h1><div id="meta" class="meta">Waiting for a Dailymotion video.</div></div>
+    </main>
+
+    <aside class="card side">
+      <h2>PLAYER</h2>
+      <div class="field"><label>Dailymotion Player ID</label><input id="playerId" class="input" value="xbzld" placeholder="Your Player ID"></div>
+      <button id="savePlayer" class="btn ghost" style="width:100%;margin-bottom:11px">Save Player ID</button>
+      <div class="help">Dailymotion's current embed system requires a valid Player ID. The prefilled ID is from Dailymotion's public documentation example. For long-term use, replace it with your own Dailymotion Studio Player ID.</div>
+
+      <h2>SHARE CURRENT VIDEO</h2>
+      <div class="sharebox"><input id="shareUrl" class="input" readonly placeholder="Load a video first"><button id="copyShare" class="btn ghost">Copy</button></div>
+
+      <h2>RECENT</h2>
+      <div id="history" class="history"></div>
+      <div class="notice">This page is only a viewer shell. Dailymotion controls embedded playback, availability, regional restrictions, and advertising served by its player.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s),input=$('#urlInput'),pid=$('#playerId'),screen=$('#screen');let currentId='';
+const saved=localStorage.getItem('aron_player_id');if(saved)pid.value=saved;
+function extractId(v){v=(v||'').trim();if(/^[A-Za-z0-9_-]{5,}$/.test(v)&&!v.includes('.'))return v;try{const u=new URL(v),host=u.hostname.replace(/^www\./,'').toLowerCase();if(host==='dai.ly')return u.pathname.split('/').filter(Boolean)[0]||null;if(host.endsWith('dailymotion.com')){const p=u.pathname.split('/').filter(Boolean),i=p.indexOf('video');if(i>=0&&p[i+1])return p[i+1].split('_')[0]}}catch(e){}const m=v.match(/(?:video\/|dai\.ly\/)([A-Za-z0-9_-]+)/i);return m?m[1].split('_')[0]:null}
+function canonical(id){return `https://www.dailymotion.com/video/${encodeURIComponent(id)}`}
+function embedUrl(id){return `https://geo.dailymotion.com/player/${encodeURIComponent(pid.value.trim())}.html?video=${encodeURIComponent(id)}`}
+function pageShare(id){const u=new URL(location.href);u.search='';u.hash='';u.searchParams.set('v',id);return u.toString()}
+function saveHistory(id){let h=JSON.parse(localStorage.getItem('aron_history')||'[]').filter(x=>x.id!==id);h.unshift({id,at:Date.now()});h=h.slice(0,12);localStorage.setItem('aron_history',JSON.stringify(h));renderHistory()}
+function renderHistory(){const h=JSON.parse(localStorage.getItem('aron_history')||'[]'),box=$('#history');if(!h.length){box.innerHTML='<div class="help">No recent videos yet.</div>';return}box.innerHTML='';h.forEach(x=>{const b=document.createElement('button');b.innerHTML=`<b>${x.id}</b><small>${new Date(x.at).toLocaleString()}</small>`;b.onclick=()=>{input.value=canonical(x.id);load(x.id)};box.appendChild(b)})}
+function load(force){const id=force||extractId(input.value);if(!id){alert('Hindi ma-detect ang Dailymotion video ID.');return}if(!pid.value.trim()){alert('Enter a valid Dailymotion Player ID first.');return}currentId=id;const f=document.createElement('iframe');f.src=embedUrl(id);f.allow='autoplay; fullscreen; picture-in-picture; web-share';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';f.title=`Dailymotion video ${id}`;screen.innerHTML='';screen.appendChild(f);$('#title').textContent=`Dailymotion • ${id}`;$('#meta').textContent=canonical(id);$('#shareUrl').value=pageShare(id);saveHistory(id)}
+$('#watchBtn').onclick=()=>load();input.addEventListener('keydown',e=>{if(e.key==='Enter')load()});
+$('#savePlayer').onclick=()=>{localStorage.setItem('aron_player_id',pid.value.trim());if(currentId)load(currentId)};
+$('#dmBtn').onclick=()=>{const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
+$('#fullBtn').onclick=()=>screen.requestFullscreen?.();
+$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'↩ Exit Cinema':'▣ Cinema'};
+async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){return false}}
+$('#copyShare').onclick=async()=>{const t=$('#shareUrl').value;if(!t)return;if(await copyText(t)){const b=$('#copyShare'),o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,900)}else prompt('Copy this link:',t)};
+$('#shareBtn').onclick=async()=>{if(!currentId){load();if(!currentId)return}const url=pageShare(currentId);if(navigator.share){try{await navigator.share({title:'ARON Daily Viewer',url});return}catch(e){}}if(await copyText(url))alert('Share link copied.');else prompt('Copy this link:',url)};
+renderHistory();
+const params=new URLSearchParams(location.search),qv=params.get('v'),qp=params.get('player');if(qp){pid.value=qp;localStorage.setItem('aron_player_id',qp)}if(qv){input.value=canonical(qv);setTimeout(()=>load(qv),120)}
+</script>
+</body>
+</html>
