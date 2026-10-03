@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V6.1</title>
+<title>ARON Short Drama V6.2</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V6.1</b><small>Direct probe • player-first with automatic fallback</small></div>
+      <div><b>ARON SHORT DRAMA V6.2</b><small>Login-aware • reusable TikTok playback tab</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span> • <span id="playerState">PLAYER CHECK</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span> • <span id="playerState">PLAYER CHECK</span> • <span id="loginState">LOGIN UNKNOWN</span></div>
   </div>
 
   <div class="card loader">
@@ -98,6 +98,7 @@ const BASE='https://www.tiktok.com/shortdrama/episode/';
 
 let extensionReady=false;
 let playbackMode='test';
+let tikTokLogin='unknown';
 let sourceLink='', normalVideoId='', dramaId='', totalEpisodes=0, currentEpisode=1, dramaTitle='';
 
 function log(t){
@@ -136,7 +137,7 @@ function renderEpisodes(){
     const b=document.createElement('button');
     b.className='ep'+(i===currentEpisode?' active':'')+(i===totalEpisodes?' end':'');
     b.textContent='EP '+String(i).padStart(2,'0');
-    b.onclick=()=>play(i);
+    b.onclick=()=>ensureLoginThenPlay(i);
     box.appendChild(b);
   }
 }
@@ -199,12 +200,44 @@ function normalFromOembed(data,src){
   return (h.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1] ||
     (((h.match(/cite=["']([^"']+)["']/i)||[])[1]||src).match(/\/video\/(\d{10,25})/i)||[])[1] || '';
 }
+
+function setLoginState(v){
+  tikTokLogin=v;
+  const el=$('#loginState');
+  if(v==='in'){
+    el.textContent='LOGIN OK';
+  }else if(v==='out'){
+    el.textContent='LOGIN REQUIRED';
+  }else{
+    el.textContent='LOGIN UNKNOWN';
+  }
+}
+
+function ensureLoginThenPlay(ep){
+  if(!dramaId)return;
+
+  if(tikTokLogin==='out'){
+    const url=epUrl(ep);
+    setStatus('TikTok login required. A normal TikTok tab is open—log in there. ARON will resume automatically.','warn');
+    log('Waiting for TikTok login in normal tab.');
+    window.postMessage({
+      __ARON_V62_LOGIN_FLOW__:true,
+      url,
+      episode:ep
+    },'*');
+    return;
+  }
+
+  play(ep);
+}
+
 async function resolve(){
   sourceLink=$('#source').value.trim();
   if(!sourceLink)return;
 
   normalVideoId='';dramaId='';totalEpisodes=0;currentEpisode=1;dramaTitle='';playbackMode='test';
   $('#playerState').textContent='PLAYER CHECK';
+  setLoginState('unknown');
   flow('#flow1','Share link received','ok');
   flow('#flow2','Resolving…','wait');
   flow('#flow3','Waiting','wait');
@@ -279,6 +312,43 @@ window.addEventListener('message',e=>{
   }
 
 
+
+  if(d.__ARON_V62_LOGIN_STATUS__===true){
+    if(d.status==='in'){
+      setLoginState('in');
+      log('TikTok login detected: login=1');
+      setStatus('TikTok login confirmed. Starting Episode 1 playback.','ok');
+      ensureLoginThenPlay(d.episode||1);
+    }else if(d.status==='out'){
+      setLoginState('out');
+      log('TikTok login detected: login=0');
+      setStatus('TikTok login required. Log in in the TikTok tab; ARON will detect it automatically.','warn');
+      window.postMessage({
+        __ARON_V62_LOGIN_FLOW__:true,
+        url:epUrl(d.episode||1),
+        episode:d.episode||1
+      },'*');
+    }else{
+      setLoginState('unknown');
+      log('TikTok login state could not be determined.');
+    }
+    return;
+  }
+
+  if(d.__ARON_V62_LOGIN_READY__===true){
+    setLoginState('in');
+    log('TikTok login became active.');
+    setStatus('Login successful. Reusing the same TikTok tab for playback.','ok');
+    playbackMode='external';
+    $('#playerState').textContent='PLAYER EXTERNAL';
+    window.postMessage({
+      __ARON_V61_OPEN_EXTERNAL__:true,
+      url:epUrl(d.episode||1),
+      episode:d.episode||1
+    },'*');
+    return;
+  }
+
   if(d.__ARON_V61_FRAME_RESULT__===true){
     if(d.status==='ready'){
       playbackMode='iframe';
@@ -312,10 +382,12 @@ window.addEventListener('message',e=>{
       update();
       log('Short Drama ID: '+dramaId);
       log('V3 EP1: '+epUrl(1));
-      setStatus('Short Drama ID captured. V3 built exact /1 URL.','ok');
-
-      // Try player immediately; metadata probe happens in same background tab.
-      mount(1);
+      setStatus('Short Drama ID captured. V3 built exact /1 URL. Checking TikTok login status…','ok');
+      window.postMessage({
+        __ARON_V62_CHECK_LOGIN__:true,
+        url:epUrl(1),
+        episode:1
+      },'*');
       return;
     }
 
@@ -347,9 +419,9 @@ window.addEventListener('message',e=>{
 
 $('#resolveBtn').onclick=resolve;
 $('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolve()});
-$('#prevBtn').onclick=()=>{if(currentEpisode>1)play(currentEpisode-1)};
-$('#nextBtn').onclick=()=>{if(totalEpisodes&&currentEpisode<totalEpisodes)play(currentEpisode+1)};
-$('#reloadBtn').onclick=()=>{if(dramaId)play(currentEpisode)};
+$('#prevBtn').onclick=()=>{if(currentEpisode>1)ensureLoginThenPlay(currentEpisode-1)};
+$('#nextBtn').onclick=()=>{if(totalEpisodes&&currentEpisode<totalEpisodes)ensureLoginThenPlay(currentEpisode+1)};
+$('#reloadBtn').onclick=()=>{if(dramaId)ensureLoginThenPlay(currentEpisode)};
 $('#openBtn').onclick=()=>{if(dramaId)window.postMessage({__ARON_V61_OPEN_EXTERNAL__:true,url:epUrl(currentEpisode),episode:currentEpisode},'*')};
 $('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
 
