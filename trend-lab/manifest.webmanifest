@@ -1,12 +1,12 @@
 {
   "name": "ARON Trend Lab",
   "short_name": "Trend Lab",
-  "description": "ARON creator trend intelligence PWA",
+  "description": "Creator intelligence workspace",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#071014",
-  "theme_color": "#071014",
+  "background_color": "#0A1114",
+  "theme_color": "#0A1114",
   "icons": [
     {
       "src": "./icons/icon-192.png",
