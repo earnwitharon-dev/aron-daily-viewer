@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V5.3</title>
+<title>ARON Short Drama V5.3.1</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -30,7 +30,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1450px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V5.3</b><small>V2 ID → fixed Short Drama URL → EP1 → detect total</small></div>
+      <div><b>ARON SHORT DRAMA V5.3.1</b><small>V2 ID → fixed Short Drama URL → EP1 → detect total</small></div>
     </div>
     <div class="badge"><span id="bridgeDot" class="bridgeDot"></span><span id="bridgeText">EP Count Bridge waiting</span></div>
   </div>
@@ -173,7 +173,7 @@ function playEpisode(ep){
 }
 function startEpisode1(){
   currentEpisode=1;
-  flow('#flow3',capturedId+' / 1');
+  flow('#flow3',SHORT_DRAMA_BASE + capturedId + '/1');
   setStatus(
     'V3 did not search for another ID. It used the V2 captured ID directly and loaded Episode 1. Detecting exact episode count now…',
     'ok'
