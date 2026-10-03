@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V6.2</title>
+<title>ARON Short Drama V6.2.1</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V6.2</b><small>Login-aware • reusable TikTok playback tab</small></div>
+      <div><b>ARON SHORT DRAMA V6.2.1</b><small>Login-aware • extension version guard</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span> • <span id="playerState">PLAYER CHECK</span> • <span id="loginState">LOGIN UNKNOWN</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span> <span id="extVersion"></span> • <span id="playerState">PLAYER CHECK</span> • <span id="loginState">LOGIN UNKNOWN</span></div>
   </div>
 
   <div class="card loader">
@@ -96,7 +96,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
 const $=s=>document.querySelector(s);
 const BASE='https://www.tiktok.com/shortdrama/episode/';
 
+const REQUIRED_EXT_VERSION='2.2.1';
 let extensionReady=false;
+let extensionVersion='';
 let playbackMode='test';
 let tikTokLogin='unknown';
 let sourceLink='', normalVideoId='', dramaId='', totalEpisodes=0, currentEpisode=1, dramaTitle='';
@@ -246,8 +248,14 @@ async function resolve(){
   log('Resolve clicked: '+sourceLink);
 
   if(!extensionReady){
-    setStatus('V6 extension is NOT detected. Reload after installing/loading the unpacked extension.','bad');
+    setStatus('ARON extension is NOT detected. Reload after installing/loading the unpacked extension.','bad');
     log('STOP: extension handshake missing');
+    return;
+  }
+
+  if(extensionVersion!==REQUIRED_EXT_VERSION){
+    setStatus('WRONG EXTENSION VERSION. Loaded: '+(extensionVersion||'unknown')+' • Required: '+REQUIRED_EXT_VERSION,'bad');
+    log('STOP: stale extension detected. Loaded '+(extensionVersion||'unknown')+', required '+REQUIRED_EXT_VERSION);
     return;
   }
 
@@ -296,10 +304,18 @@ window.addEventListener('message',e=>{
 
   if(d.__ARON_V60_EXTENSION_READY__===true){
     extensionReady=true;
+    extensionVersion=String(d.version||'unknown');
     $('#dot').classList.add('ok');
     $('#extState').textContent='EXTENSION READY';
-    setStatus('Extension handshake OK. Ready to resolve.','ok');
-    log('Extension handshake received');
+    $('#extVersion').textContent='v'+extensionVersion;
+
+    if(extensionVersion===REQUIRED_EXT_VERSION){
+      setStatus('Extension handshake OK • v'+extensionVersion+'. Ready to resolve.','ok');
+      log('Extension handshake received • version '+extensionVersion);
+    }else{
+      setStatus('STALE EXTENSION: v'+extensionVersion+' loaded • need v'+REQUIRED_EXT_VERSION,'bad');
+      log('STALE extension detected • loaded '+extensionVersion+' • required '+REQUIRED_EXT_VERSION);
+    }
     return;
   }
 
