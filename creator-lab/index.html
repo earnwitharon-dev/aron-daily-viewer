@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08111A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ARON Creator Lab">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<title>ARON Creator Lab</title>
+<style>
+:root{
+ --bg:#071018;--bg2:#0A1621;--surface:#0E1C29;--surface2:#122637;--surface3:#153047;
+ --line:#1F3B4D;--text:#F7FAFC;--muted:#91A6B4;--muted2:#607889;
+ --cyan:#57D2FF;--mint:#35E0B1;--blue:#4B8DFF;--violet:#9B7BFF;--gold:#E8C66A;
+ --safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom);
+ --r:24px;--shadow:0 22px 70px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif}
+body{min-height:100vh;min-height:100dvh;overflow:hidden}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{height:100vh;height:100dvh;display:grid;grid-template-rows:1fr auto;background:
+radial-gradient(circle at 90% -5%,rgba(75,141,255,.18),transparent 27%),
+radial-gradient(circle at 10% 20%,rgba(53,224,177,.10),transparent 22%),
+linear-gradient(180deg,#071018,#060D12 62%)}
+.main{overflow:auto;padding:calc(18px + var(--safe-top)) 18px 24px;overscroll-behavior:contain}
+.screen{display:none;max-width:900px;margin:0 auto}.screen.active{display:block}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:14px;
+background:linear-gradient(145deg,#183C54,#0D2738);border:1px solid #315A70;display:grid;place-items:center;
+font-weight:900;color:var(--cyan);box-shadow:inset 0 0 30px rgba(87,210,255,.08)}
+.brandcopy h1{margin:0;font-size:23px;letter-spacing:-.5px}.brandcopy div{font-size:9px;color:var(--muted);letter-spacing:1.5px;margin-top:4px;font-weight:750}
+.plan{border:1px solid #31536A;background:rgba(16,37,51,.75);color:#B8DDF0;padding:8px 11px;border-radius:999px;font-size:10px;font-weight:800}
+.hero{position:relative;overflow:hidden;border:1px solid #28475B;border-radius:28px;padding:22px;background:
+linear-gradient(145deg,rgba(19,46,66,.96),rgba(10,27,39,.96));box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;top:-90px;
+background:radial-gradient(circle,rgba(87,210,255,.18),transparent 62%);pointer-events:none}
+.kicker{font-size:9px;color:#7FA1B3;letter-spacing:1.5px;font-weight:800}
+.hero h2{font-size:28px;line-height:1.05;margin:9px 0 9px;letter-spacing:-.9px;max-width:660px}
+.hero p{margin:0;color:#A6BBC7;font-size:12px;line-height:1.55;max-width:620px}
+.live{display:inline-flex;align-items:center;gap:7px;border:1px solid #2E5F59;background:#0C2A28;color:#A2F0D8;
+font-size:9px;font-weight:800;border-radius:999px;padding:7px 10px;margin-top:15px}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}
+.ctas{display:grid;grid-template-columns:1.15fr .85fr;gap:9px;margin-top:17px}
+.btn{border:0;border-radius:16px;padding:14px 16px;font-weight:800}.btn.primary{background:linear-gradient(135deg,var(--mint),#50C9FF);color:#06131A}
+.btn.secondary{background:#122737;color:#DDEAF0;border:1px solid #2B4A5C}.btn.ghost{background:#0B1822;color:#9DB0BB;border:1px solid #223B4A}
+.pulse-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;margin-top:12px}
+.card{border:1px solid #203C4D;border-radius:22px;background:linear-gradient(180deg,#0E1D28,#0B1821);padding:17px}
+.card.glass{background:linear-gradient(145deg,rgba(20,49,69,.82),rgba(10,26,37,.82));backdrop-filter:blur(18px)}
+.card h3{margin:0;font-size:15px}.small{font-size:10px;color:var(--muted);line-height:1.5}.section{margin:20px 0 10px;font-size:10px;letter-spacing:1.4px;color:#688493;font-weight:850}
+.metricrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.metric{border:1px solid #203B4B;background:#0B1821;border-radius:16px;padding:12px}
+.metric span{display:block;font-size:8px;color:#617A89;letter-spacing:1px;margin-bottom:5px}.metric b{font-size:20px}
+.metric b.cyan{color:var(--cyan)}.metric b.mint{color:var(--mint)}
+.spark{height:70px;margin-top:8px;position:relative}
+.spark svg{width:100%;height:100%;overflow:visible}.spark path.line{fill:none;stroke:url(#g);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.spark path.area{fill:url(#a);opacity:.65}
+.recommend{display:grid;gap:10px}
+.opportunity{border:1px solid #244659;border-radius:21px;background:#0C1A24;padding:16px}
+.opp-top{display:flex;justify-content:space-between;gap:10px}.opp-title{font-size:16px;font-weight:850}.opp-label{font-size:9px;color:#92A7B3;margin-top:4px}
+.badge{font-size:8px;font-weight:900;letter-spacing:.7px;padding:6px 8px;border-radius:999px;border:1px solid #31635A;color:#A8F0DA;background:#0E2A27;height:max-content}
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.opp-grid label{display:block;font-size:8px;color:#617987;letter-spacing:1px}.opp-grid b{display:block;margin-top:4px;font-size:14px}
+.insight{margin-top:12px;color:#B8C8D0;font-size:11px;line-height:1.5}
+.actionrow{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}.mini{border:1px solid #2B4959;background:#102431;color:#D5E5EC;border-radius:13px;padding:10px 12px;font-weight:750;font-size:10px}
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.quick{min-height:135px;position:relative;overflow:hidden;border:1px solid #244456;border-radius:22px;padding:16px;text-align:left;background:
+linear-gradient(145deg,#0F2230,#0B1821);color:var(--text)}
+.quick:after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;right:-38px;bottom:-55px;background:radial-gradient(circle,rgba(87,210,255,.16),transparent 65%)}
+.icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#123147;border:1px solid #2A5A73;color:var(--cyan);margin-bottom:18px}
+.icon svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8}
+.quick h3{margin:0 0 5px;font-size:14px}.quick p{margin:0;color:#8399A5;font-size:10px;line-height:1.45}
+.tier{position:absolute;right:11px;top:11px;border:1px solid #294755;color:#7F98A5;border-radius:999px;font-size:7px;padding:4px 6px;font-weight:900;letter-spacing:.8px}
+.coach-intro{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}.avatar{width:62px;height:62px;border-radius:19px;
+background:linear-gradient(145deg,#1B4C58,#173044);border:1px solid #356275;display:grid;place-items:center;font-weight:900;color:#A2E9FF}
+.coach-intro h2{margin:0;font-size:20px}.coach-intro p{margin:5px 0 0;color:#8DA2AE;font-size:11px}
+.plan-card{margin-top:12px;background:linear-gradient(145deg,#12283A,#0D1C27);border:1px solid #2A4B5F;border-radius:24px;padding:18px}
+.plan-card h3{font-size:19px;margin:10px 0 8px}.plan-card p{font-size:12px;color:#99AFBA;line-height:1.55;margin:0}
+.reco-line{display:grid;grid-template-columns:82px 1fr;gap:12px;border-top:1px solid #203A49;padding:11px 0}.reco-line:first-child{margin-top:14px}
+.reco-line label{font-size:8px;color:#617A89;letter-spacing:1px}.reco-line div{font-size:11px;color:#D4E0E5}
+.tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.analyzer{border:1px dashed #33657A;border-radius:24px;background:linear-gradient(145deg,#102C35,#0B1B24);padding:28px 18px;text-align:center}
+.analyzer .icon{margin:0 auto 14px}.analyzer h3{font-size:20px;margin:0 0 7px}.analyzer p{max-width:470px;margin:0 auto 15px;color:#8DA5B1;font-size:11px;line-height:1.55}
+.scoregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.score{padding:14px;border:1px solid #203B4D;border-radius:18px;background:#0C1922}.score span{display:block;font-size:8px;letter-spacing:1px;color:#607988}.score b{display:block;font-size:25px;margin-top:6px}
+.settings{display:grid;gap:0;border:1px solid #213D4E;border-radius:22px;overflow:hidden;background:#0B1821}.setrow{display:grid;grid-template-columns:1fr auto;align-items:center;padding:16px;border-bottom:1px solid #1C3442}.setrow:last-child{border-bottom:0}.setrow h3{margin:0;font-size:13px}.setrow p{margin:5px 0 0;font-size:9px;color:#7F96A2}
+.switch{width:43px;height:24px;border-radius:999px;background:#233944;padding:3px}.switch i{display:block;width:18px;height:18px;border-radius:50%;background:#9BA8AE}.switch.on{background:#15523E}.switch.on i{margin-left:19px;background:var(--mint)}
+.bottom{padding:8px 9px calc(8px + var(--safe-bottom));background:rgba(5,12,16,.97);border-top:1px solid #162A35;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.nav{border:0;background:transparent;color:#5E7581;border-radius:14px;padding:8px 2px;font-size:8px;font-weight:850}.nav svg{width:19px;height:19px;display:block;margin:0 auto 4px;stroke:currentColor;fill:none;stroke-width:1.8}.nav.active{background:#0F2630;color:var(--cyan)}
+.onboarding{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#08131D,#050B10);overflow:auto;padding:calc(22px + var(--safe-top)) 19px calc(22px + var(--safe-bottom))}
+.onboarding.hidden{display:none}.obwrap{max-width:720px;margin:0 auto;min-height:calc(100vh - 50px);display:flex;flex-direction:column}.progress{height:4px;background:#132632;border-radius:99px;overflow:hidden;margin-bottom:26px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--cyan));transition:.25s}
+.obtitle{font-size:31px;line-height:1.07;margin:0 0 9px;letter-spacing:-.8px}.oblead{color:#8CA2AE;font-size:12px;line-height:1.55;margin:0 0 22px}.choices{display:grid;gap:9px}.choice{display:flex;justify-content:space-between;align-items:center;text-align:left;color:#EDF4F6;background:#0E1B25;border:1px solid #203B4B;border-radius:17px;padding:15px}.choice b{font-size:13px}.choice span{display:block;font-size:9px;color:#7E95A1;margin-top:5px}.choice.selected{border-color:#366D79;background:#10252F}.dot{width:22px;height:22px;border-radius:50%;border:1px solid #39515E}.selected .dot{border-color:var(--cyan);box-shadow:inset 0 0 0 5px #10252F;background:var(--cyan)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid #203B4B;background:#0E1B25;color:#D6E2E6;border-radius:999px;padding:10px 12px;font-size:10px;font-weight:750}.chip.selected{border-color:#3C7382;background:#102630;color:#BFEFFF}
+.obfooter{margin-top:auto;padding-top:24px;display:grid;grid-template-columns:auto 1fr;gap:8px}.obbtn{border:0;border-radius:15px;padding:14px;font-weight:850}.obbtn.back{background:#10212B;color:#C8D5DA;border:1px solid #28414F}.obbtn.next{background:linear-gradient(135deg,var(--mint),var(--cyan));color:#06141A}
+.paywall{position:fixed;inset:0;z-index:60;background:rgba(2,6,9,.92);display:none;align-items:flex-end;justify-content:center;padding:18px}.paywall.show{display:flex}.paycard{width:min(700px,100%);border:1px solid #2B4B5F;border-radius:26px;background:linear-gradient(145deg,#102330,#0B1821);padding:20px;box-shadow:0 50px 120px rgba(0,0,0,.55)}.payhead{display:flex;justify-content:space-between;gap:12px}.payhead h2{font-size:24px;margin:0}.close{width:38px;height:38px;border:0;border-radius:12px;background:#142A36;color:#BFD0D7}.features{display:grid;gap:9px;margin:16px 0}.feature{display:grid;grid-template-columns:9px 1fr;gap:10px;font-size:11px;color:#D7E2E7}.feature i{width:7px;height:7px;border-radius:50%;background:var(--mint);margin-top:4px}
+.pricegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.price{border:1px solid #294657;background:#0B1922;color:#DDE7EB;border-radius:17px;padding:14px}.price.selected{border-color:#3A7C7B;background:#102931}.price b{display:block;font-size:13px}.price span{display:block;font-size:9px;color:#758D99;margin-top:5px}
+@media(max-width:520px){.pulse-grid{grid-template-columns:1fr}.metricrow{grid-template-columns:repeat(2,1fr)}.ctas{grid-template-columns:1fr}.quick-grid,.tool-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<main class="main">
+<section class="screen active" data-screen="today">
+  <div class="topbar"><div class="brand"><div class="logo">AR</div><div class="brandcopy"><h1>ARON Creator Lab</h1><div>FACEBOOK-FIRST CREATOR INTELLIGENCE</div></div></div><button class="plan" id="planBadge">FREE</button></div>
+  <div class="hero">
+    <div class="kicker">TODAY'S CREATOR BRIEF</div>
+    <h2>Three publishing opportunities match your audience profile.</h2>
+    <p>Facebook-first recommendations for original Reels, Stories, photo posts and text posts. Cross-platform reuse comes after the Facebook version is validated.</p>
+    <div class="live"><i></i><span>DEMO SIGNALS • BACKEND NOT YET CONNECTED</span></div>
+    <div class="ctas"><button class="btn primary" data-go="coach">Build today's post plan</button><button class="btn secondary" data-go="tools">Open creator tools</button></div>
+  </div>
+  <div class="metricrow">
+    <div class="metric"><span>OPPORTUNITIES</span><b class="mint">3</b></div>
+    <div class="metric"><span>FACEBOOK REELS</span><b>6</b></div>
+    <div class="metric"><span>SAVED</span><b id="savedCount">0</b></div>
+    <div class="metric"><span>FREE CREDITS</span><b id="creditCount">5</b></div>
+  </div>
+  <div class="pulse-grid">
+    <div class="card glass">
+      <div class="kicker">CONTENT MOMENTUM</div><h3 style="margin-top:7px">Opportunity is building across short-form educational and lifestyle posts.</h3>
+      <div class="spark">
+        <svg viewBox="0 0 300 70" preserveAspectRatio="none">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#35E0B1"/><stop offset="1" stop-color="#57D2FF"/></linearGradient><linearGradient id="a" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#57D2FF" stop-opacity=".28"/><stop offset="1" stop-color="#57D2FF" stop-opacity="0"/></linearGradient></defs>
+          <path class="area" d="M0 63 C35 60 45 52 70 49 S110 38 130 34 S170 38 190 23 S235 12 300 8 L300 70 L0 70 Z"/>
+          <path class="line" d="M0 63 C35 60 45 52 70 49 S110 38 130 34 S170 38 190 23 S235 12 300 8"/>
+        </svg>
+      </div>
+      <div class="small">Illustrative momentum preview. Live Meta/Facebook data integration comes later.</div>
+    </div>
+    <div class="card">
+      <div class="kicker">BEST WINDOW</div><div style="font-size:25px;font-weight:900;margin-top:9px">7:30 PM</div><div class="small" style="margin-top:6px">Prototype posting window based on your setup, not live audience analytics.</div>
+    </div>
+  </div>
+  <div class="section">OPPORTUNITIES FOR YOU</div><div class="recommend" id="oppList"></div>
+  <div class="section">QUICK ACTIONS</div>
+  <div class="quick-grid">
+    <button class="quick" data-tool="caption"><span class="tier">FREE</span><div class="icon" data-icon="message"></div><h3>Caption Studio</h3><p>Draft concise Facebook copy aligned to the post goal.</p></button>
+    <button class="quick" data-tool="hashtags"><span class="tier">FREE</span><div class="icon" data-icon="hash"></div><h3>Topic & Hashtag Set</h3><p>Build focused discoverability terms without stuffing.</p></button>
+    <button class="quick" data-go="analyzer"><span class="tier">PREVIEW</span><div class="icon" data-icon="video"></div><h3>Reel Analyzer</h3><p>Review hook clarity, pacing and content structure.</p></button>
+    <button class="quick" data-tool="forecast"><span class="tier">PRO</span><div class="icon" data-icon="chart"></div><h3>Opportunity Forecast</h3><p>Estimate content opportunity from future live signals.</p></button>
+  </div>
+</section>
+
+<section class="screen" data-screen="coach">
+ <div class="topbar"><div class="brandcopy"><h1>Creator Coach</h1><div>DAILY CONTENT PLANNING</div></div><button class="plan" data-upgrade>PRO</button></div>
+ <div class="card glass"><div class="coach-intro"><div class="avatar">AR</div><div><h2>ARON Strategist</h2><p>Builds plans from your creator stage, interests, region and content goals.</p></div></div></div>
+ <div class="section">TODAY'S FACEBOOK PLAN</div>
+ <div class="plan-card"><span class="badge">BEST PICK</span><h3>Turn one useful routine into a 12-second before-and-after Reel.</h3><p>Start with the outcome, show one specific change, then close with one simple question that invites comments.</p>
+ <div class="reco-line"><label>FORMAT</label><div>Facebook Reel • 9–15 sec • original footage</div></div>
+ <div class="reco-line"><label>HOOK</label><div>Lead with the result before the explanation.</div></div>
+ <div class="reco-line"><label>CAPTION</label><div>One sentence of context + one question.</div></div>
+ <div class="reco-line"><label>REPURPOSE</label><div>Reuse to Instagram Reels and TikTok after Facebook-first publishing.</div></div>
+ <div class="ctas"><button class="btn primary" data-tool="script">Build this post</button><button class="btn secondary" id="savePlan">Save plan</button></div></div>
+ <div class="section">CONTENT MIX</div>
+ <div class="metricrow"><div class="metric"><span>REELS</span><b class="cyan">60%</b></div><div class="metric"><span>STORIES</span><b>15%</b></div><div class="metric"><span>PHOTO</span><b>15%</b></div><div class="metric"><span>TEXT</span><b>10%</b></div></div>
+</section>
+
+<section class="screen" data-screen="tools">
+ <div class="topbar"><div class="brandcopy"><h1>Creator Studio</h1><div>RESEARCH • CREATE • OPTIMIZE</div></div><button class="plan" id="toolCredits">5 CREDITS</button></div>
+ <div class="tool-grid" id="toolGrid"></div>
+</section>
+
+<section class="screen" data-screen="analyzer">
+ <div class="topbar"><div class="brandcopy"><h1>Reel Analyzer</h1><div>PRE-PUBLISH REVIEW</div></div><button class="plan" data-upgrade>ADVANCED</button></div>
+ <div class="card"><h3 style="font-size:20px">Review the draft before publishing.</h3><p class="small" style="margin-top:8px">Observable checks and generated recommendations are shown separately. The live analysis model will be connected later.</p></div>
+ <div class="analyzer" style="margin-top:12px"><div class="icon" data-icon="upload"></div><h3>Upload Reel draft</h3><p>Choose a video to preview the analysis flow. This V3 prototype does not upload your file to a backend.</p><input id="videoInput" type="file" accept="video/*" hidden><button class="btn primary" id="chooseVideo">Choose video</button></div>
+ <div class="scoregrid" id="scores" style="display:none"><div class="score"><span>HOOK CLARITY</span><b>82</b></div><div class="score"><span>PACING</span><b>76</b></div><div class="score"><span>TOPIC CLARITY</span><b>89</b></div><div class="score"><span>CAPTION FIT</span><b>80</b></div></div>
+</section>
+
+<section class="screen" data-screen="tools2"></section>
+
+<section class="screen" data-screen="settings">
+ <div class="topbar"><div class="brandcopy"><h1>Settings</h1><div>PROFILE • ACCESS • PREFERENCES</div></div><button class="plan" id="settingsPlan">FREE</button></div>
+ <div class="settings">
+  <button class="setrow" id="editProfile"><div><h3>Creator profile</h3><p>Creator stage, region, interests and goals.</p></div><div>›</div></button>
+  <button class="setrow" data-upgrade><div><h3>Subscription</h3><p>Upgrade for advanced analysis, unlimited generations and deeper signal history.</p></div><div>›</div></button>
+  <div class="setrow"><div><h3>Facebook-first mode</h3><p>Prioritize Facebook Reels, Stories, photo and text workflows.</p></div><div class="switch on"><i></i></div></div>
+  <div class="setrow"><div><h3>Cross-post suggestions</h3><p>Suggest reuse for Instagram, TikTok and YouTube Shorts.</p></div><div class="switch" id="crossSwitch"><i></i></div></div>
+  <div class="setrow"><div><h3>Notifications</h3><p>Selected trend, posting-window and plan alerts.</p></div><div class="switch" id="notifSwitch"><i></i></div></div>
+  <button class="setrow"><div><h3>Privacy and data</h3><p>Review local preferences and connected data sources.</p></div><div>›</div></button>
+ </div>
+</section>
+</main>
+
+<nav class="bottom">
+<button class="nav active" data-nav="today" data-icon="today">Today</button>
+<button class="nav" data-nav="coach" data-icon="coach">Coach</button>
+<button class="nav" data-nav="tools" data-icon="tools">Studio</button>
+<button class="nav" data-nav="analyzer" data-icon="video">Analyzer</button>
+<button class="nav" data-nav="settings" data-icon="settings">Settings</button>
+</nav>
+</div>
+
+<div class="onboarding" id="onboarding"><div class="obwrap"><div class="progress"><i id="progress"></i></div><div id="obBody"></div><div class="obfooter"><button class="obbtn back" id="back">Back</button><button class="obbtn next" id="next">Continue</button></div></div></div>
+
+<div class="paywall" id="paywall"><div class="paycard">
+<div class="payhead"><div><div class="kicker">ARON CREATOR LAB PRO</div><h2>Scale the workflow, not the noise.</h2></div><button class="close" id="closePay">×</button></div>
+<div class="features"><div class="feature"><i></i><div>Unlimited creator-tool generations</div></div><div class="feature"><i></i><div>Advanced Reel analysis and prioritized fixes</div></div><div class="feature"><i></i><div>Full signal history and opportunity forecasting</div></div><div class="feature"><i></i><div>Daily Creator Coach plans and selected alerts</div></div></div>
+<div class="pricegrid"><button class="price selected"><b>Monthly</b><span>Payment connection later</span></button><button class="price"><b>Annual</b><span>Best-value placeholder</span></button></div>
+<button class="btn primary" id="demoPro" style="margin-top:12px;width:100%">Activate demo Pro</button>
+<div class="small" style="margin-top:10px">Prototype only. No real payment is processed.</div>
+</div></div>
+
+<script>
+const ICONS={
+today:'<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 2v4M16 2v4M8 11h8M8 15h5"/></svg>',
+coach:'<svg viewBox="0 0 24 24"><path d="M8 14a6 6 0 1 1 8 0c-1 .8-1 1.5-1 2H9c0-.5 0-1.2-1-2z"/><path d="M9 20h6"/></svg>',
+tools:'<svg viewBox="0 0 24 24"><path d="m14 5 5 5M13 6l-8 8 5 5 8-8"/><path d="m4 20 3-1-2-2z"/></svg>',
+video:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>',
+settings:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.5 1A8 8 0 0 0 15 6l-.4-2.6h-5L9 6a8 8 0 0 0-1.4 1L5 6 3 9.5 5.1 11a7 7 0 0 0 0 2L3 14.5 5 18l2.6-1A8 8 0 0 0 9 18l.6 2.6h5L15 18a8 8 0 0 0 1.4-1l2.6 1 2-3.5-2.1-1.5c.1-.3.1-.7.1-1z"/></svg>',
+message:'<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+hash:'<svg viewBox="0 0 24 24"><path d="M9 3 7 21M17 3l-2 18M4 9h16M3 15h16"/></svg>',
+chart:'<svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/></svg>',
+upload:'<svg viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 14v5h14v-5"/></svg>',
+search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 5 5"/></svg>',
+clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>'
+};
+document.querySelectorAll("[data-icon]").forEach(el=>{const k=el.dataset.icon; if(el.classList.contains("nav")) el.insertAdjacentHTML("afterbegin",ICONS[k]||""); else el.innerHTML=ICONS[k]||""});
+
+const OPPS=[
+{id:"reel-education",title:"Useful routine Reel",kind:"Facebook Reel",stage:"RISING",growth:"+32%",saturation:"Low",qualified:"Prototype",insight:"Use one original routine, one measurable outcome and a direct opening line."},
+{id:"photo-story",title:"Photo + story post",kind:"Facebook photo post",stage:"EARLY",growth:"+18%",saturation:"Low",qualified:"Prototype",insight:"Pair one strong image with a short first-person lesson and one specific question."},
+{id:"text-opinion",title:"Short expertise post",kind:"Facebook text post",stage:"RISING",growth:"+14%",saturation:"Medium",qualified:"Prototype",insight:"Lead with one clear opinion, support it with one example, then invite discussion."}
+];
+const TOOLS=[
+["Keyword Research","Build topic language for Facebook search and content clarity.","search",false],
+["Caption Studio","Write concise Facebook-first captions.","message",false],
+["Topic & Hashtag Set","Create focused discovery terms without stuffing.","hash",false],
+["Posting Window","Plan publishing windows from future audience data.","clock",true],
+["Reel Script Builder","Build a short-form script with clear beats.","video",true],
+["Opportunity Forecast","Estimate future content opportunity from live signals.","chart",true],
+["Cross-Post Adapter","Adapt Facebook-first content for IG, TikTok and Shorts.","tools",true],
+["Content Ideas","Generate structured original-content ideas.","coach",false]
+];
+let saved=new Set(JSON.parse(localStorage.getItem("aronfb_saved")||"[]"));
+let plan=localStorage.getItem("aronfb_plan")||"free";
+let credits=Number(localStorage.getItem("aronfb_credits")||5);
+let profile=JSON.parse(localStorage.getItem("aronfb_profile")||"null");
+let step=0;
+const ob={stage:"",region:"Philippines",niches:[],goals:[],format:"Reels"};
+const steps=[
+()=>`<h2 class="obtitle">Set up your creator workspace.</h2><p class="oblead">ARON Creator Lab will prioritize Facebook monetization workflows first, then recommend cross-platform reuse.</p><div class="section">CREATOR STAGE</div><div class="choices">${[["Starting out","0–1,000 followers"],["Building presence","1,000–10,000 followers"],["Growing","10,000–250,000 followers"],["Scaling","250,000+ followers"]].map(([a,b])=>`<button class="choice ${ob.stage===a?"selected":""}" data-stage="${a}"><div><b>${a}</b><span>${b}</span></div><i class="dot"></i></button>`).join("")}</div>`,
+()=>`<h2 class="obtitle">Choose your main Facebook formats.</h2><p class="oblead">Select what you want the system to prioritize for growth and monetization readiness.</p><div class="chips">${["Reels","Stories","Photo posts","Text posts","Live"].map(x=>`<button class="chip ${ob.goals.includes(x)?"selected":""}" data-goal="${x}">${x}</button>`).join("")}</div>`,
+()=>`<h2 class="obtitle">Choose your content interests.</h2><p class="oblead">Select multiple categories. These shape your opportunity feed and daily plans.</p><div class="chips">${["Travel","Food","Lifestyle","Education","Entrepreneurship","Entertainment","Tech","Finance","Motivation","Photography","Beauty","Fitness"].map(x=>`<button class="chip ${ob.niches.includes(x)?"selected":""}" data-niche="${x}">${x}</button>`).join("")}</div>`,
+()=>`<h2 class="obtitle">Facebook first. Cross-post second.</h2><p class="oblead">The product will optimize the primary workflow around Facebook. Instagram, TikTok and YouTube Shorts will be treated as republishing destinations.</p><div class="card"><div class="reco-line"><label>PRIMARY</label><div>Facebook</div></div><div class="reco-line"><label>REGION</label><div>${ob.region}</div></div><div class="reco-line"><label>FORMATS</label><div>${ob.goals.join(", ")||"Reels"}</div></div><div class="reco-line"><label>INTERESTS</label><div>${ob.niches.join(", ")||"Not selected"}</div></div></div>`
+];
+function renderOb(){
+ document.querySelector("#obBody").innerHTML=steps[step]();document.querySelector("#progress").style.width=((step+1)/steps.length*100)+"%";document.querySelector("#back").style.visibility=step===0?"hidden":"visible";document.querySelector("#next").textContent=step===steps.length-1?"Enter workspace":"Continue";
+ document.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>{ob.stage=b.dataset.stage;renderOb()});
+ document.querySelectorAll("[data-goal]").forEach(b=>b.onclick=()=>{const x=b.dataset.goal;ob.goals.includes(x)?ob.goals=ob.goals.filter(v=>v!==x):ob.goals.push(x);renderOb()});
+ document.querySelectorAll("[data-niche]").forEach(b=>b.onclick=()=>{const x=b.dataset.niche;ob.niches.includes(x)?ob.niches=ob.niches.filter(v=>v!==x):ob.niches.push(x);renderOb()});
+}
+document.querySelector("#back").onclick=()=>{if(step>0){step--;renderOb()}};
+document.querySelector("#next").onclick=()=>{if(step===0&&!ob.stage){alert("Select your creator stage.");return}if(step===1&&ob.goals.length===0){alert("Select at least one Facebook format.");return}if(step===2&&ob.niches.length===0){alert("Select at least one interest.");return}if(step<steps.length-1){step++;renderOb();return}profile={...ob};localStorage.setItem("aronfb_profile",JSON.stringify(profile));document.querySelector("#onboarding").classList.add("hidden")};
+if(profile)document.querySelector("#onboarding").classList.add("hidden");else renderOb();
+
+function renderOpps(){document.querySelector("#oppList").innerHTML=OPPS.map(o=>`<div class="opportunity"><div class="opp-top"><div><div class="opp-title">${o.title}</div><div class="opp-label">${o.kind}</div></div><span class="badge">${o.stage}</span></div><div class="opp-grid"><div><label>24H SIGNAL</label><b style="color:#35E0B1">${o.growth}</b></div><div><label>SATURATION</label><b>${o.saturation}</b></div><div><label>STATUS</label><b>${o.qualified}</b></div></div><div class="insight">${o.insight}</div><div class="actionrow"><button class="mini" data-save="${o.id}">${saved.has(o.id)?"Saved":"Save opportunity"}</button><button class="mini" data-detail="${o.id}">${plan==="pro"?"Open detail":"Pro detail"}</button></div></div>`).join("");
+ document.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>{saved.has(b.dataset.save)?saved.delete(b.dataset.save):saved.add(b.dataset.save);localStorage.setItem("aronfb_saved",JSON.stringify([...saved]));renderOpps();sync()});
+ document.querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>plan==="pro"?alert("Detailed signal history placeholder."):openPay());
+}
+function renderTools(){document.querySelector("#toolGrid").innerHTML=TOOLS.map(([n,d,ic,pro])=>`<button class="quick" data-tool="${n}" data-pro="${pro}"><span class="tier">${pro?"PRO":"FREE"}</span><div class="icon" data-icon="${ic}"></div><h3>${n}</h3><p>${d}</p></button>`).join("");document.querySelectorAll("#toolGrid [data-icon]").forEach(el=>el.innerHTML=ICONS[el.dataset.icon]||ICONS.tools);document.querySelectorAll("#toolGrid [data-tool]").forEach(b=>b.onclick=()=>runTool(b.dataset.tool,b.dataset.pro==="true"))}
+function runTool(name,pro){if(pro&&plan==="free"){openPay();return}if(plan==="free"&&credits<=0){openPay();return}if(plan==="free"){credits--;localStorage.setItem("aronfb_credits",credits);sync()}alert(name+" prototype opened. Live AI and Meta data connections come in the backend phase.")}
+function sync(){document.querySelector("#savedCount").textContent=saved.size;document.querySelector("#creditCount").textContent=plan==="pro"?"∞":credits;document.querySelector("#toolCredits").textContent=plan==="pro"?"UNLIMITED":credits+" CREDITS";document.querySelector("#planBadge").textContent=plan.toUpperCase();document.querySelector("#settingsPlan").textContent=plan.toUpperCase()}
+function go(s){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.dataset.screen===s));document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.nav===s));document.querySelector(".main").scrollTo({top:0,behavior:"instant"})}
+document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>go(b.dataset.nav));document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+document.querySelectorAll("[data-tool]").forEach(b=>{if(!b.closest("#toolGrid"))b.onclick=()=>runTool(b.dataset.tool,false)});
+function openPay(){document.querySelector("#paywall").classList.add("show")}document.querySelectorAll("[data-upgrade]").forEach(b=>b.onclick=openPay);document.querySelector("#planBadge").onclick=openPay;document.querySelector("#closePay").onclick=()=>document.querySelector("#paywall").classList.remove("show");
+document.querySelector("#demoPro").onclick=()=>{plan="pro";localStorage.setItem("aronfb_plan","pro");document.querySelector("#paywall").classList.remove("show");sync();renderOpps();alert("Demo Pro activated for this browser.")};
+document.querySelectorAll(".price").forEach(p=>p.onclick=()=>{document.querySelectorAll(".price").forEach(x=>x.classList.remove("selected"));p.classList.add("selected")});
+document.querySelector("#chooseVideo").onclick=()=>document.querySelector("#videoInput").click();document.querySelector("#videoInput").onchange=()=>{if(document.querySelector("#videoInput").files.length){document.querySelector("#scores").style.display="grid";if(plan==="free")setTimeout(openPay,700)}};
+document.querySelector("#savePlan").onclick=()=>alert("Plan saved locally.");
+document.querySelector("#editProfile").onclick=()=>{localStorage.removeItem("aronfb_profile");profile=null;step=0;document.querySelector("#onboarding").classList.remove("hidden");renderOb()};
+document.querySelector("#crossSwitch").onclick=function(){this.classList.toggle("on")};document.querySelector("#notifSwitch").onclick=function(){this.classList.toggle("on")};
+renderOpps();renderTools();sync();
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+</script>
+</body>
+</html>
