@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b10">
+<title>ARON Mini Drama Player</title>
+<style>
+:root{--bg:#070b10;--panel:#0d141c;--line:#1d2a36;--text:#f6f7f9;--muted:#96a4b3;--accent:#28e0b7;--accent2:#8af7df;--danger:#ff7d8b}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(40,224,183,.14),transparent 30%),radial-gradient(circle at 85% 0%,rgba(74,103,255,.12),transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1280px;margin:auto;padding:14px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(138,247,223,.25);background:linear-gradient(145deg,rgba(40,224,183,.22),rgba(40,224,183,.02))}.brand b{font-size:15px;letter-spacing:.08em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 10px}
+.card{background:linear-gradient(180deg,rgba(16,24,33,.96),rgba(9,15,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.36)}
+.add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:10px;margin-bottom:12px}.input{width:100%;background:#080f16;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px 14px;outline:none}.input:focus{border-color:rgba(40,224,183,.65);box-shadow:0 0 0 3px rgba(40,224,183,.07)}
+.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03251c}.ghost{background:#081018;color:var(--text);border:1px solid var(--line)}.danger{background:#251116;color:#ffd3d8;border:1px solid #57242d}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:12px}.stage{width:min(100%,430px);aspect-ratio:9/16;margin:auto;background:#000;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.45)}iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.empty{position:absolute;inset:0;display:grid;place-items:center;padding:25px;text-align:center;color:var(--muted);line-height:1.55}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:7px}
+.controls{border-top:1px solid var(--line);padding:10px 12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.group{display:flex;gap:7px;flex-wrap:wrap}.now{border-top:1px solid var(--line);padding:12px 14px 14px}.now h1{font-size:15px;margin:0 0 4px}.meta{font-size:10px;color:var(--muted);line-height:1.5;word-break:break-all}
+.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint{font-size:10px;line-height:1.55;border:1px solid var(--line);background:#081018;border-radius:11px;padding:10px;color:var(--muted);margin-bottom:10px}.status.ok{color:#bff8e8;border-color:rgba(40,224,183,.3)}.status.warn{color:#ffe1a0;border-color:rgba(255,214,122,.28)}.episodes{display:grid;gap:7px}.ep{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;border:1px solid var(--line);background:#081018;border-radius:12px;padding:9px}.ep.active{border-color:rgba(40,224,183,.55);box-shadow:0 0 0 2px rgba(40,224,183,.05)}.num{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;background:#111d26;color:#cfe8e2;font-size:11px;font-weight:800}.ep b{display:block;font-size:11px}.ep small{display:block;color:var(--muted);font-size:9px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}.x{border:0;background:transparent;color:#8fa0af;font-size:17px;padding:4px}.toggle{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);margin:0 0 10px 2px}.toggle input{accent-color:#28e0b7}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:20;padding:18px;align-items:center;justify-content:center}.modal.show{display:flex}.dialog{width:min(520px,100%);background:#0d141c;border:1px solid var(--line);border-radius:18px;padding:16px}.dialog h3{margin:0 0 8px;font-size:16px}.dialog p{color:var(--muted);font-size:11px;line-height:1.6}.dialog .group{justify-content:flex-end}
+@media(max-width:860px){.app{padding:9px}.layout{grid-template-columns:1fr}.add{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stageWrap{padding:8px}.stage{width:min(100%,390px)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#8af7df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#28e0b7" stroke-width="1.2" opacity=".72"/></svg></div>
+      <div><b>ARON MINI DRAMA</b><small>TikTok episode player</small></div>
+    </div>
+    <div class="badge">GitHub Pages • Mobile Ready</div>
+  </div>
+
+  <div class="card add">
+    <input id="urlInput" class="input" value="https://vt.tiktok.com/ZSba1XMKt/" placeholder="Paste TikTok link or numeric video ID">
+    <button id="addBtn" class="btn primary">＋ ADD EPISODE</button>
+  </div>
+
+  <div class="layout">
+    <main class="card viewer">
+      <div class="stageWrap">
+        <div id="stage" class="stage">
+          <div class="empty"><div><strong>Mini drama mode.</strong>Add a TikTok episode, then build your playlist.</div></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="group">
+          <button id="prevBtn" class="btn ghost">← Previous</button>
+          <button id="nextBtn" class="btn ghost">Next →</button>
+        </div>
+        <div class="group">
+          <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
+          <button id="shareBtn" class="btn ghost">↗ Share Episode</button>
+        </div>
+      </div>
+      <div class="now">
+        <h1 id="nowTitle">Nothing playing</h1>
+        <div id="nowMeta" class="meta">Waiting for an episode.</div>
+      </div>
+    </main>
+
+    <aside class="card side">
+      <h2>PLAYBACK</h2>
+      <label class="toggle"><input id="autoNext" type="checkbox" checked> Auto-next when an episode ends</label>
+      <label class="toggle"><input id="resume" type="checkbox" checked> Resume from last watched position</label>
+      <div id="status" class="status">Paste a TikTok post URL or video ID.</div>
+
+      <h2>EPISODES</h2>
+      <div id="episodes" class="episodes"></div>
+
+      <div class="hint" style="margin-top:10px">
+        Short <b>vt.tiktok.com</b> links are resolved through TikTok's official oEmbed endpoint when the browser allows it. If TikTok blocks that request, open the short link once and paste the final <b>tiktok.com/@user/video/ID</b> URL here.
+      </div>
+
+      <button id="clearBtn" class="btn danger" style="width:100%">Clear Playlist</button>
+    </aside>
+  </div>
+</div>
+
+<div id="resolveModal" class="modal">
+  <div class="dialog">
+    <h3>Short TikTok link needs one extra step</h3>
+    <p>I couldn't read the final video ID directly from this short link in the browser. Open it, let TikTok redirect to the full post, then copy the address from the browser and paste it back here.</p>
+    <div class="group">
+      <button id="closeModal" class="btn ghost">Close</button>
+      <button id="openShort" class="btn primary">Open TikTok Link</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const input=$('#urlInput'),stage=$('#stage'),statusBox=$('#status');
+let playlist=JSON.parse(localStorage.getItem('aron_tt_drama_playlist')||'[]');
+let current=Number(localStorage.getItem('aron_tt_drama_current')||'-1');
+let pendingShort='';
+
+function save(){localStorage.setItem('aron_tt_drama_playlist',JSON.stringify(playlist));localStorage.setItem('aron_tt_drama_current',String(current))}
+function setStatus(t,kind=''){statusBox.className='status'+(kind?' '+kind:'');statusBox.textContent=t}
+function extractId(v){v=(v||'').trim();if(/^\d{10,25}$/.test(v))return v;const m=v.match(/\/video\/(\d{10,25})/);return m?m[1]:null}
+function canonicalFromHtml(html){const id=(html.match(/data-video-id=["'](\d+)["']/)||[])[1];const cite=(html.match(/cite=["']([^"']+)["']/)||[])[1];return {id:id||extractId(cite||''),url:cite||''}}
+async function resolveTikTok(v){
+  const direct=extractId(v);
+  if(direct)return {id:direct,url:v.includes('/video/')?v:`https://www.tiktok.com/video/${direct}`};
+  if(!/^https?:\/\//i.test(v))throw new Error('Invalid TikTok link.');
+  try{
+    const r=await fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(v));
+    if(!r.ok)throw new Error('oEmbed failed');
+    const data=await r.json();
+    const p=canonicalFromHtml(data.html||'');
+    if(p.id)return {id:p.id,url:p.url||v,title:data.title||''};
+  }catch(e){}
+  if(/vt\.tiktok\.com|vm\.tiktok\.com/i.test(v)){
+    pendingShort=v;$('#resolveModal').classList.add('show');throw new Error('Short link needs final TikTok URL.');
+  }
+  throw new Error('Could not find the TikTok video ID.');
+}
+function playerSrc(id,autoplay=false){
+  return `https://www.tiktok.com/player/v1/${encodeURIComponent(id)}?controls=1&progress_bar=1&play_button=1&volume_control=1&fullscreen_button=1&timestamp=1&loop=0&autoplay=${autoplay?1:0}&music_info=0&description=0&rel=0&native_context_menu=0`;
+}
+function render(){
+  const box=$('#episodes');
+  if(!playlist.length){box.innerHTML='<div class="hint">No episodes yet.</div>';return}
+  box.innerHTML='';
+  playlist.forEach((ep,i)=>{
+    const row=document.createElement('div');row.className='ep'+(i===current?' active':'');
+    row.innerHTML=`<div class="num">${i+1}</div><div><b>${ep.title||('Episode '+(i+1))}</b><small>${ep.id}</small></div><button class="x" title="Remove">×</button>`;
+    row.querySelector('.x').onclick=e=>{e.stopPropagation();playlist.splice(i,1);if(current>=playlist.length)current=playlist.length-1;save();render();if(playlist.length)loadEpisode(Math.max(0,current),false);else resetPlayer()};
+    row.onclick=()=>loadEpisode(i,false);
+    box.appendChild(row);
+  })
+}
+function resetPlayer(){current=-1;save();stage.innerHTML='<div class="empty"><div><strong>Mini drama mode.</strong>Add a TikTok episode, then build your playlist.</div></div>';$('#nowTitle').textContent='Nothing playing';$('#nowMeta').textContent='Waiting for an episode.';render()}
+function post(type,value){const f=stage.querySelector('iframe');if(f)f.contentWindow.postMessage({type,value,'x-tiktok-player':true},'*')}
+function loadEpisode(i,auto=false){
+  if(i<0||i>=playlist.length)return;
+  current=i;save();render();
+  const ep=playlist[i],f=document.createElement('iframe');
+  f.src=playerSrc(ep.id,auto);f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.title=ep.title||('Episode '+(i+1));
+  stage.innerHTML='';stage.appendChild(f);
+  $('#nowTitle').textContent=(ep.title||('Episode '+(i+1)));
+  $('#nowMeta').textContent=ep.url||ep.id;
+  setStatus(`Playing Episode ${i+1} of ${playlist.length}`,'ok');
+}
+async function addEpisode(){
+  const v=input.value.trim();if(!v)return;
+  setStatus('Resolving TikTok link…');
+  try{
+    const r=await resolveTikTok(v);
+    if(playlist.some(x=>x.id===r.id)){setStatus('That episode is already in the playlist.','warn');return}
+    playlist.push({id:r.id,url:r.url||v,title:'Episode '+(playlist.length+1),pos:0});
+    current=playlist.length-1;save();render();loadEpisode(current,false);setStatus('Episode added.','ok')
+  }catch(e){if(!/Short link/.test(e.message))setStatus(e.message,'warn')}
+}
+$('#addBtn').onclick=addEpisode;input.addEventListener('keydown',e=>{if(e.key==='Enter')addEpisode()});
+$('#prevBtn').onclick=()=>{if(current>0)loadEpisode(current-1,false)};
+$('#nextBtn').onclick=()=>{if(current<playlist.length-1)loadEpisode(current+1,false)};
+$('#fullBtn').onclick=()=>stage.requestFullscreen?.();
+$('#shareBtn').onclick=async()=>{
+  if(current<0)return;const ep=playlist[current];
+  const u=new URL(location.href);u.search='';u.searchParams.set('v',ep.id);
+  try{if(navigator.share){await navigator.share({title:ep.title||'TikTok Episode',url:u.toString()});return}}catch(e){}
+  try{await navigator.clipboard.writeText(u.toString());setStatus('Episode link copied.','ok')}catch(e){prompt('Copy this link:',u.toString())}
+};
+$('#clearBtn').onclick=()=>{if(confirm('Clear all episodes?')){playlist=[];resetPlayer()}};
+$('#closeModal').onclick=()=>$('#resolveModal').classList.remove('show');
+$('#openShort').onclick=()=>{if(pendingShort)window.open(pendingShort,'_blank','noopener');$('#resolveModal').classList.remove('show')};
+
+window.addEventListener('message',e=>{
+  const d=e.data;if(!d||!d['x-tiktok-player']||current<0)return;
+  if(d.type==='onPlayerReady'&&$('#resume').checked){
+    const p=Number(playlist[current]?.pos||0);if(p>5)post('seekTo',p);
+  }
+  if(d.type==='onCurrentTime'&&d.value&&typeof d.value.currentTime==='number'){
+    playlist[current].pos=d.value.currentTime;save();
+  }
+  if(d.type==='onStateChange'&&d.value===0&&$('#autoNext').checked&&current<playlist.length-1){
+    loadEpisode(current+1,true);
+  }
+});
+render();
+const q=new URLSearchParams(location.search).get('v');
+if(q&&/^\d+$/.test(q)){
+  const idx=playlist.findIndex(x=>x.id===q);
+  if(idx>=0)loadEpisode(idx,false);
+  else{playlist.push({id:q,url:`https://www.tiktok.com/video/${q}`,title:'Shared Episode',pos:0});save();loadEpisode(playlist.length-1,false)}
+}else if(playlist.length){loadEpisode(Math.min(Math.max(current,0),playlist.length-1),false)}
+</script>
+</body>
+</html>
