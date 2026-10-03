@@ -1,371 +1,430 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#071014" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="ARON Trend Lab" />
-  <meta name="format-detection" content="telephone=no" />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
-  <link rel="icon" href="./icons/icon-192.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0A1114">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ARON Trend Lab">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <title>ARON Trend Lab</title>
   <style>
     :root{
-      --bg:#071014;
-      --panel:#0b1716;
-      --panel2:#0d1c19;
-      --line:#18302b;
-      --text:#effff9;
-      --muted:#718b84;
-      --accent:#78efcb;
-      --accent2:#9bffe3;
-      --danger:#ff8f8f;
-      --safe-top: env(safe-area-inset-top);
-      --safe-bottom: env(safe-area-inset-bottom);
+      --bg:#0A1114;
+      --bg2:#0D171A;
+      --panel:#101C20;
+      --panel2:#132327;
+      --line:#1F343A;
+      --line2:#27434A;
+      --text:#F4F7F8;
+      --muted:#8EA1A7;
+      --muted2:#63777D;
+      --accent:#18D2A0;
+      --accent2:#36E0B3;
+      --blue:#4FA9FF;
+      --warn:#D9B65A;
+      --danger:#E06F75;
+      --safe-top:env(safe-area-inset-top);
+      --safe-bottom:env(safe-area-inset-bottom);
+      --radius:22px;
+      --shadow:0 18px 55px rgba(0,0,0,.24);
     }
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif}
     body{min-height:100vh;min-height:100dvh;overflow:hidden}
     button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
     .app{
       height:100vh;height:100dvh;
-      display:grid;
-      grid-template-rows:1fr auto;
+      display:grid;grid-template-rows:1fr auto;
       background:
-        radial-gradient(circle at 20% -10%, rgba(120,239,203,.09), transparent 32%),
-        linear-gradient(180deg,#06100e,#071014 45%);
+        radial-gradient(circle at 85% -15%, rgba(24,210,160,.08), transparent 30%),
+        linear-gradient(180deg,#0A1114,#081013 55%,#070D0F);
     }
-    .main{overflow:auto;padding:calc(18px + var(--safe-top)) 18px 22px;overscroll-behavior:contain}
-    .screen{display:none;max-width:760px;margin:0 auto}
-    .screen.active{display:block}
+    .main{overflow:auto;padding:calc(18px + var(--safe-top)) 18px 24px;overscroll-behavior:contain}
+    .screen{display:none;max-width:880px;margin:0 auto}.screen.active{display:block}
     .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
-    .brand h1{font-size:26px;line-height:1;margin:0 0 7px;font-weight:800;letter-spacing:-.6px}
-    .eyebrow{font-size:10px;color:var(--accent);letter-spacing:1.5px;font-weight:700}
-    .pill{
-      border:1px solid #24443d;background:#10221f;color:#8ff6d9;
-      border-radius:17px;padding:8px 11px;font-size:10px;font-weight:800;white-space:nowrap
+    .brandmark{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:38px;height:38px;border-radius:12px;border:1px solid #24463F;
+      display:grid;place-items:center;background:#0E1F1B;color:var(--accent);
+      font-weight:800;letter-spacing:-.7px
     }
-    .card{background:rgba(11,23,22,.92);border:1px solid var(--line);border-radius:23px;padding:17px;margin-bottom:12px}
-    .hero{padding:20px;background:linear-gradient(145deg,#0d1c19,#0a1614)}
-    .hero h2{margin:6px 0 8px;font-size:24px;line-height:1.15;letter-spacing:-.45px}
-    .muted{color:var(--muted);font-size:12px;line-height:1.45}
-    .btn{
-      width:100%;border:0;border-radius:16px;padding:14px 16px;font-weight:800;cursor:pointer;
-      background:var(--accent);color:#062019
-    }
-    .btn.secondary{background:#10221f;color:#dffff6;border:1px solid #24443d}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}
-    .stat{background:#0a1614;border:1px solid var(--line);border-radius:18px;padding:13px}
-    .stat span{display:block;color:#6e8981;font-size:9px;letter-spacing:1.1px;margin-bottom:5px}
-    .stat b{font-size:22px}
-    .section-title{font-size:10px;color:#657e77;letter-spacing:1.5px;font-weight:800;margin:18px 0 10px}
-    .trend-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-    .trend-title{font-size:16px;font-weight:800;margin:0 0 4px}
-    .trend-meta{font-size:10px;color:var(--muted)}
-    .stage{font-size:9px;font-weight:800;color:#8cf4d7;background:#10251f;border:1px solid #20463b;border-radius:14px;padding:6px 9px}
-    .metrics{display:grid;grid-template-columns:1fr 1fr;margin:14px 0 10px}
-    .metric label{display:block;color:#5f7971;font-size:8px;letter-spacing:1.2px}
-    .metric strong{display:block;margin-top:3px;font-size:18px;color:var(--accent2)}
-    .metric.right{text-align:right}
-    .metric.right strong{color:#d9eee8;font-size:15px}
-    .hook{font-size:12px;color:#c2d7d0;margin:9px 0 6px}
-    .use{font-size:10px;color:#718a83}
-    .filters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
-    .filter{border:0;border-radius:16px;padding:12px;background:#10221f;color:#dffff6;font-size:11px}
-    .filter.active{background:var(--accent);color:#062019;font-weight:800}
-    .save-btn{margin-top:14px;padding:12px;border-radius:14px;background:#10221f;color:#bffbea;border:1px solid #23443d;width:100%;font-weight:700}
-    .save-btn.saved{background:#14352d}
-    .form-card label{display:block;font-size:9px;color:#6d8880;letter-spacing:1.2px;margin:0 0 7px}
-    select,input,textarea{
-      width:100%;border:1px solid #1d3832;background:#0f211e;color:#effff9;
-      border-radius:14px;padding:13px 14px;outline:none;margin-bottom:14px
-    }
-    textarea{min-height:90px;resize:vertical}
-    .idea{display:none}
-    .idea.show{display:block}
-    .idea h3{margin:4px 0 12px;font-size:20px}
-    .idea h4{margin:14px 0 5px;font-size:9px;color:#617a73;letter-spacing:1.2px}
-    .idea p{margin:0;color:#cde3dd;font-size:13px;line-height:1.5;white-space:pre-line}
-    .saved-empty{padding:46px 18px;text-align:center;color:#607a73}
+    .brand h1{font-size:23px;line-height:1.05;margin:0;font-weight:800;letter-spacing:-.5px}
+    .sub{margin-top:4px;font-size:10px;letter-spacing:1.4px;color:var(--muted);font-weight:700}
+    .plan-chip{border:1px solid #28453F;background:#0D211C;color:#9DEED7;padding:8px 11px;border-radius:14px;font-size:10px;font-weight:800}
+    .section-kicker{font-size:10px;letter-spacing:1.45px;color:var(--muted2);font-weight:800;margin:20px 0 10px}
+    .title{font-size:28px;line-height:1.08;margin:0 0 8px;font-weight:800;letter-spacing:-.7px}
+    .lead{color:var(--muted);font-size:13px;line-height:1.55;margin:0}
+    .card{background:linear-gradient(180deg,var(--panel),#0E191C);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card.flat{box-shadow:none}
+    .hero{padding:22px;background:linear-gradient(145deg,#112126,#0D191C)}
+    .hero-grid{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
+    .signal-state{font-size:10px;color:#9FF1DA;border:1px solid #2E544B;background:#0E251F;padding:7px 10px;border-radius:999px;font-weight:800}
+    .hero h2{font-size:25px;line-height:1.15;margin:8px 0 8px;letter-spacing:-.6px}
+    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+    .btn{border:0;border-radius:15px;padding:13px 14px;font-weight:800}
+    .btn.primary{background:var(--accent);color:#062019}
+    .btn.secondary{background:#13252A;color:#DCE8EB;border:1px solid #294149}
+    .btn.ghost{background:transparent;color:#AFC0C4;border:1px solid #2B4046}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 18px}
+    .stat{background:#0D181B;border:1px solid var(--line);border-radius:17px;padding:13px;min-width:0}
+    .stat span{display:block;font-size:9px;color:var(--muted2);letter-spacing:1.1px;margin-bottom:6px;font-weight:700}
+    .stat strong{font-size:21px;line-height:1}
+    .list{display:grid;gap:10px}
+    .signal{padding:16px;background:#0D181B;border:1px solid var(--line);border-radius:19px}
+    .signal-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .signal-name{font-size:15px;font-weight:800}
+    .signal-type{font-size:10px;color:var(--muted);margin-top:4px}
+    .badge{font-size:9px;font-weight:800;padding:6px 9px;border-radius:999px;border:1px solid #2A4943;background:#10251F;color:#9CEFD8}
+    .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    .metric label{display:block;font-size:8px;letter-spacing:1px;color:var(--muted2);margin-bottom:4px}
+    .metric b{font-size:15px}
+    .metric b.green{color:var(--accent2)}
+    .metric b.blue{color:#7BC1FF}
+    .signal-note{margin-top:12px;font-size:11px;line-height:1.45;color:#AAB9BD}
+    .signal-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:13px}
+    .mini-btn{border-radius:13px;padding:10px 12px;background:#13252A;border:1px solid #294149;color:#CFE0E4;font-size:11px;font-weight:750}
+    .mini-btn.locked{color:#798A8F}
+    .tabs-inline{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}
+    .seg{border:1px solid var(--line);background:#0E191C;color:#AEBEC2;border-radius:13px;padding:11px;font-size:10px;font-weight:800}
+    .seg.active{background:#12342C;color:#9FF1DA;border-color:#2C6256}
+    .coach-head{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+    .coach-avatar{width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,#153B34,#11262B);border:1px solid #2A4A46;display:grid;place-items:center;font-size:18px;font-weight:900;color:var(--accent)}
+    .coach-title{font-size:19px;font-weight:800}.coach-sub{font-size:11px;color:var(--muted);margin-top:4px}
+    .plan-card{margin-top:14px}
+    .plan-card h3{margin:0 0 7px;font-size:17px}.plan-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+    .recommend{margin-top:14px;display:grid;gap:8px}
+    .recommend-row{display:grid;grid-template-columns:85px 1fr;gap:12px;padding:11px 0;border-top:1px solid #1D3035}
+    .recommend-row label{font-size:9px;color:var(--muted2);letter-spacing:1px}.recommend-row div{font-size:12px;color:#D6E0E3}
+    .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tool{background:#0D181B;border:1px solid var(--line);border-radius:18px;padding:15px;min-height:122px;position:relative}
+    .tool-icon{width:34px;height:34px;border-radius:11px;background:#12342C;border:1px solid #2A5B50;display:grid;place-items:center;margin-bottom:16px}
+    .tool h3{font-size:14px;margin:0 0 5px}.tool p{font-size:10px;color:var(--muted);margin:0;line-height:1.4}
+    .tool .tier{position:absolute;right:11px;top:11px;font-size:8px;letter-spacing:1px;color:#789097;border:1px solid #283D43;border-radius:999px;padding:4px 6px}
+    .analyzer-zone{border:1px dashed #2D5A50;background:#0D211C;border-radius:22px;padding:28px 18px;text-align:center;margin-top:18px}
+    .analyzer-icon{width:56px;height:56px;margin:0 auto 14px;border-radius:17px;border:1px solid #2A5F52;background:#11352C;display:grid;place-items:center}
+    .analyzer-zone h3{margin:0 0 7px;font-size:19px}.analyzer-zone p{margin:0 auto 16px;max-width:430px;color:var(--muted);font-size:12px;line-height:1.55}
+    .score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+    .score{border:1px solid var(--line);border-radius:16px;padding:13px;background:#0D181B}.score label{display:block;font-size:9px;color:var(--muted2);letter-spacing:1px}.score b{display:block;font-size:20px;margin-top:6px}
+    .setting-list{display:grid;gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0D181B}
+    .setting{display:grid;grid-template-columns:1fr auto;align-items:center;padding:16px;border-bottom:1px solid #1E3035}.setting:last-child{border-bottom:0}
+    .setting h3{margin:0;font-size:13px}.setting p{margin:4px 0 0;color:var(--muted);font-size:10px}
+    .switch{width:42px;height:24px;border-radius:999px;background:#24363B;padding:3px}.switch i{display:block;width:18px;height:18px;border-radius:50%;background:#A2AFB2}.switch.on{background:#12523F}.switch.on i{margin-left:18px;background:var(--accent)}
+    .upgrade{margin-top:14px;padding:18px;background:linear-gradient(145deg,#122A26,#101D20);border:1px solid #2A4C45;border-radius:20px}
+    .upgrade h3{margin:0 0 6px}.upgrade p{margin:0 0 14px;color:var(--muted);font-size:11px;line-height:1.5}
     .bottom{
-      padding:8px 12px calc(8px + var(--safe-bottom));
-      background:rgba(5,17,15,.96);
-      border-top:1px solid #0f2823;
-      display:grid;grid-template-columns:repeat(4,1fr);gap:6px
+      padding:8px 10px calc(8px + var(--safe-bottom));
+      background:rgba(8,14,16,.97);
+      border-top:1px solid #17272B;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:4px
     }
-    .nav{
-      border:0;background:transparent;color:#617c74;border-radius:16px;padding:11px 4px;
-      font-size:10px;font-weight:700
-    }
-    .nav.active{background:#12332c;color:#8ff6d9}
-    .notice{
-      margin:14px 0;padding:12px 14px;border:1px dashed #23443d;border-radius:16px;
-      color:#78928b;font-size:10px;line-height:1.4
-    }
-    .install-card{display:none}
-    .install-card.show{display:block}
-    .tiny{font-size:9px;color:#536d66;text-align:center;margin-top:18px}
-    @media (min-width:700px){
-      .main{padding-left:24px;padding-right:24px}
-      .bottom{max-width:760px;margin:0 auto;width:100%;border-left:1px solid #0f2823;border-right:1px solid #0f2823}
-    }
+    .nav{border:0;background:transparent;color:#64777D;border-radius:14px;padding:9px 2px 8px;font-size:9px;font-weight:800}
+    .nav svg{display:block;margin:0 auto 5px;width:20px;height:20px;stroke:currentColor}.nav.active{color:var(--accent);background:#0E201C}
+    .onboarding{position:fixed;inset:0;z-index:50;background:linear-gradient(180deg,#0C171B,#071013);overflow:auto;padding:calc(24px + var(--safe-top)) 20px calc(24px + var(--safe-bottom))}
+    .onboarding.hidden{display:none}
+    .onboard-wrap{max-width:720px;margin:0 auto;min-height:calc(100vh - 60px);display:flex;flex-direction:column}
+    .progress{height:4px;background:#15272C;border-radius:999px;overflow:hidden;margin-bottom:26px}.progress i{display:block;height:100%;background:var(--accent);width:16.66%;transition:.3s}
+    .ob-title{font-size:31px;line-height:1.08;margin:0 0 10px;letter-spacing:-.7px}.ob-lead{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 24px}
+    .choices{display:grid;gap:9px}.choice{display:flex;justify-content:space-between;align-items:center;text-align:left;border:1px solid var(--line);background:#0F1B1F;color:#EAF0F2;border-radius:17px;padding:15px}.choice b{font-size:13px}.choice span{display:block;color:var(--muted);font-size:10px;margin-top:5px}.choice.selected{border-color:#2D6659;background:#102821}
+    .check{width:22px;height:22px;border-radius:50%;border:1px solid #3A5056}.selected .check{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 5px #102821}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#0F1B1F;color:#D9E3E6;padding:10px 12px;border-radius:999px;font-size:11px;font-weight:700}.chip.selected{border-color:#2E6B5C;color:#B8F5E4;background:#102821}
+    .ob-footer{margin-top:auto;padding-top:24px;display:grid;grid-template-columns:auto 1fr;gap:8px}.ob-footer.one{grid-template-columns:1fr}.ob-btn{border:0;border-radius:15px;padding:14px;font-weight:800}.ob-btn.next{background:var(--accent);color:#061D18}.ob-btn.back{background:#122126;color:#C7D4D7;border:1px solid #253A40}
+    .range-wrap{margin:18px 0 12px}.range-value{font-size:48px;font-weight:850;color:var(--accent);text-align:center;margin:16px 0}.range-wrap input{width:100%}
+    .paywall{position:fixed;inset:0;z-index:60;background:rgba(3,8,10,.94);display:none;align-items:flex-end;justify-content:center;padding:20px}
+    .paywall.show{display:flex}.paycard{width:min(680px,100%);background:#101A1E;border:1px solid #284149;border-radius:24px;padding:20px;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+    .paytop{display:flex;justify-content:space-between;gap:10px}.paytop h2{margin:0;font-size:24px}.close{border:0;background:#142428;color:#C9D6D9;border-radius:12px;width:38px;height:38px}
+    .features{display:grid;gap:8px;margin:16px 0}.feature{display:grid;grid-template-columns:18px 1fr;gap:10px;color:#D5E1E4;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:5px}
+    .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.price{border:1px solid var(--line);background:#0C171A;border-radius:17px;padding:14px}.price.selected{border-color:#2E6A5B;background:#10241F}.price b{font-size:14px}.price span{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+    .fine{font-size:9px;color:#66797F;line-height:1.5;margin-top:10px}
+    @media(min-width:760px){.main{padding-left:24px;padding-right:24px}.bottom{max-width:880px;margin:0 auto;width:100%;border-left:1px solid #17272B;border-right:1px solid #17272B}.stats{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.hero-actions{grid-template-columns:1fr}.tool-grid{grid-template-columns:1fr 1fr}.metric-grid{grid-template-columns:repeat(3,1fr)}}
   </style>
 </head>
 <body>
 <div class="app">
   <main class="main">
-    <section class="screen active" data-screen="home">
+    <section class="screen active" data-screen="today">
       <div class="topbar">
-        <div class="brand">
-          <h1>ARON TREND LAB</h1>
-          <div class="eyebrow">CREATOR INTELLIGENCE</div>
-        </div>
-        <div class="pill">PWA V1</div>
+        <div class="brandmark"><div class="logo">AR</div><div class="brand"><h1>ARON Trend Lab</h1><div class="sub">CREATOR INTELLIGENCE</div></div></div>
+        <button class="plan-chip" id="planChip">FREE</button>
       </div>
 
       <div class="card hero">
-        <div class="eyebrow">TREND PULSE</div>
-        <h2>Find the window before the crowd.</h2>
-        <div class="muted">Prototype workflow first. Live trend ingestion comes next.</div>
-        <div style="height:14px"></div>
-        <button class="btn" data-go="trends">OPEN TREND FEED</button>
+        <div class="hero-grid">
+          <div>
+            <div class="section-kicker" style="margin:0 0 7px">TODAY'S SIGNAL</div>
+            <h2>Low-saturation formats are moving faster than broad lifestyle trends.</h2>
+            <p class="lead">Your feed is personalized using your selected niches, region and creator stage.</p>
+          </div>
+          <div class="signal-state">UPDATED 18:42</div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn primary" data-go="coach">Open daily plan</button>
+          <button class="btn secondary" data-go="tools">Open creator tools</button>
+        </div>
       </div>
 
       <div class="stats">
-        <div class="stat"><span>EARLY</span><b id="earlyCount">0</b></div>
-        <div class="stat"><span>RISING</span><b id="risingCount">0</b></div>
-        <div class="stat"><span>SAVED</span><b id="savedCount">0</b></div>
+        <div class="stat"><span>EARLY SIGNALS</span><strong>3</strong></div>
+        <div class="stat"><span>RISING</span><strong>6</strong></div>
+        <div class="stat"><span>SAVED</span><strong id="savedStat">0</strong></div>
+        <div class="stat"><span>FREE CREDITS</span><strong id="creditStat">5</strong></div>
       </div>
 
-      <div class="section-title">TOP SIGNALS</div>
-      <div id="homeSignals"></div>
+      <div class="section-kicker">MEASURED SIGNALS</div>
+      <div class="list" id="signalList"></div>
 
-      <div class="card install-card" id="installCard">
-        <div class="trend-title">Install on iPhone</div>
-        <div class="muted" style="margin:7px 0 12px">Open this page in Safari → Share → Add to Home Screen.</div>
-        <button class="btn secondary" id="dismissInstall">GOT IT</button>
-      </div>
-
-      <div class="notice">Demo data only — growth and saturation values are illustrative, not live TikTok measurements.</div>
-    </section>
-
-    <section class="screen" data-screen="trends">
-      <div class="topbar">
-        <div class="brand">
-          <h1>TREND FEED</h1>
-          <div class="eyebrow">EARLY SIGNALS • GROWTH • SATURATION</div>
-        </div>
-        <div class="pill">DEMO</div>
-      </div>
-
-      <div class="filters">
-        <button class="filter active" data-filter="ALL">ALL</button>
-        <button class="filter" data-filter="EARLY">EARLY</button>
-        <button class="filter" data-filter="RISING">RISING</button>
-      </div>
-      <div id="trendList"></div>
-    </section>
-
-    <section class="screen" data-screen="create">
-      <div class="topbar">
-        <div class="brand">
-          <h1>CREATE</h1>
-          <div class="eyebrow">TURN SIGNALS INTO CONTENT</div>
-        </div>
-      </div>
-
-      <div class="card form-card">
-        <label>NICHE</label>
-        <select id="niche">
-          <option>Faceless Creator</option>
-          <option>Travel</option>
-          <option>Relationship</option>
-          <option>Work / Career</option>
-          <option>Comedy</option>
-        </select>
-
-        <label>GOAL</label>
-        <select id="goal">
-          <option>Get more views</option>
-          <option>Gain followers</option>
-          <option>Tell a story</option>
-          <option>Promote a product</option>
-        </select>
-
-        <label>OPTIONAL IDEA</label>
-        <input id="seed" placeholder="e.g. airport story, daily routine, side hustle" />
-
-        <button class="btn" id="generateBtn">GENERATE DEMO CONTENT PACK</button>
-      </div>
-
-      <div class="card idea" id="ideaCard">
-        <div class="eyebrow">ARON IDEA</div>
-        <h3 id="ideaTitle"></h3>
-        <h4>HOOK</h4>
-        <p id="ideaHook"></p>
-        <h4>3-BEAT SCRIPT</h4>
-        <p id="ideaScript"></p>
-        <h4>CAPTION</h4>
-        <p id="ideaCaption"></p>
-        <div style="height:14px"></div>
-        <button class="btn secondary" id="copyPack">COPY CONTENT PACK</button>
+      <div class="section-kicker">FINISH AND PUBLISH</div>
+      <div class="tool-grid">
+        <button class="tool" data-go="analyzer"><div class="tool-icon" data-svg="chart"></div><h3>Analyze draft</h3><p>Review hook, pacing, caption and discoverability before publishing.</p></button>
+        <button class="tool" data-tool="caption"><div class="tool-icon" data-svg="message"></div><h3>Generate caption</h3><p>Create a concise caption aligned to your content goal.</p></button>
+        <button class="tool" data-tool="hashtags"><div class="tool-icon" data-svg="hash"></div><h3>Find hashtags</h3><p>Build a focused hashtag set from your topic and niche.</p></button>
+        <button class="tool" data-tool="keywords"><div class="tool-icon" data-svg="search"></div><h3>Check keywords</h3><p>Find terms that improve topic clarity and search intent.</p></button>
       </div>
     </section>
 
-    <section class="screen" data-screen="saved">
+    <section class="screen" data-screen="coach">
       <div class="topbar">
-        <div class="brand">
-          <h1>SAVED</h1>
-          <div class="eyebrow" id="savedSubtitle">0 SIGNALS SAVED</div>
+        <div class="brand"><h1>Your Coach</h1><div class="sub">PERSONALIZED CONTENT PLANNING</div></div>
+        <button class="plan-chip" data-upgrade>PRO</button>
+      </div>
+
+      <div class="card flat">
+        <div class="coach-head">
+          <div class="coach-avatar">A</div>
+          <div><div class="coach-title">ARON Strategist</div><div class="coach-sub">Built around your creator stage, niches and goals.</div></div>
         </div>
       </div>
-      <div id="savedList"></div>
+
+      <div class="section-kicker">TODAY'S POST PLAN</div>
+      <div class="card plan-card">
+        <div class="badge" style="display:inline-block">BEST PICK TODAY</div>
+        <h3 id="planTitle" style="margin-top:10px">Turn a routine moment into a specific before-and-after story.</h3>
+        <p id="planExample">Example: “I changed one thing in my travel routine and it saved me 40 minutes.”</p>
+        <div class="recommend">
+          <div class="recommend-row"><label>FORMAT</label><div>9–15 sec, single idea, clear reveal</div></div>
+          <div class="recommend-row"><label>HOOK</label><div>Start with the outcome before the explanation.</div></div>
+          <div class="recommend-row"><label>CTA</label><div>Ask for a specific reaction instead of a generic follow.</div></div>
+        </div>
+        <div class="hero-actions"><button class="btn primary" data-tool="script">Build this post</button><button class="btn secondary" id="savePlan">Save plan</button></div>
+      </div>
+
+      <div class="section-kicker">TRENDING HASHTAGS</div>
+      <div class="card flat"><div class="chips" id="coachTags"></div></div>
+
+      <div class="section-kicker">NEXT PLAN REFRESH</div>
+      <div class="card flat"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:24px;font-weight:800">13:18:26</div><div class="lead" style="margin-top:4px">Next personalized plan cycle</div></div><button class="mini-btn" data-upgrade>Enable alerts</button></div></div>
+    </section>
+
+    <section class="screen" data-screen="tools">
+      <div class="topbar"><div class="brand"><h1>Creator Tools</h1><div class="sub">RESEARCH • GENERATE • OPTIMIZE</div></div><button class="plan-chip" id="toolCredits">5 CREDITS</button></div>
+      <div class="tool-grid" id="toolGrid"></div>
+    </section>
+
+    <section class="screen" data-screen="analyzer">
+      <div class="topbar"><div class="brand"><h1>Content Analyzer</h1><div class="sub">PRE-PUBLISH REVIEW</div></div><button class="plan-chip" data-upgrade>PRO ANALYSIS</button></div>
+      <div class="card flat">
+        <h2 class="title" style="font-size:24px">Review the draft before it goes live.</h2>
+        <p class="lead">The analyzer separates observable content checks from AI-generated recommendations.</p>
+      </div>
+      <div class="analyzer-zone">
+        <div class="analyzer-icon" data-svg="upload"></div>
+        <h3>Upload a video draft</h3>
+        <p>Video files are analyzed locally in this prototype. Live model analysis will be connected in the backend phase.</p>
+        <input id="videoFile" type="file" accept="video/*" style="display:none">
+        <button class="btn primary" id="uploadBtn">Choose video</button>
+      </div>
+      <div class="score-grid" id="analysisScores" style="display:none">
+        <div class="score"><label>HOOK CLARITY</label><b>82</b></div>
+        <div class="score"><label>PACING</label><b>74</b></div>
+        <div class="score"><label>CAPTION FIT</label><b>88</b></div>
+        <div class="score"><label>TOPIC CLARITY</label><b>79</b></div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="settings">
+      <div class="topbar"><div class="brand"><h1>Settings</h1><div class="sub">PROFILE • ACCESS • PREFERENCES</div></div><button class="plan-chip" id="settingsPlan">FREE</button></div>
+      <div class="setting-list">
+        <button class="setting" id="resetProfile"><div><h3>Customize recommendations</h3><p>Update creator stage, region, interests and goals.</p></div><div>›</div></button>
+        <button class="setting" data-upgrade><div><h3>Upgrade plan</h3><p>Unlock unlimited tools, advanced analyzer and full trend history.</p></div><div>›</div></button>
+        <div class="setting"><div><h3>Push notifications</h3><p>Receive selected trend and plan alerts.</p></div><div class="switch" id="notifSwitch"><i></i></div></div>
+        <div class="setting"><div><h3>Business mode</h3><p>Prioritize commercial-use sounds and business-safe recommendations.</p></div><div class="switch" id="businessSwitch"><i></i></div></div>
+        <button class="setting"><div><h3>Privacy and data</h3><p>Review local preferences and future connected sources.</p></div><div>›</div></button>
+      </div>
+      <div class="upgrade">
+        <h3>ARON Trend Lab Pro</h3>
+        <p>Designed for creators who need continuous research, deeper trend history and higher generation limits.</p>
+        <button class="btn primary" data-upgrade>View Pro</button>
+      </div>
+      <div class="section-kicker">SYSTEM</div>
+      <p class="lead">ARON Trend Lab V2 • Enterprise UI prototype<br>Measured, calculated and AI-generated outputs are labeled separately.</p>
     </section>
   </main>
 
   <nav class="bottom">
-    <button class="nav active" data-nav="home">HOME</button>
-    <button class="nav" data-nav="trends">TRENDS</button>
-    <button class="nav" data-nav="create">CREATE</button>
-    <button class="nav" data-nav="saved">SAVED</button>
+    <button class="nav active" data-nav="today" aria-label="Today"><span data-svg="today"></span>Today</button>
+    <button class="nav" data-nav="coach" aria-label="Coach"><span data-svg="coach"></span>Coach</button>
+    <button class="nav" data-nav="tools" aria-label="Tools"><span data-svg="tools"></span>Tools</button>
+    <button class="nav" data-nav="analyzer" aria-label="Analyzer"><span data-svg="video"></span>Analyzer</button>
+    <button class="nav" data-nav="settings" aria-label="Settings"><span data-svg="settings"></span>Settings</button>
   </nav>
 </div>
 
+<div class="onboarding" id="onboarding">
+  <div class="onboard-wrap">
+    <div class="progress"><i id="obProgress"></i></div>
+    <div id="obBody"></div>
+    <div class="ob-footer" id="obFooter">
+      <button class="ob-btn back" id="obBack">Back</button>
+      <button class="ob-btn next" id="obNext">Continue</button>
+    </div>
+  </div>
+</div>
+
+<div class="paywall" id="paywall">
+  <div class="paycard">
+    <div class="paytop"><div><div class="section-kicker" style="margin:0 0 6px">ARON TREND LAB PRO</div><h2>Unlock the full research workflow.</h2></div><button class="close" id="closePaywall">×</button></div>
+    <div class="features">
+      <div class="feature"><i class="dot"></i><div>Unlimited creator tool generations</div></div>
+      <div class="feature"><i class="dot"></i><div>Advanced analyzer recommendations</div></div>
+      <div class="feature"><i class="dot"></i><div>Full trend history and deeper signal detail</div></div>
+      <div class="feature"><i class="dot"></i><div>Daily coach plans and selected alerts</div></div>
+    </div>
+    <div class="price-grid">
+      <button class="price selected"><b>Monthly</b><span>Pricing connection comes later</span></button>
+      <button class="price"><b>Annual</b><span>Best-value option placeholder</span></button>
+    </div>
+    <button class="btn primary" id="activateDemoPro" style="margin-top:12px">Activate demo Pro</button>
+    <div class="fine">Prototype only. No real payment is processed in this build.</div>
+  </div>
+</div>
+
 <script>
-const DEMO_TRENDS = [
-  {id:"quiet-upgrade",title:"POV: the quiet upgrade",category:"Lifestyle",stage:"RISING",growth:"+184%",saturation:"Low",hook:"POV: nobody noticed the upgrade until...",use:"Before/after reveal, workspace, travel, glow-up"},
-  {id:"confession",title:"3-second confession",category:"Storytime",stage:"EARLY",growth:"+146%",saturation:"Low",hook:"I wasn't going to say this, but...",use:"Relationship, work story, travel mistake"},
-  {id:"tiny-win",title:"Tiny win montage",category:"Motivation",stage:"RISING",growth:"+121%",saturation:"Medium",hook:"Not a big win, but I needed this today.",use:"Daily wins, creator journey, fitness, savings"},
-  {id:"expectation",title:"Expectation vs actual",category:"Comedy",stage:"HOT",growth:"+98%",saturation:"High",hook:"What I thought would happen vs...",use:"Travel, food, shopping, office"},
-  {id:"soft-launch",title:"Soft-launch tutorial",category:"Creator",stage:"EARLY",growth:"+83%",saturation:"Low",hook:"If I had to start again with zero followers...",use:"Faceless creator tips, side hustle, content advice"}
+const SVG={
+today:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 3v3M18 3v3M4 8h16v12H4z"/><path d="m8 14 2.5 2.5L16 11"/></svg>',
+coach:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 18h6M10 22h4M8 14c-1.2-1-2-2.5-2-4.2A6 6 0 0 1 18 10c0 1.7-.8 3.2-2 4.2-.8.7-1 1.2-1 1.8H9c0-.6-.2-1.1-1-2z"/></svg>',
+tools:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="m14 5 5 5M13 6l-8 8 5 5 8-8"/><path d="m4 20 3-1-2-2z"/></svg>',
+video:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>',
+settings:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.5 1A8 8 0 0 0 15 6l-.4-2.6h-5L9 6a8 8 0 0 0-1.4 1L5 6 3 9.5 5.1 11a7 7 0 0 0 0 2L3 14.5 5 18l2.6-1A8 8 0 0 0 9 18l.6 2.6h5L15 18a8 8 0 0 0 1.4-1l2.6 1 2-3.5-2.1-1.5c.1-.3.1-.7.1-1z"/></svg>',
+chart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/></svg>',
+message:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+hash:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 3 7 21M17 3l-2 18M4 9h16M3 15h16"/></svg>',
+search:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="m16 16 5 5"/></svg>',
+upload:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 14v5h14v-5"/></svg>',
+clock:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>',
+idea:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M8 14a6 6 0 1 1 8 0c-1 .8-1 1.5-1 2H9c0-.5 0-1.2-1-2z"/><path d="M9 20h6"/></svg>'
+};
+document.querySelectorAll("[data-svg]").forEach(el=>el.innerHTML=SVG[el.dataset.svg]||"");
+
+const SIGNALS=[
+{id:"quiet",name:"Quiet upgrade format",type:"Format signal",stage:"RISING",growth:"+38%",videos:"18.2K",sat:"Low",note:"Measured signal: short before-and-after formats are accelerating inside selected lifestyle categories."},
+{id:"confession",name:"Direct confession opener",type:"Hook signal",stage:"EARLY",growth:"+24%",videos:"7.4K",sat:"Low",note:"Calculated signal: growth is positive while adoption remains below the recent category median."},
+{id:"routine",name:"Routine optimization story",type:"Topic signal",stage:"RISING",growth:"+19%",videos:"31.6K",sat:"Medium",note:"Measured signal: creator usage is expanding, but the format is becoming more competitive."}
+];
+const TOOLS=[
+["Keywords","Clarify search intent and topic language.","keywords",false],
+["Hashtags","Build focused hashtag sets by topic and niche.","hashtags",false],
+["Viral Forecaster","Estimate opportunity using signal velocity and saturation.","forecast",true],
+["Best Time to Post","Plan publishing windows using audience context.","timing",true],
+["Content Ideas","Generate structured ideas from a topic and goal.","ideas",false],
+["Hook Generator","Create concise opening lines for short-form video.","hooks",false],
+["Script Generator","Build a short-form script with clear beats.","script",true],
+["Caption Generator","Write concise captions aligned to the post goal.","caption",false],
+["Trend Inspiration","Turn measured signals into practical content directions.","inspiration",true],
+["Shop Insights","Commercial content research workspace.","shop",true]
+];
+let profile=JSON.parse(localStorage.getItem("aronProfile")||"null");
+let plan=localStorage.getItem("aronPlan")||"free";
+let credits=Number(localStorage.getItem("aronCredits")||5);
+let saved=new Set(JSON.parse(localStorage.getItem("aronSaved")||"[]"));
+let obStep=0;
+const ob={stage:"",region:"Asia",niches:[],goals:[],account:"Personal",age:30};
+
+const OB_STEPS=[
+()=>`<h2 class="ob-title">Build your creator profile.</h2><p class="ob-lead">ARON Trend Lab uses a short setup to prioritize the signals, tools and recommendations that matter to you.</p><div class="section-kicker">CREATOR STAGE</div><div class="choices">${[
+["Starting out","0–1,000 followers"],["Building presence","1,000–10,000 followers"],["Growing","10,000–250,000 followers"],["Scaling","250,000+ followers"]
+].map(([a,b])=>`<button class="choice ${ob.stage===a?"selected":""}" data-stage="${a}"><div><b>${a}</b><span>${b}</span></div><i class="check"></i></button>`).join("")}</div>`,
+()=>`<h2 class="ob-title">Select your region.</h2><p class="ob-lead">Regional context will be used for trend availability, posting windows and market-specific recommendations.</p><div class="choices">${["Asia","North America","South America","Europe","Middle East & Africa"].map(x=>`<button class="choice ${ob.region===x?"selected":""}" data-region="${x}"><div><b>${x}</b></div><i class="check"></i></button>`).join("")}</div>`,
+()=>`<h2 class="ob-title">Choose your content interests.</h2><p class="ob-lead">Select multiple categories. You can change these later.</p><div class="chips">${["Comedy","Travel","Food","Education","Entrepreneurship","Entertainment","Tech","Gaming","DIY","Fitness","Motivation","Lifestyle","Finance","Photography","Beauty","Art"].map(x=>`<button class="chip ${ob.niches.includes(x)?"selected":""}" data-niche="${x}">${x}</button>`).join("")}</div>`,
+()=>`<h2 class="ob-title">What should the system help with?</h2><p class="ob-lead">Your choices determine which modules are prioritized on Today and Coach.</p><div class="choices">${[
+["Hooks","Improve opening clarity"],["Sounds","Track sound opportunities"],["Hashtags","Improve discoverability"],["Posting time","Plan publishing windows"],["Ideas","Generate content directions"],["Captions","Write concise post copy"]
+].map(([a,b])=>`<button class="choice ${ob.goals.includes(a)?"selected":""}" data-goal="${a}"><div><b>${a}</b><span>${b}</span></div><i class="check"></i></button>`).join("")}</div>`,
+()=>`<h2 class="ob-title">Account type and age.</h2><p class="ob-lead">Business mode can prioritize commercial-use recommendations. Age is used only as a local personalization input in this prototype.</p><div class="section-kicker">ACCOUNT TYPE</div><div class="choices" style="grid-template-columns:1fr 1fr">${["Personal","Business"].map(x=>`<button class="choice ${ob.account===x?"selected":""}" data-account="${x}"><div><b>${x}</b></div><i class="check"></i></button>`).join("")}</div><div class="range-wrap"><div class="section-kicker">AGE</div><div class="range-value" id="ageValue">${ob.age}</div><input id="ageRange" type="range" min="18" max="65" value="${ob.age}"></div>`,
+()=>`<h2 class="ob-title">Your workspace is ready.</h2><p class="ob-lead">This prototype separates measured signals, calculated indicators and AI-generated recommendations so each result is easy to interpret.</p><div class="card flat"><div class="recommend-row"><label>STAGE</label><div>${ob.stage||"Not selected"}</div></div><div class="recommend-row"><label>REGION</label><div>${ob.region}</div></div><div class="recommend-row"><label>INTERESTS</label><div>${ob.niches.join(", ")||"None selected"}</div></div><div class="recommend-row"><label>FOCUS</label><div>${ob.goals.join(", ")||"None selected"}</div></div><div class="recommend-row"><label>ACCOUNT</label><div>${ob.account}</div></div></div>`
 ];
 
-const state = {
-  saved: new Set(JSON.parse(localStorage.getItem("aronTrendSaved") || "[]")),
-  filter: "ALL"
+function renderOnboarding(){
+ document.querySelector("#obBody").innerHTML=OB_STEPS[obStep]();
+ document.querySelector("#obProgress").style.width=((obStep+1)/OB_STEPS.length*100)+"%";
+ document.querySelector("#obBack").style.visibility=obStep===0?"hidden":"visible";
+ document.querySelector("#obNext").textContent=obStep===OB_STEPS.length-1?"Enter workspace":"Continue";
+ document.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>{ob.stage=b.dataset.stage;renderOnboarding()});
+ document.querySelectorAll("[data-region]").forEach(b=>b.onclick=()=>{ob.region=b.dataset.region;renderOnboarding()});
+ document.querySelectorAll("[data-niche]").forEach(b=>b.onclick=()=>{const x=b.dataset.niche;ob.niches.includes(x)?ob.niches=ob.niches.filter(v=>v!==x):ob.niches.push(x);renderOnboarding()});
+ document.querySelectorAll("[data-goal]").forEach(b=>b.onclick=()=>{const x=b.dataset.goal;ob.goals.includes(x)?ob.goals=ob.goals.filter(v=>v!==x):ob.goals.push(x);renderOnboarding()});
+ document.querySelectorAll("[data-account]").forEach(b=>b.onclick=()=>{ob.account=b.dataset.account;renderOnboarding()});
+ const r=document.querySelector("#ageRange"); if(r) r.oninput=()=>{ob.age=Number(r.value);document.querySelector("#ageValue").textContent=r.value}
+}
+document.querySelector("#obBack").onclick=()=>{if(obStep>0){obStep--;renderOnboarding()}};
+document.querySelector("#obNext").onclick=()=>{
+ if(obStep===0&&!ob.stage){alert("Select your creator stage.");return}
+ if(obStep===2&&ob.niches.length===0){alert("Select at least one interest.");return}
+ if(obStep===3&&ob.goals.length===0){alert("Select at least one focus area.");return}
+ if(obStep<OB_STEPS.length-1){obStep++;renderOnboarding();return}
+ profile={...ob};localStorage.setItem("aronProfile",JSON.stringify(profile));document.querySelector("#onboarding").classList.add("hidden");applyProfile();
 };
+if(profile){document.querySelector("#onboarding").classList.add("hidden")}else{renderOnboarding()}
 
-function persist(){
-  localStorage.setItem("aronTrendSaved", JSON.stringify([...state.saved]));
+function applyProfile(){
+ if(!profile)return;
+ document.querySelector("#businessSwitch").classList.toggle("on",profile.account==="Business");
+ const tags=(profile.niches||[]).slice(0,8);document.querySelector("#coachTags").innerHTML=(tags.length?tags:["Lifestyle","Travel","Education"]).map(x=>`<span class="chip">#${x.toLowerCase().replace(/[^a-z0-9]+/g,"")}</span>`).join("");
 }
-
-function cardHtml(t, compact=false){
-  const saved = state.saved.has(t.id);
-  return `
-    <article class="card">
-      <div class="trend-head">
-        <div>
-          <div class="trend-title">${t.title}</div>
-          <div class="trend-meta">${t.category}</div>
-        </div>
-        <div class="stage">${t.stage}</div>
-      </div>
-      <div class="metrics">
-        <div class="metric"><label>GROWTH</label><strong>${t.growth}</strong></div>
-        <div class="metric right"><label>SATURATION</label><strong>${t.saturation}</strong></div>
-      </div>
-      <div class="hook">${t.hook}</div>
-      ${compact ? "" : `<div class="use">${t.use}</div>
-      <button class="save-btn ${saved?"saved":""}" data-save="${t.id}">${saved?"SAVED":"SAVE SIGNAL"}</button>`}
-    </article>`;
+function renderSignals(){
+ document.querySelector("#signalList").innerHTML=SIGNALS.map(s=>`<div class="signal"><div class="signal-top"><div><div class="signal-name">${s.name}</div><div class="signal-type">${s.type}</div></div><div class="badge">${s.stage}</div></div><div class="metric-grid"><div class="metric"><label>24H GROWTH</label><b class="green">${s.growth}</b></div><div class="metric"><label>VIDEOS</label><b>${s.videos}</b></div><div class="metric"><label>SATURATION</label><b class="blue">${s.sat}</b></div></div><div class="signal-note">${s.note}</div><div class="signal-actions"><button class="mini-btn" data-save="${s.id}">${saved.has(s.id)?"Saved":"Save signal"}</button><button class="mini-btn ${plan==="free"?"locked":""}" data-detail="${s.id}">${plan==="free"?"Pro detail":"Open detail"}</button></div></div>`).join("");
+ document.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>{saved.has(b.dataset.save)?saved.delete(b.dataset.save):saved.add(b.dataset.save);localStorage.setItem("aronSaved",JSON.stringify([...saved]));renderSignals();syncCounters()});
+ document.querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>plan==="free"?openPaywall():alert("Detailed trend history placeholder."));
 }
-
-function render(){
-  document.querySelector("#earlyCount").textContent = DEMO_TRENDS.filter(x=>x.stage==="EARLY").length;
-  document.querySelector("#risingCount").textContent = DEMO_TRENDS.filter(x=>x.stage==="RISING").length;
-  document.querySelector("#savedCount").textContent = state.saved.size;
-
-  document.querySelector("#homeSignals").innerHTML =
-    DEMO_TRENDS.slice(0,2).map(t=>cardHtml(t,true)).join("");
-
-  const filtered = state.filter==="ALL" ? DEMO_TRENDS : DEMO_TRENDS.filter(x=>x.stage===state.filter);
-  document.querySelector("#trendList").innerHTML = filtered.map(t=>cardHtml(t,false)).join("");
-
-  const savedItems = DEMO_TRENDS.filter(x=>state.saved.has(x.id));
-  document.querySelector("#savedSubtitle").textContent = `${savedItems.length} SIGNAL${savedItems.length===1?"":"S"} SAVED`;
-  document.querySelector("#savedList").innerHTML = savedItems.length
-    ? savedItems.map(t=>cardHtml(t,true)).join("")
-    : `<div class="saved-empty">No saved signals yet.<br>Save one from Trend Feed.</div>`;
-
-  document.querySelectorAll("[data-save]").forEach(btn=>{
-    btn.onclick = () => {
-      const id = btn.dataset.save;
-      if(state.saved.has(id)) state.saved.delete(id); else state.saved.add(id);
-      persist(); render();
-    };
-  });
+function renderTools(){
+ document.querySelector("#toolGrid").innerHTML=TOOLS.map(([n,d,id,pro])=>`<button class="tool" data-tool="${id}" data-pro="${pro}"><span class="tier">${pro?"PRO":"FREE"}</span><div class="tool-icon" data-svg="${id==="timing"?"clock":id==="ideas"?"idea":id==="keywords"?"search":id==="hashtags"?"hash":id==="caption"?"message":"tools"}"></div><h3>${n}</h3><p>${d}</p></button>`).join("");
+ document.querySelectorAll("#toolGrid [data-svg]").forEach(el=>el.innerHTML=SVG[el.dataset.svg]||SVG.tools);
+ document.querySelectorAll("#toolGrid [data-tool]").forEach(b=>b.onclick=()=>runTool(b.dataset.tool,b.dataset.pro==="true"));
 }
-
-function go(screen){
-  document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active", x.dataset.screen===screen));
-  document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active", x.dataset.nav===screen));
-  document.querySelector(".main").scrollTo({top:0,behavior:"instant"});
-  if(screen==="saved") render();
+function syncCounters(){
+ document.querySelector("#savedStat").textContent=saved.size;
+ document.querySelector("#creditStat").textContent=plan==="pro"?"∞":credits;
+ document.querySelector("#toolCredits").textContent=plan==="pro"?"UNLIMITED":credits+" CREDITS";
+ document.querySelector("#planChip").textContent=plan.toUpperCase();
+ document.querySelector("#settingsPlan").textContent=plan.toUpperCase();
 }
-
+function runTool(id,isPro=false){
+ if(isPro&&plan==="free"){openPaywall();return}
+ if(plan==="free"&&credits<=0){openPaywall();return}
+ if(plan==="free"){credits--;localStorage.setItem("aronCredits",credits);syncCounters()}
+ const names={caption:"Caption Generator",hashtags:"Hashtag Builder",keywords:"Keyword Research",script:"Script Builder",ideas:"Content Ideas",hooks:"Hook Generator",forecast:"Viral Forecaster",timing:"Best Time to Post",inspiration:"Trend Inspiration",shop:"Shop Insights"};
+ alert((names[id]||"Creator Tool")+" prototype opened. Live AI connection comes in the backend phase.");
+}
+function go(screen){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.dataset.screen===screen));document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.nav===screen));document.querySelector(".main").scrollTo({top:0,behavior:"instant"})}
 document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>go(b.dataset.nav));
 document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-
-document.querySelectorAll("[data-filter]").forEach(b=>{
-  b.onclick=()=>{
-    state.filter=b.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));
-    render();
-  };
-});
-
-document.querySelector("#generateBtn").onclick=()=>{
-  const niche=document.querySelector("#niche").value;
-  const goal=document.querySelector("#goal").value;
-  const seed=document.querySelector("#seed").value.trim() || "a simple everyday moment";
-  document.querySelector("#ideaTitle").textContent=`${niche}: quiet-upgrade format`;
-  document.querySelector("#ideaHook").textContent=`POV: nobody expected ${seed} to turn into this.`;
-  document.querySelector("#ideaScript").textContent=
-`1) Show the “before” in under 2 seconds.
-2) Reveal the change with one clean visual beat.
-3) End with a relatable line that invites comments.`;
-  document.querySelector("#ideaCaption").textContent=`Goal: ${goal}. Keep it short, specific, and easy to rewatch.`;
-  document.querySelector("#ideaCard").classList.add("show");
-};
-
-document.querySelector("#copyPack").onclick=async()=>{
-  const text = `${document.querySelector("#ideaTitle").textContent}
-
-HOOK
-${document.querySelector("#ideaHook").textContent}
-
-SCRIPT
-${document.querySelector("#ideaScript").textContent}
-
-CAPTION
-${document.querySelector("#ideaCaption").textContent}`;
-  try{
-    await navigator.clipboard.writeText(text);
-    document.querySelector("#copyPack").textContent="COPIED";
-    setTimeout(()=>document.querySelector("#copyPack").textContent="COPY CONTENT PACK",1200);
-  }catch{
-    alert("Copy is blocked in this browser. Long-press and copy the text manually.");
-  }
-};
-
-const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
-const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if(isiOS && !isStandalone && localStorage.getItem("hideInstall")!=="1"){
-  document.querySelector("#installCard").classList.add("show");
-}
-document.querySelector("#dismissInstall").onclick=()=>{
-  localStorage.setItem("hideInstall","1");
-  document.querySelector("#installCard").classList.remove("show");
-};
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-}
-
-render();
+document.querySelectorAll("[data-tool]").forEach(b=>{if(!b.closest("#toolGrid"))b.onclick=()=>runTool(b.dataset.tool,false)});
+function openPaywall(){document.querySelector("#paywall").classList.add("show")}
+document.querySelectorAll("[data-upgrade]").forEach(b=>b.onclick=openPaywall);
+document.querySelector("#closePaywall").onclick=()=>document.querySelector("#paywall").classList.remove("show");
+document.querySelector("#activateDemoPro").onclick=()=>{plan="pro";localStorage.setItem("aronPlan","pro");document.querySelector("#paywall").classList.remove("show");syncCounters();renderSignals();alert("Demo Pro activated for this browser.")};
+document.querySelector("#planChip").onclick=openPaywall;
+document.querySelector("#resetProfile").onclick=()=>{localStorage.removeItem("aronProfile");profile=null;Object.assign(ob,{stage:"",region:"Asia",niches:[],goals:[],account:"Personal",age:30});obStep=0;document.querySelector("#onboarding").classList.remove("hidden");renderOnboarding()};
+document.querySelector("#notifSwitch").onclick=function(){this.classList.toggle("on")};
+document.querySelector("#businessSwitch").onclick=function(){this.classList.toggle("on")};
+document.querySelector("#uploadBtn").onclick=()=>document.querySelector("#videoFile").click();
+document.querySelector("#videoFile").onchange=()=>{if(document.querySelector("#videoFile").files.length){document.querySelector("#analysisScores").style.display="grid";if(plan==="free")setTimeout(openPaywall,700)}};
+document.querySelector("#savePlan").onclick=()=>alert("Plan saved locally.");
+document.querySelectorAll(".price").forEach(p=>p.onclick=()=>{document.querySelectorAll(".price").forEach(x=>x.classList.remove("selected"));p.classList.add("selected")});
+applyProfile();renderSignals();renderTools();syncCounters();
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 </script>
 </body>
 </html>
