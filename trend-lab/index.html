@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#071014" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ARON Trend Lab" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <title>ARON Trend Lab</title>
+  <style>
+    :root{
+      --bg:#071014;
+      --panel:#0b1716;
+      --panel2:#0d1c19;
+      --line:#18302b;
+      --text:#effff9;
+      --muted:#718b84;
+      --accent:#78efcb;
+      --accent2:#9bffe3;
+      --danger:#ff8f8f;
+      --safe-top: env(safe-area-inset-top);
+      --safe-bottom: env(safe-area-inset-bottom);
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif}
+    body{min-height:100vh;min-height:100dvh;overflow:hidden}
+    button,input,select,textarea{font:inherit}
+    .app{
+      height:100vh;height:100dvh;
+      display:grid;
+      grid-template-rows:1fr auto;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(120,239,203,.09), transparent 32%),
+        linear-gradient(180deg,#06100e,#071014 45%);
+    }
+    .main{overflow:auto;padding:calc(18px + var(--safe-top)) 18px 22px;overscroll-behavior:contain}
+    .screen{display:none;max-width:760px;margin:0 auto}
+    .screen.active{display:block}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
+    .brand h1{font-size:26px;line-height:1;margin:0 0 7px;font-weight:800;letter-spacing:-.6px}
+    .eyebrow{font-size:10px;color:var(--accent);letter-spacing:1.5px;font-weight:700}
+    .pill{
+      border:1px solid #24443d;background:#10221f;color:#8ff6d9;
+      border-radius:17px;padding:8px 11px;font-size:10px;font-weight:800;white-space:nowrap
+    }
+    .card{background:rgba(11,23,22,.92);border:1px solid var(--line);border-radius:23px;padding:17px;margin-bottom:12px}
+    .hero{padding:20px;background:linear-gradient(145deg,#0d1c19,#0a1614)}
+    .hero h2{margin:6px 0 8px;font-size:24px;line-height:1.15;letter-spacing:-.45px}
+    .muted{color:var(--muted);font-size:12px;line-height:1.45}
+    .btn{
+      width:100%;border:0;border-radius:16px;padding:14px 16px;font-weight:800;cursor:pointer;
+      background:var(--accent);color:#062019
+    }
+    .btn.secondary{background:#10221f;color:#dffff6;border:1px solid #24443d}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}
+    .stat{background:#0a1614;border:1px solid var(--line);border-radius:18px;padding:13px}
+    .stat span{display:block;color:#6e8981;font-size:9px;letter-spacing:1.1px;margin-bottom:5px}
+    .stat b{font-size:22px}
+    .section-title{font-size:10px;color:#657e77;letter-spacing:1.5px;font-weight:800;margin:18px 0 10px}
+    .trend-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .trend-title{font-size:16px;font-weight:800;margin:0 0 4px}
+    .trend-meta{font-size:10px;color:var(--muted)}
+    .stage{font-size:9px;font-weight:800;color:#8cf4d7;background:#10251f;border:1px solid #20463b;border-radius:14px;padding:6px 9px}
+    .metrics{display:grid;grid-template-columns:1fr 1fr;margin:14px 0 10px}
+    .metric label{display:block;color:#5f7971;font-size:8px;letter-spacing:1.2px}
+    .metric strong{display:block;margin-top:3px;font-size:18px;color:var(--accent2)}
+    .metric.right{text-align:right}
+    .metric.right strong{color:#d9eee8;font-size:15px}
+    .hook{font-size:12px;color:#c2d7d0;margin:9px 0 6px}
+    .use{font-size:10px;color:#718a83}
+    .filters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+    .filter{border:0;border-radius:16px;padding:12px;background:#10221f;color:#dffff6;font-size:11px}
+    .filter.active{background:var(--accent);color:#062019;font-weight:800}
+    .save-btn{margin-top:14px;padding:12px;border-radius:14px;background:#10221f;color:#bffbea;border:1px solid #23443d;width:100%;font-weight:700}
+    .save-btn.saved{background:#14352d}
+    .form-card label{display:block;font-size:9px;color:#6d8880;letter-spacing:1.2px;margin:0 0 7px}
+    select,input,textarea{
+      width:100%;border:1px solid #1d3832;background:#0f211e;color:#effff9;
+      border-radius:14px;padding:13px 14px;outline:none;margin-bottom:14px
+    }
+    textarea{min-height:90px;resize:vertical}
+    .idea{display:none}
+    .idea.show{display:block}
+    .idea h3{margin:4px 0 12px;font-size:20px}
+    .idea h4{margin:14px 0 5px;font-size:9px;color:#617a73;letter-spacing:1.2px}
+    .idea p{margin:0;color:#cde3dd;font-size:13px;line-height:1.5;white-space:pre-line}
+    .saved-empty{padding:46px 18px;text-align:center;color:#607a73}
+    .bottom{
+      padding:8px 12px calc(8px + var(--safe-bottom));
+      background:rgba(5,17,15,.96);
+      border-top:1px solid #0f2823;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:6px
+    }
+    .nav{
+      border:0;background:transparent;color:#617c74;border-radius:16px;padding:11px 4px;
+      font-size:10px;font-weight:700
+    }
+    .nav.active{background:#12332c;color:#8ff6d9}
+    .notice{
+      margin:14px 0;padding:12px 14px;border:1px dashed #23443d;border-radius:16px;
+      color:#78928b;font-size:10px;line-height:1.4
+    }
+    .install-card{display:none}
+    .install-card.show{display:block}
+    .tiny{font-size:9px;color:#536d66;text-align:center;margin-top:18px}
+    @media (min-width:700px){
+      .main{padding-left:24px;padding-right:24px}
+      .bottom{max-width:760px;margin:0 auto;width:100%;border-left:1px solid #0f2823;border-right:1px solid #0f2823}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <main class="main">
+    <section class="screen active" data-screen="home">
+      <div class="topbar">
+        <div class="brand">
+          <h1>ARON TREND LAB</h1>
+          <div class="eyebrow">CREATOR INTELLIGENCE</div>
+        </div>
+        <div class="pill">PWA V1</div>
+      </div>
+
+      <div class="card hero">
+        <div class="eyebrow">TREND PULSE</div>
+        <h2>Find the window before the crowd.</h2>
+        <div class="muted">Prototype workflow first. Live trend ingestion comes next.</div>
+        <div style="height:14px"></div>
+        <button class="btn" data-go="trends">OPEN TREND FEED</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>EARLY</span><b id="earlyCount">0</b></div>
+        <div class="stat"><span>RISING</span><b id="risingCount">0</b></div>
+        <div class="stat"><span>SAVED</span><b id="savedCount">0</b></div>
+      </div>
+
+      <div class="section-title">TOP SIGNALS</div>
+      <div id="homeSignals"></div>
+
+      <div class="card install-card" id="installCard">
+        <div class="trend-title">Install on iPhone</div>
+        <div class="muted" style="margin:7px 0 12px">Open this page in Safari → Share → Add to Home Screen.</div>
+        <button class="btn secondary" id="dismissInstall">GOT IT</button>
+      </div>
+
+      <div class="notice">Demo data only — growth and saturation values are illustrative, not live TikTok measurements.</div>
+    </section>
+
+    <section class="screen" data-screen="trends">
+      <div class="topbar">
+        <div class="brand">
+          <h1>TREND FEED</h1>
+          <div class="eyebrow">EARLY SIGNALS • GROWTH • SATURATION</div>
+        </div>
+        <div class="pill">DEMO</div>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="ALL">ALL</button>
+        <button class="filter" data-filter="EARLY">EARLY</button>
+        <button class="filter" data-filter="RISING">RISING</button>
+      </div>
+      <div id="trendList"></div>
+    </section>
+
+    <section class="screen" data-screen="create">
+      <div class="topbar">
+        <div class="brand">
+          <h1>CREATE</h1>
+          <div class="eyebrow">TURN SIGNALS INTO CONTENT</div>
+        </div>
+      </div>
+
+      <div class="card form-card">
+        <label>NICHE</label>
+        <select id="niche">
+          <option>Faceless Creator</option>
+          <option>Travel</option>
+          <option>Relationship</option>
+          <option>Work / Career</option>
+          <option>Comedy</option>
+        </select>
+
+        <label>GOAL</label>
+        <select id="goal">
+          <option>Get more views</option>
+          <option>Gain followers</option>
+          <option>Tell a story</option>
+          <option>Promote a product</option>
+        </select>
+
+        <label>OPTIONAL IDEA</label>
+        <input id="seed" placeholder="e.g. airport story, daily routine, side hustle" />
+
+        <button class="btn" id="generateBtn">GENERATE DEMO CONTENT PACK</button>
+      </div>
+
+      <div class="card idea" id="ideaCard">
+        <div class="eyebrow">ARON IDEA</div>
+        <h3 id="ideaTitle"></h3>
+        <h4>HOOK</h4>
+        <p id="ideaHook"></p>
+        <h4>3-BEAT SCRIPT</h4>
+        <p id="ideaScript"></p>
+        <h4>CAPTION</h4>
+        <p id="ideaCaption"></p>
+        <div style="height:14px"></div>
+        <button class="btn secondary" id="copyPack">COPY CONTENT PACK</button>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="saved">
+      <div class="topbar">
+        <div class="brand">
+          <h1>SAVED</h1>
+          <div class="eyebrow" id="savedSubtitle">0 SIGNALS SAVED</div>
+        </div>
+      </div>
+      <div id="savedList"></div>
+    </section>
+  </main>
+
+  <nav class="bottom">
+    <button class="nav active" data-nav="home">HOME</button>
+    <button class="nav" data-nav="trends">TRENDS</button>
+    <button class="nav" data-nav="create">CREATE</button>
+    <button class="nav" data-nav="saved">SAVED</button>
+  </nav>
+</div>
+
+<script>
+const DEMO_TRENDS = [
+  {id:"quiet-upgrade",title:"POV: the quiet upgrade",category:"Lifestyle",stage:"RISING",growth:"+184%",saturation:"Low",hook:"POV: nobody noticed the upgrade until...",use:"Before/after reveal, workspace, travel, glow-up"},
+  {id:"confession",title:"3-second confession",category:"Storytime",stage:"EARLY",growth:"+146%",saturation:"Low",hook:"I wasn't going to say this, but...",use:"Relationship, work story, travel mistake"},
+  {id:"tiny-win",title:"Tiny win montage",category:"Motivation",stage:"RISING",growth:"+121%",saturation:"Medium",hook:"Not a big win, but I needed this today.",use:"Daily wins, creator journey, fitness, savings"},
+  {id:"expectation",title:"Expectation vs actual",category:"Comedy",stage:"HOT",growth:"+98%",saturation:"High",hook:"What I thought would happen vs...",use:"Travel, food, shopping, office"},
+  {id:"soft-launch",title:"Soft-launch tutorial",category:"Creator",stage:"EARLY",growth:"+83%",saturation:"Low",hook:"If I had to start again with zero followers...",use:"Faceless creator tips, side hustle, content advice"}
+];
+
+const state = {
+  saved: new Set(JSON.parse(localStorage.getItem("aronTrendSaved") || "[]")),
+  filter: "ALL"
+};
+
+function persist(){
+  localStorage.setItem("aronTrendSaved", JSON.stringify([...state.saved]));
+}
+
+function cardHtml(t, compact=false){
+  const saved = state.saved.has(t.id);
+  return `
+    <article class="card">
+      <div class="trend-head">
+        <div>
+          <div class="trend-title">${t.title}</div>
+          <div class="trend-meta">${t.category}</div>
+        </div>
+        <div class="stage">${t.stage}</div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><label>GROWTH</label><strong>${t.growth}</strong></div>
+        <div class="metric right"><label>SATURATION</label><strong>${t.saturation}</strong></div>
+      </div>
+      <div class="hook">${t.hook}</div>
+      ${compact ? "" : `<div class="use">${t.use}</div>
+      <button class="save-btn ${saved?"saved":""}" data-save="${t.id}">${saved?"SAVED":"SAVE SIGNAL"}</button>`}
+    </article>`;
+}
+
+function render(){
+  document.querySelector("#earlyCount").textContent = DEMO_TRENDS.filter(x=>x.stage==="EARLY").length;
+  document.querySelector("#risingCount").textContent = DEMO_TRENDS.filter(x=>x.stage==="RISING").length;
+  document.querySelector("#savedCount").textContent = state.saved.size;
+
+  document.querySelector("#homeSignals").innerHTML =
+    DEMO_TRENDS.slice(0,2).map(t=>cardHtml(t,true)).join("");
+
+  const filtered = state.filter==="ALL" ? DEMO_TRENDS : DEMO_TRENDS.filter(x=>x.stage===state.filter);
+  document.querySelector("#trendList").innerHTML = filtered.map(t=>cardHtml(t,false)).join("");
+
+  const savedItems = DEMO_TRENDS.filter(x=>state.saved.has(x.id));
+  document.querySelector("#savedSubtitle").textContent = `${savedItems.length} SIGNAL${savedItems.length===1?"":"S"} SAVED`;
+  document.querySelector("#savedList").innerHTML = savedItems.length
+    ? savedItems.map(t=>cardHtml(t,true)).join("")
+    : `<div class="saved-empty">No saved signals yet.<br>Save one from Trend Feed.</div>`;
+
+  document.querySelectorAll("[data-save]").forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.dataset.save;
+      if(state.saved.has(id)) state.saved.delete(id); else state.saved.add(id);
+      persist(); render();
+    };
+  });
+}
+
+function go(screen){
+  document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active", x.dataset.screen===screen));
+  document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active", x.dataset.nav===screen));
+  document.querySelector(".main").scrollTo({top:0,behavior:"instant"});
+  if(screen==="saved") render();
+}
+
+document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>go(b.dataset.nav));
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+document.querySelectorAll("[data-filter]").forEach(b=>{
+  b.onclick=()=>{
+    state.filter=b.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));
+    render();
+  };
+});
+
+document.querySelector("#generateBtn").onclick=()=>{
+  const niche=document.querySelector("#niche").value;
+  const goal=document.querySelector("#goal").value;
+  const seed=document.querySelector("#seed").value.trim() || "a simple everyday moment";
+  document.querySelector("#ideaTitle").textContent=`${niche}: quiet-upgrade format`;
+  document.querySelector("#ideaHook").textContent=`POV: nobody expected ${seed} to turn into this.`;
+  document.querySelector("#ideaScript").textContent=
+`1) Show the “before” in under 2 seconds.
+2) Reveal the change with one clean visual beat.
+3) End with a relatable line that invites comments.`;
+  document.querySelector("#ideaCaption").textContent=`Goal: ${goal}. Keep it short, specific, and easy to rewatch.`;
+  document.querySelector("#ideaCard").classList.add("show");
+};
+
+document.querySelector("#copyPack").onclick=async()=>{
+  const text = `${document.querySelector("#ideaTitle").textContent}
+
+HOOK
+${document.querySelector("#ideaHook").textContent}
+
+SCRIPT
+${document.querySelector("#ideaScript").textContent}
+
+CAPTION
+${document.querySelector("#ideaCaption").textContent}`;
+  try{
+    await navigator.clipboard.writeText(text);
+    document.querySelector("#copyPack").textContent="COPIED";
+    setTimeout(()=>document.querySelector("#copyPack").textContent="COPY CONTENT PACK",1200);
+  }catch{
+    alert("Copy is blocked in this browser. Long-press and copy the text manually.");
+  }
+};
+
+const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+if(isiOS && !isStandalone && localStorage.getItem("hideInstall")!=="1"){
+  document.querySelector("#installCard").classList.add("show");
+}
+document.querySelector("#dismissInstall").onclick=()=>{
+  localStorage.setItem("hideInstall","1");
+  document.querySelector("#installCard").classList.remove("show");
+};
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
+
+render();
+</script>
+</body>
+</html>
