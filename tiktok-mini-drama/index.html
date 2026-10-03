@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V5.3.1</title>
+<title>ARON Short Drama V5.4</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1450px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V5.3.1</b><small>V2 ID → fixed Short Drama URL → EP1 → detect total</small></div>
+      <div><b>ARON SHORT DRAMA V5.4</b><small>V2 ID → fixed Short Drama URL → EP1 → detect total</small></div>
     </div>
-    <div class="badge"><span id="bridgeDot" class="bridgeDot"></span><span id="bridgeText">EP Count Bridge waiting</span></div>
+    <div class="badge"><span id="bridgeDot" class="bridgeDot"></span><span id="bridgeText">EP Probe waiting</span></div>
   </div>
 
   <div class="card loader">
@@ -44,7 +44,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1450px;margin:aut
     <div id="flow1" class="flowStep"><small>V2 • SHARE LINK</small><b>Waiting</b></div>
     <div id="flow2" class="flowStep"><small>V2 • CAPTURED ID</small><b>Waiting</b></div>
     <div id="flow3" class="flowStep"><small>V3 • FIXED URL + ID + /1</small><b>Waiting</b></div>
-    <div id="flow4" class="flowStep"><small>EP1 • DETECT ENDING</small><b>Waiting</b></div>
+    <div id="flow4" class="flowStep"><small>EP1 • BACKGROUND PROBE</small><b>Waiting</b></div>
   </div>
 
   <div class="layout">
@@ -79,7 +79,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1450px;margin:aut
         <div class="metric"><small>Ending</small><b id="endingView">Unknown</b></div>
       </div>
       <div class="meta"><small>TITLE</small><br><b id="titleView" style="color:var(--text)">Waiting…</b></div>
-      <div id="status" class="status">V2 captures ID. V3 only concatenates the fixed TikTok Short Drama URL. The bridge is used only after EP1 loads to detect the real episode count.</div>
+      <div id="status" class="status">V2 captures ID. V3 only concatenates the fixed TikTok Short Drama URL. The extension opens EP1 in an inactive background tab, reads the real episode count, then closes that probe tab.</div>
 
       <h2>CONFIRMED EPISODES</h2>
       <div id="episodes" class="episodes"></div>
@@ -175,10 +175,15 @@ function startEpisode1(){
   currentEpisode=1;
   flow('#flow3',SHORT_DRAMA_BASE + capturedId + '/1');
   setStatus(
-    'V3 did not search for another ID. It used the V2 captured ID directly and loaded Episode 1. Detecting exact episode count now…',
+    'V3 used the V2 captured ID directly. EP1 URL is exact. Starting background episode-count probe…',
     'ok'
   );
-  mountEpisode(1,'Episode 1 • detecting total episodes');
+  mountEpisode(1,'Episode 1 • TikTok iframe may block');
+  window.postMessage({
+    __ARON_EP_PROBE_REQUEST__: true,
+    url: episodeUrl(1),
+    dramaId: capturedId
+  }, '*');
   updateMeta();
   renderEpisodes();
 
@@ -188,7 +193,7 @@ function startEpisode1(){
       setStatus(
         bridgeSeen
           ? 'EP1 is loaded, but TikTok has not exposed a confirmed total yet. ARON will not guess.'
-          : 'EP1 is loaded correctly. The EP Count Bridge is not reporting metadata yet; check that the included extension is enabled.',
+          : 'EP1 iframe may be blocked by TikTok, but the background EP Probe should still read the episode metadata from a real TikTok tab.',
         'warn'
       );
     }
@@ -223,7 +228,7 @@ async function resolveAndPlay(){
   dramaTitle='';
   bridgeSeen=false;
   $('#bridgeDot').classList.remove('ok');
-  $('#bridgeText').textContent='EP Count Bridge waiting';
+  $('#bridgeText').textContent='EP Probe waiting';
 
   flow('#flow1','Share link received');
   flow('#flow2','Resolving','wait');
@@ -268,11 +273,11 @@ async function resolveAndPlay(){
 
 window.addEventListener('message',e=>{
   const d=e.data;
-  if(!d || d.__ARON_EP_COUNT_BRIDGE__!==true)return;
+  if(!d || d.__ARON_EP_PROBE_RESULT__!==true)return;
 
   bridgeSeen=true;
   $('#bridgeDot').classList.add('ok');
-  $('#bridgeText').textContent='EP Count Bridge connected';
+  $('#bridgeText').textContent='EP Probe connected';
 
   // Ignore metadata from pages that are not our current V2-captured drama ID.
   if(d.dramaId && String(d.dramaId)!==capturedId)return;
