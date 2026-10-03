@@ -4,25 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V5.9</title>
+<title>ARON Short Drama V6</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
 body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(49,223,186,.15),transparent 31%),radial-gradient(circle at 88% 0%,rgba(74,105,255,.10),transparent 27%),var(--bg)}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:auto;padding:12px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(137,244,223,.26);background:linear-gradient(145deg,rgba(49,223,186,.21),rgba(49,223,186,.02))}.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:auto;padding:12px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(137,244,223,.26);background:linear-gradient(145deg,rgba(49,223,186,.21),rgba(49,223,186,.02))}.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#687b80;margin-right:6px}.dot.ok{background:var(--accent);box-shadow:0 0 9px rgba(49,223,186,.7)}.dot.bad{background:var(--bad)}
 .card{background:linear-gradient(180deg,rgba(15,27,33,.96),rgba(8,17,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.37)}
 .loader{padding:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:12px}.input{width:100%;background:#071217;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px 14px;outline:none}.input:focus{border-color:rgba(49,223,186,.65);box-shadow:0 0 0 3px rgba(49,223,186,.07)}
 .btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03241b}.ghost{background:#081318;color:var(--text);border:1px solid var(--line)}
-.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.flowStep{padding:10px;border:1px solid var(--line);background:#081318;border-radius:13px;min-width:0}.flowStep small{display:block;color:var(--muted);font-size:8px;letter-spacing:.08em}.flowStep b{display:block;font-size:10.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.flowStep.ok{border-color:rgba(49,223,186,.45)}.flowStep.ok b{color:#c5faed}.flowStep.wait b{color:var(--warn)}.flowStep.clickable{cursor:pointer;transition:.15s}.flowStep.clickable:hover{transform:translateY(-1px);border-color:rgba(49,223,186,.75);background:rgba(49,223,186,.06)}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 365px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:10px}.stage{height:min(78vh,860px);min-height:570px;background:#000;border-radius:15px;overflow:hidden;position:relative}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:6px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.flowStep{padding:10px;border:1px solid var(--line);background:#081318;border-radius:13px;min-width:0}.flowStep small{display:block;color:var(--muted);font-size:8px;letter-spacing:.08em}.flowStep b{display:block;font-size:10.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.flowStep.ok{border-color:rgba(49,223,186,.45)}.flowStep.ok b{color:#c5faed}.flowStep.wait b{color:var(--warn)}.flowStep.bad{border-color:rgba(255,157,171,.38)}.flowStep.bad b{color:#ffc2cb}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:10px}.stage{height:min(76vh,830px);min-height:555px;background:#000;border-radius:15px;overflow:hidden;position:relative}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:6px}
 .controls{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px}.group{display:flex;gap:7px;flex-wrap:wrap}.now{border-top:1px solid var(--line);padding:12px 14px}.now b{display:block;font-size:14px}.now code{display:block;color:var(--muted);font-size:9.5px;margin-top:4px;word-break:break-all}
-.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint,.meta{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:10px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}.status.bad{color:#ffc2cb;border-color:rgba(255,157,171,.28)}
+.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint,.meta,.debug{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:10px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}.status.bad{color:#ffc2cb;border-color:rgba(255,157,171,.28)}
 .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}.metric{background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;min-width:0}.metric small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.07em}.metric b{display:block;font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:430px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:10.5px}.ep.active{border-color:var(--accent);color:#c7fff1}.ep.end{border-color:rgba(49,223,186,.38)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#687b80;margin-right:6px}.dot.ok{background:var(--accent);box-shadow:0 0 9px rgba(49,223,186,.7)}
-@media(max-width:950px){.app{padding:8px}.flow{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stage{height:68vh;min-height:480px}.episodes{grid-template-columns:repeat(5,1fr);max-height:270px}}
-@media(max-width:520px){.flow{grid-template-columns:1fr}.stage{height:72vh;min-height:520px}.episodes{grid-template-columns:repeat(4,1fr)}}
+.episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:390px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:10.5px}.ep.active{border-color:var(--accent);color:#c7fff1}.ep.end{border-color:rgba(49,223,186,.38)}
+.debug{font-family:ui-monospace,Consolas,monospace;white-space:pre-wrap;max-height:150px;overflow:auto}
+@media(max-width:950px){.app{padding:8px}.flow{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:block}.side{order:2}.stage{height:65vh;min-height:470px}.episodes{grid-template-columns:repeat(5,1fr);max-height:260px}}
+@media(max-width:520px){.flow{grid-template-columns:1fr}.stage{height:70vh;min-height:500px}.episodes{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V5.9</b><small>fixed V2 → V3 handoff</small></div>
+      <div><b>ARON SHORT DRAMA V6</b><small>Direct browser probe • visible diagnostics</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="probeText">Probe waiting</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span></div>
   </div>
 
   <div class="card loader">
@@ -41,18 +41,19 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
   </div>
 
   <div class="flow">
-    <div id="flow1" class="flowStep"><small>V2 • SHARE LINK</small><b>Waiting</b></div>
-    <div id="flow2" class="flowStep"><small>V2 • NORMAL VIDEO ID</small><b>Waiting</b></div>
-    <div id="flow3" class="flowStep clickable"><small>V2 • SHORT DRAMA ID → V3 /1</small><b>Waiting</b></div>
-    <div id="flow4" class="flowStep"><small>EP1 • EXACT ENDING</small><b>Waiting</b></div>
+    <div id="flow1" class="flowStep"><small>1 • SHARE LINK</small><b>Waiting</b></div>
+    <div id="flow2" class="flowStep"><small>2 • NORMAL VIDEO ID</small><b>Waiting</b></div>
+    <div id="flow3" class="flowStep"><small>3 • SHORT DRAMA ID</small><b>Waiting</b></div>
+    <div id="flow4" class="flowStep"><small>4 • EP1 / ENDING</small><b>Waiting</b></div>
   </div>
 
   <div class="layout">
     <main class="card viewer">
       <div class="stageWrap">
-        <div id="stage" class="stage"><div class="empty"><div><strong>V5.9</strong>Original share link is probed in a real logged-in TikTok tab. Once the existing Short Drama ID is seen, V3 builds Episode 1 immediately.</div></div></div>
+        <div id="stage" class="stage">
+          <div class="empty"><div><strong>V6 Direct Probe</strong>The extension will open the original TikTok share link in an inactive tab, inspect its rendered DOM directly, then reuse that tab for Episode 1 metadata.</div></div>
+        </div>
       </div>
-
       <div class="controls">
         <div class="group">
           <button id="prevBtn" class="btn ghost">← Previous</button>
@@ -64,7 +65,6 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
           <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
         </div>
       </div>
-
       <div class="now">
         <b id="nowLabel">Nothing loaded</b>
         <code id="nowUrl">—</code>
@@ -72,7 +72,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
     </main>
 
     <aside class="card side">
-      <h2>LIVE CAPTURED DATA</h2>
+      <h2>LIVE DATA</h2>
       <div class="metaGrid">
         <div class="metric"><small>Normal Video ID</small><b id="videoView">—</b></div>
         <div class="metric"><small>Short Drama ID</small><b id="dramaView">—</b></div>
@@ -81,7 +81,10 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
       </div>
       <div class="meta"><small>EP1 URL</small><br><b id="ep1View" style="color:var(--text)">Waiting…</b></div>
       <div class="meta"><small>TITLE</small><br><b id="titleView" style="color:var(--text)">Waiting…</b></div>
-      <div id="status" class="status">Ready.</div>
+      <div id="status" class="status warn">Waiting for extension handshake…</div>
+
+      <h2>PROBE DIAGNOSTICS</h2>
+      <div id="debug" class="debug">page loaded</div>
 
       <h2>CONFIRMED EPISODES</h2>
       <div id="episodes" class="episodes"></div>
@@ -93,16 +96,18 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
 const $=s=>document.querySelector(s);
 const BASE='https://www.tiktok.com/shortdrama/episode/';
 
-let sourceLink='';
-let normalVideoId='';
-let dramaId='';
-let totalEpisodes=0;
-let currentEpisode=1;
-let dramaTitle='';
+let extensionReady=false;
+let sourceLink='', normalVideoId='', dramaId='', totalEpisodes=0, currentEpisode=1, dramaTitle='';
 
+function log(t){
+  const d=$('#debug');
+  const tm=new Date().toLocaleTimeString();
+  d.textContent=(d.textContent?d.textContent+'\n':'')+'['+tm+'] '+t;
+  d.scrollTop=d.scrollHeight;
+}
 function flow(id,text,state='ok'){
   const el=$(id);
-  el.classList.remove('ok','wait');
+  el.classList.remove('ok','wait','bad');
   if(state)el.classList.add(state);
   el.querySelector('b').textContent=text;
 }
@@ -111,9 +116,7 @@ function setStatus(t,k=''){
   s.className='status'+(k?' '+k:'');
   s.textContent=t;
 }
-function epUrl(ep=1){
-  return dramaId ? BASE+dramaId+'/'+Math.max(1,ep) : '';
-}
+function epUrl(ep=1){ return dramaId ? BASE+dramaId+'/'+Math.max(1,ep) : ''; }
 function update(){
   $('#videoView').textContent=normalVideoId||'—';
   $('#dramaView').textContent=dramaId||'—';
@@ -123,10 +126,9 @@ function update(){
   $('#titleView').textContent=dramaTitle||'Waiting…';
 }
 function renderEpisodes(){
-  const box=$('#episodes');
-  box.innerHTML='';
+  const box=$('#episodes'); box.innerHTML='';
   if(!totalEpisodes){
-    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">No guessed episodes. Waiting for EP1 metadata.</div>';
+    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">No guessed buttons. Waiting for confirmed total.</div>';
     return;
   }
   for(let i=1;i<=totalEpisodes;i++){
@@ -138,6 +140,8 @@ function renderEpisodes(){
   }
 }
 function mount(ep){
+  if(!dramaId)return;
+  currentEpisode=ep;
   const url=epUrl(ep);
   const f=document.createElement('iframe');
   f.src=url;
@@ -148,136 +152,152 @@ function mount(ep){
   $('#stage').appendChild(f);
   $('#nowLabel').textContent='Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'');
   $('#nowUrl').textContent=url;
+  renderEpisodes();
 }
 function play(ep){
   if(!dramaId)return;
   if(totalEpisodes&&(ep<1||ep>totalEpisodes))return;
-  currentEpisode=ep;
   mount(ep);
-  renderEpisodes();
-}
-function startV3(){
-  flow('#flow3',epUrl(1));
-  update();
-  setStatus('Short Drama ID handed to V3. Building exact Episode 1 URL now.','ok');
-  mount(1);
-
-  // Probe the real EP1 in a normal inactive TikTok tab for count/title.
-  window.postMessage({
-    __ARON_V59_PROBE_EP1__:true,
-    dramaId,
-    url:epUrl(1)
-  },'*');
 }
 async function oembed(link){
   try{
     const r=await fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(link));
     if(!r.ok)return null;
     return await r.json();
-  }catch(e){return null}
+  }catch(e){log('oEmbed error: '+e);return null}
 }
 function normalFromOembed(data,src){
   const h=data?.html||'';
-  const id=(h.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1] ||
-    ((h.match(/cite=["']([^"']+)["']/i)||[])[1]||src).match(/\/video\/(\d{10,25})/i)?.[1] || '';
-  return id;
+  return (h.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1] ||
+    (((h.match(/cite=["']([^"']+)["']/i)||[])[1]||src).match(/\/video\/(\d{10,25})/i)||[])[1] || '';
 }
 async function resolve(){
   sourceLink=$('#source').value.trim();
   if(!sourceLink)return;
 
-  normalVideoId='';
-  dramaId='';
-  totalEpisodes=0;
-  currentEpisode=1;
-  dramaTitle='';
-
-  $('#dot').classList.remove('ok');
-  $('#probeText').textContent='Probe waiting';
-  flow('#flow1','Share link received');
-  flow('#flow2','Resolving','wait');
+  normalVideoId='';dramaId='';totalEpisodes=0;currentEpisode=1;dramaTitle='';
+  flow('#flow1','Share link received','ok');
+  flow('#flow2','Resolving…','wait');
   flow('#flow3','Waiting','wait');
   flow('#flow4','Waiting','wait');
-  update();
-  renderEpisodes();
+  update();renderEpisodes();
+  log('Resolve clicked: '+sourceLink);
+
+  if(!extensionReady){
+    setStatus('V6 extension is NOT detected. Reload after installing/loading the unpacked extension.','bad');
+    log('STOP: extension handshake missing');
+    return;
+  }
 
   const direct=sourceLink.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
   if(direct){
     dramaId=direct[1];
-    flow('#flow2','Direct Short Drama URL');
+    flow('#flow2','Direct Short Drama URL','ok');
+    flow('#flow3',dramaId,'ok');
     update();
-    startV3();
+    log('Direct drama ID: '+dramaId);
+    window.postMessage({__ARON_V60_START__:true,sourceLink,normalVideoId:'',directDramaId:dramaId},'*');
     return;
   }
 
-  setStatus('V2 resolving normal TikTok video ID…','warn');
+  setStatus('Resolving normal TikTok video ID…','warn');
   const data=await oembed(sourceLink);
   if(!data){
+    flow('#flow2','oEmbed failed','bad');
     setStatus('TikTok oEmbed failed.','bad');
     return;
   }
 
   dramaTitle=data.title||'';
   normalVideoId=normalFromOembed(data,sourceLink);
-
   if(!normalVideoId){
+    flow('#flow2','ID not found','bad');
     setStatus('Normal TikTok video ID not found.','bad');
     return;
   }
 
-  flow('#flow2',normalVideoId);
+  flow('#flow2',normalVideoId,'ok');
   update();
+  log('Normal video ID: '+normalVideoId);
+  setStatus('V2 complete. Direct extension probe starting…','ok');
 
-  setStatus('Normal video ID captured. Opening ORIGINAL share link in logged-in TikTok probe to capture the Short Drama ID…','ok');
-
-  // IMPORTANT: original share link, not oEmbed canonical video URL.
   window.postMessage({
-    __ARON_V59_CAPTURE_DRAMA__:true,
+    __ARON_V60_START__:true,
     sourceLink,
-    normalVideoId
+    normalVideoId,
+    directDramaId:''
   },'*');
 }
 
 window.addEventListener('message',e=>{
-  const d=e.data;
-  if(!d)return;
+  const d=e.data;if(!d)return;
 
-  if(d.__ARON_V59_RESULT__===true){
+  if(d.__ARON_V60_EXTENSION_READY__===true){
+    extensionReady=true;
     $('#dot').classList.add('ok');
-    $('#probeText').textContent='Probe connected';
+    $('#extState').textContent='EXTENSION READY';
+    setStatus('Extension handshake OK. Ready to resolve.','ok');
+    log('Extension handshake received');
+    return;
+  }
 
+  if(d.__ARON_V60_PROGRESS__===true){
+    if(d.message)log(d.message);
+    if(d.url)log('URL: '+d.url);
+    if(d.stage==='drama-scan') setStatus(d.message||'Scanning TikTok post…','warn');
+    if(d.stage==='episode-scan') setStatus(d.message||'Scanning Episode 1…','warn');
+    return;
+  }
+
+  if(d.__ARON_V60_RESULT__===true){
     if(d.stage==='drama'){
       if(!d.dramaId){
-        setStatus(d.message||'Short Drama ID not found.','warn');
+        flow('#flow3','Not found','bad');
+        setStatus(d.message||'Short Drama ID was not found.','bad');
+        log('RESULT drama: no ID');
         return;
       }
+
       dramaId=String(d.dramaId);
+      flow('#flow3',dramaId,'ok');
       update();
-      startV3();
+      log('Short Drama ID: '+dramaId);
+      log('V3 EP1: '+epUrl(1));
+      setStatus('Short Drama ID captured. V3 built exact /1 URL.','ok');
+
+      // Try player immediately; metadata probe happens in same background tab.
+      mount(1);
       return;
     }
 
     if(d.stage==='episodes'){
-      if(d.dramaId && String(d.dramaId)!==String(dramaId))return;
+      if(d.dramaId && dramaId && String(d.dramaId)!==String(dramaId))return;
       if(d.title)dramaTitle=String(d.title);
-
       const n=Number(d.totalEpisodes||0);
+
       if(n>0){
         totalEpisodes=n;
-        flow('#flow4',n+' episodes • END EP'+String(n).padStart(2,'0'));
-        update();
-        renderEpisodes();
-        setStatus('EP1 confirmed '+n+' episodes.','ok');
+        flow('#flow4',n+' episodes • END EP'+String(n).padStart(2,'0'),'ok');
+        update();renderEpisodes();
+        setStatus('Episode 1 confirmed '+n+' episodes.','ok');
+        log('Confirmed total: '+n);
       }else{
-        setStatus(d.message||'EP1 loaded but total episode count is not exposed yet.','warn');
+        flow('#flow4','Total not exposed','bad');
+        setStatus(d.message||'Episode 1 loaded, but total was not exposed.','warn');
+        log('Episode total not found');
       }
+      return;
+    }
+
+    if(d.stage==='error'){
+      setStatus(d.message||'Probe error.','bad');
+      log('ERROR: '+(d.message||'unknown'));
     }
   }
 });
 
 $('#resolveBtn').onclick=resolve;
 $('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolve()});
-$('#flow3').onclick=()=>{if(dramaId)play(1)};
 $('#prevBtn').onclick=()=>{if(currentEpisode>1)play(currentEpisode-1)};
 $('#nextBtn').onclick=()=>{if(totalEpisodes&&currentEpisode<totalEpisodes)play(currentEpisode+1)};
 $('#reloadBtn').onclick=()=>{if(dramaId)play(currentEpisode)};
@@ -285,6 +305,17 @@ $('#openBtn').onclick=()=>{if(dramaId)window.open(epUrl(currentEpisode),'_blank'
 $('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
 
 renderEpisodes();
+
+// Ask the extension to announce itself after both sides are ready.
+window.postMessage({__ARON_V60_PING__:true},'*');
+setTimeout(()=>window.postMessage({__ARON_V60_PING__:true},'*'),800);
+setTimeout(()=>{
+  if(!extensionReady){
+    $('#dot').classList.add('bad');
+    setStatus('Extension handshake missing. Install/load V6 extension, then refresh this page.','bad');
+    log('No extension handshake after 2 seconds');
+  }
+},2000);
 </script>
 </body>
 </html>
