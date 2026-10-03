@@ -4,25 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama Navigator V3</title>
+<title>ARON Short Drama Smart Player V5</title>
 <style>
-:root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a}
-*{box-sizing:border-box}html,body{min-height:100%}
-body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(49,223,186,.15),transparent 31%),radial-gradient(circle at 88% 0%,rgba(74,105,255,.10),transparent 27%),var(--bg)}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:1280px;margin:auto;padding:14px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
-.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(137,244,223,.26);background:linear-gradient(145deg,rgba(49,223,186,.21),rgba(49,223,186,.02))}
-.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
-.card{background:linear-gradient(180deg,rgba(15,27,33,.96),rgba(8,17,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.37)}
-.loader{padding:11px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:13px}.input{width:100%;background:#071217;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px 14px;outline:none}.input:focus{border-color:rgba(49,223,186,.65);box-shadow:0 0 0 3px rgba(49,223,186,.07)}
-.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03241b}.ghost{background:#081318;color:var(--text);border:1px solid var(--line)}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:13px}.main{padding:14px}.hero{padding:16px;border:1px solid var(--line);border-radius:16px;background:#081318;margin-bottom:13px}.hero h1{font-size:19px;margin:0 0 6px}.hero p{font-size:10.5px;color:var(--muted);margin:0;line-height:1.55}.current{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-bottom:13px}.currentCard{padding:14px;border:1px solid rgba(49,223,186,.35);background:linear-gradient(145deg,rgba(49,223,186,.08),rgba(8,19,24,.7));border-radius:15px}.currentCard small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}.currentCard b{display:block;font-size:17px}.currentCard code{display:block;color:#bfeee3;font-size:10px;margin-top:7px;word-break:break-all}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.nav .btn{flex:1;min-width:130px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 9px;text-align:center}.ep:hover{border-color:rgba(49,223,186,.5);transform:translateY(-1px)}.ep.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(49,223,186,.06);color:#c6fff0}.ep b{display:block;font-size:13px}.ep small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.side{padding:13px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.field{margin-bottom:11px}.field label{display:block;color:var(--muted);font-size:10px;font-weight:800;margin:0 0 5px 2px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.status,.hint{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:11px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px}.quick .btn{padding:10px}
-@media(max-width:850px){.app{padding:9px}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:-1}.current{grid-template-columns:1fr}.grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
+:root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(49,223,186,.15),transparent 31%),radial-gradient(circle at 88% 0%,rgba(74,105,255,.10),transparent 27%),var(--bg)}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1440px;margin:auto;padding:12px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(137,244,223,.26);background:linear-gradient(145deg,rgba(49,223,186,.21),rgba(49,223,186,.02))}.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
+.card{background:linear-gradient(180deg,rgba(15,27,33,.96),rgba(8,17,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.37)}.loader{padding:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:12px}.input{width:100%;background:#071217;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px 14px;outline:none}.input:focus{border-color:rgba(49,223,186,.65);box-shadow:0 0 0 3px rgba(49,223,186,.07)}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03241b}.ghost{background:#081318;color:var(--text);border:1px solid var(--line)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:10px}.stage{height:min(78vh,860px);min-height:560px;background:#000;border-radius:15px;overflow:hidden;position:relative}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:6px}
+.controls{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px}.group{display:flex;gap:7px;flex-wrap:wrap}.now{border-top:1px solid var(--line);padding:12px 14px}.now b{display:block;font-size:14px}.now code{display:block;color:var(--muted);font-size:9.5px;margin-top:4px;word-break:break-all}
+.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint,.meta{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:10px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}.status.bad{color:#ffc2cb;border-color:rgba(255,157,171,.28)}
+.metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}.metric{background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px}.metric small{display:block;color:var(--muted);font-size:8.5px;text-transform:uppercase;letter-spacing:.08em}.metric b{display:block;font-size:14px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:430px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:11px}.ep.active{border-color:var(--accent);color:#c7fff1;box-shadow:0 0 0 2px rgba(49,223,186,.05)}.ep.end{border-color:rgba(49,223,186,.35)}
+.bridgeDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#687b80;margin-right:6px}.bridgeDot.ok{background:var(--accent);box-shadow:0 0 9px rgba(49,223,186,.7)}
+@media(max-width:930px){.app{padding:8px}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stage{height:68vh;min-height:480px}.episodes{grid-template-columns:repeat(5,1fr);max-height:260px}}
+@media(max-width:520px){.stage{height:72vh;min-height:520px}.episodes{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
@@ -30,176 +24,193 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1280px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V3</b><small>TikTok official episode navigator</small></div>
+      <div><b>ARON SHORT DRAMA SMART V5</b><small>auto album + exact episode sequence</small></div>
     </div>
-    <div class="badge">Album ID → Episode Sequence</div>
+    <div class="badge"><span id="bridgeDot" class="bridgeDot"></span><span id="bridgeText">Bridge waiting</span></div>
   </div>
 
   <div class="card loader">
-    <input id="source" class="input" value="https://www.tiktok.com/shortdrama/episode/7685616589894521876/1" placeholder="Paste TikTok Short Drama URL or album/play ID">
-    <button id="loadBtn" class="btn primary">LOAD DRAMA</button>
+    <input id="source" class="input" value="https://vt.tiktok.com/ZSbafjuVM/" placeholder="Paste TikTok share link or Short Drama URL">
+    <button id="smartBtn" class="btn primary">⚡ SMART RESOLVE</button>
   </div>
 
   <div class="layout">
-    <main class="card main">
-      <div class="hero">
-        <h1>Episode Navigator</h1>
-        <p>This app builds official TikTok Short Drama URLs from the album/play ID and episode sequence. It does not download, rehost, or modify TikTok playback.</p>
+    <main class="card viewer">
+      <div class="stageWrap">
+        <div id="stage" class="stage"><div class="empty"><div><strong>Paste one TikTok link.</strong>ARON will look for the drama ID, then read the exact episode range from TikTok's Short Drama page.</div></div></div>
       </div>
-
-      <div class="current">
-        <div class="currentCard">
-          <small>CURRENT EPISODE</small>
-          <b id="currentLabel">Episode 1</b>
-          <code id="currentUrl">—</code>
+      <div class="controls">
+        <div class="group">
+          <button id="prevBtn" class="btn ghost">← Previous</button>
+          <button id="nextBtn" class="btn ghost">Next →</button>
         </div>
-        <button id="watchBtn" class="btn primary">▶ OPEN EPISODE</button>
+        <div class="group">
+          <button id="retryBtn" class="btn ghost">↻ Retry Metadata</button>
+          <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
+        </div>
       </div>
-
-      <div class="nav">
-        <button id="prevBtn" class="btn ghost">← Previous Episode</button>
-        <button id="copyBtn" class="btn ghost">⧉ Copy Link</button>
-        <button id="nextBtn" class="btn ghost">Next Episode →</button>
+      <div class="now">
+        <b id="nowLabel">Nothing loaded</b>
+        <code id="nowUrl">—</code>
       </div>
-
-      <div id="episodeGrid" class="grid"></div>
     </main>
 
     <aside class="card side">
-      <h2>DRAMA SETTINGS</h2>
-
-      <div class="field">
-        <label>Album / Play ID</label>
-        <input id="albumId" class="input" placeholder="7685616589894521876">
+      <h2>SMART METADATA</h2>
+      <div class="metaGrid">
+        <div class="metric"><small>Album / Play ID</small><b id="albumView">—</b></div>
+        <div class="metric"><small>Total Episodes</small><b id="totalView">—</b></div>
+        <div class="metric"><small>Current</small><b id="currentView">—</b></div>
+        <div class="metric"><small>Ending</small><b id="endingView">Unknown</b></div>
       </div>
+      <div class="meta"><small style="color:var(--muted)">TITLE</small><br><b id="titleView" style="color:var(--text)">Waiting for drama metadata…</b></div>
+      <div id="status" class="status">Install the included ARON TikTok Bridge extension once. It reads the metadata already rendered by TikTok in your browser; it does not guess the episode ending.</div>
 
-      <div class="row">
-        <div class="field">
-          <label>Current Episode</label>
-          <input id="episode" class="input" type="number" min="1" value="1">
-        </div>
-        <div class="field">
-          <label>Episode Count</label>
-          <input id="count" class="input" type="number" min="1" max="300" value="50">
-        </div>
+      <h2>REAL EPISODES ONLY</h2>
+      <div id="episodes" class="episodes"></div>
+
+      <div class="hint" style="margin-top:10px">
+        No manual episode count. ARON waits until TikTok exposes a real range such as <b>1–24, 25–48, 49–60</b>, then creates only EP01…EP60. If TikTok does not expose the count, ARON shows <b>Unknown</b> instead of inventing episodes.
       </div>
-
-      <div class="quick">
-        <button class="btn ghost countPreset" data-n="30">30 EP</button>
-        <button class="btn ghost countPreset" data-n="50">50 EP</button>
-        <button class="btn ghost countPreset" data-n="80">80 EP</button>
-        <button class="btn ghost countPreset" data-n="100">100 EP</button>
-      </div>
-
-      <label style="display:flex;gap:8px;align-items:center;font-size:10px;color:var(--muted);margin:2px 0 11px">
-        <input id="sameTab" type="checkbox"> Open episode in same tab
-      </label>
-
-      <div id="status" class="status">
-        Paste a TikTok Short Drama URL. V3 will extract the album ID and episode number automatically.
-      </div>
-
-      <div class="hint">
-        URL pattern:<br>
-        <b>tiktok.com/shortdrama/episode/ALBUM_ID/EPISODE</b><br><br>
-        Example: changing only the final number generates Episode 1, Episode 2, Episode 3, etc.
-      </div>
-
-      <button id="shareBtn" class="btn ghost" style="width:100%">↗ Share This ARON Drama Link</button>
     </aside>
   </div>
 </div>
 
 <script>
 const $=s=>document.querySelector(s);
-let album='',ep=1,total=50;
+let album='', current=1, total=0, dramaTitle='', bridgeSeen=false, lastShare='';
+let resolveTimer=null;
 
-function parseSource(v){
-  v=(v||'').trim();
-  const m=v.match(/shortdrama\/episode\/(\d+)\/(\d+)/i);
-  if(m)return {album:m[1],ep:Math.max(1,parseInt(m[2],10)||1)};
-  if(/^\d{10,25}$/.test(v))return {album:v,ep:1};
-  return null;
+function setStatus(t,k=''){const s=$('#status');s.className='status'+(k?' '+k:'');s.textContent=t}
+function parseShortDrama(v){
+  const m=(v||'').match(/shortdrama\/episode\/(\d+)\/(\d+)/i);
+  return m?{album:m[1],ep:Math.max(1,Number(m[2])||1)}:null;
 }
-function officialUrl(n){
-  return `https://www.tiktok.com/shortdrama/episode/${encodeURIComponent(album)}/${Math.max(1,n)}`;
+function officialUrl(ep=current){return album?`https://www.tiktok.com/shortdrama/episode/${album}/${Math.max(1,ep)}`:''}
+function updateMeta(){
+  $('#albumView').textContent=album||'—';
+  $('#totalView').textContent=total?String(total):'Unknown';
+  $('#currentView').textContent=album?`EP ${String(current).padStart(2,'0')}`:'—';
+  $('#endingView').textContent=total?`EP ${String(total).padStart(2,'0')}`:'Unknown';
+  $('#titleView').textContent=dramaTitle||'Waiting for drama metadata…';
 }
-function appShareUrl(){
-  const u=new URL(location.href);u.search='';u.hash='';
-  u.searchParams.set('album',album);u.searchParams.set('ep',ep);u.searchParams.set('count',total);
-  return u.toString();
-}
-function setStatus(t,kind=''){const s=$('#status');s.className='status'+(kind?' '+kind:'');s.textContent=t}
-function clamp(){
-  total=Math.min(300,Math.max(1,parseInt($('#count').value,10)||50));
-  ep=Math.min(total,Math.max(1,parseInt($('#episode').value,10)||1));
-  $('#episode').value=ep;$('#count').value=total;
-}
-function render(){
-  if(!album)return;
-  clamp();
-  $('#albumId').value=album;
-  $('#currentLabel').textContent=`Episode ${ep}`;
-  $('#currentUrl').textContent=officialUrl(ep);
-  const grid=$('#episodeGrid');grid.innerHTML='';
+function renderEpisodes(){
+  const box=$('#episodes');box.innerHTML='';
+  if(!total){
+    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">Waiting for TikTok to confirm the exact episode count.</div>';
+    return;
+  }
   for(let i=1;i<=total;i++){
     const b=document.createElement('button');
-    b.className='ep'+(i===ep?' active':'');
-    b.innerHTML=`<b>EP ${String(i).padStart(2,'0')}</b><small>/${i}</small>`;
-    b.onclick=()=>{ep=i;$('#episode').value=i;render()};
-    b.ondblclick=()=>openEpisode(i);
-    grid.appendChild(b);
+    b.className='ep'+(i===current?' active':'')+(i===total?' end':'');
+    b.textContent='EP '+String(i).padStart(2,'0');
+    b.onclick=()=>loadEpisode(i);
+    box.appendChild(b);
   }
-  localStorage.setItem('aron_sd_album',album);
-  localStorage.setItem('aron_sd_ep',String(ep));
-  localStorage.setItem('aron_sd_count',String(total));
 }
-function loadSource(){
-  const p=parseSource($('#source').value);
-  if(!p){setStatus('Hindi ko ma-detect ang Short Drama album ID. Paste the /shortdrama/episode/... URL or album ID.','warn');return}
-  album=p.album;ep=p.ep;
-  $('#episode').value=ep;
-  setStatus(`Album ${album} loaded • Episode ${ep}`,'ok');
-  render();
+function loadFrame(url,label='Resolving TikTok…'){
+  const f=document.createElement('iframe');
+  f.src=url; f.allow='autoplay; fullscreen; picture-in-picture; clipboard-write'; f.allowFullscreen=true;
+  f.referrerPolicy='strict-origin-when-cross-origin'; f.title='ARON TikTok resolver/player';
+  $('#stage').innerHTML=''; $('#stage').appendChild(f);
+  $('#nowLabel').textContent=label; $('#nowUrl').textContent=url;
 }
-function openEpisode(n=ep){
+function loadEpisode(n){
   if(!album)return;
-  const url=officialUrl(n);
-  if($('#sameTab').checked) location.href=url;
-  else window.open(url,'_blank','noopener');
+  if(total && (n<1||n>total))return;
+  current=Math.max(1,n); updateMeta(); renderEpisodes();
+  const url=officialUrl(current); loadFrame(url,`Episode ${current}${total?' of '+total:''}`);
+  localStorage.setItem('aronSmartDrama',JSON.stringify({album,current,total,title:dramaTitle,share:lastShare}));
 }
-async function copy(t){
-  try{await navigator.clipboard.writeText(t);return true}catch(e){return false}
-}
+function applyMeta(d){
+  bridgeSeen=true; $('#bridgeDot').classList.add('ok'); $('#bridgeText').textContent='Bridge connected';
+  if(d.title && d.title.length<200) dramaTitle=d.title;
+  if(d.albumId) album=String(d.albumId);
+  if(d.currentEpisode) current=Math.max(1,Number(d.currentEpisode)||1);
+  if(d.totalEpisodes && Number(d.totalEpisodes)>0) total=Number(d.totalEpisodes);
 
-$('#loadBtn').onclick=loadSource;
-$('#source').addEventListener('keydown',e=>{if(e.key==='Enter')loadSource()});
-$('#albumId').addEventListener('change',()=>{const v=$('#albumId').value.trim();if(/^\d{10,25}$/.test(v)){album=v;render()}});
-$('#episode').addEventListener('change',()=>{ep=parseInt($('#episode').value,10)||1;render()});
-$('#count').addEventListener('change',()=>{total=parseInt($('#count').value,10)||50;render()});
-document.querySelectorAll('.countPreset').forEach(b=>b.onclick=()=>{$('#count').value=b.dataset.n;total=parseInt(b.dataset.n);render()});
-$('#watchBtn').onclick=()=>openEpisode();
-$('#prevBtn').onclick=()=>{if(ep>1){ep--;$('#episode').value=ep;render();openEpisode()}};
-$('#nextBtn').onclick=()=>{if(ep<total){ep++;$('#episode').value=ep;render();openEpisode()}};
-$('#copyBtn').onclick=async()=>{if(!album)return;setStatus(await copy(officialUrl(ep))?'Episode link copied.':'Copy manually: '+officialUrl(ep),'ok')};
-$('#shareBtn').onclick=async()=>{
-  if(!album)return;const url=appShareUrl();
-  try{if(navigator.share){await navigator.share({title:'ARON Short Drama',url});return}}catch(e){}
-  setStatus(await copy(url)?'ARON drama link copied.':'Copy manually: '+url,'ok')
-};
+  updateMeta(); renderEpisodes();
 
-const qs=new URLSearchParams(location.search);
-const qa=qs.get('album'),qe=parseInt(qs.get('ep')||'1',10),qc=parseInt(qs.get('count')||'0',10);
-if(qa&&/^\d{10,25}$/.test(qa)){
-  album=qa;ep=Math.max(1,qe||1);total=qc||parseInt(localStorage.getItem('aron_sd_count')||'50',10);
-  $('#source').value=officialUrl(ep);$('#episode').value=ep;$('#count').value=total;render();setStatus('Shared drama loaded.','ok');
-}else{
-  const saved=localStorage.getItem('aron_sd_album');
-  if(saved){
-    album=saved;ep=parseInt(localStorage.getItem('aron_sd_ep')||'1',10);total=parseInt(localStorage.getItem('aron_sd_count')||'50',10);
-    $('#source').value=officialUrl(ep);$('#episode').value=ep;$('#count').value=total;render();
-  }else loadSource();
+  if(album && !/shortdrama\/episode\//i.test($('#stage iframe')?.src||'')){
+    setStatus(`Drama ID found: ${album}. Loading Episode 1 to read the exact ending…`,'ok');
+    current=1; loadFrame(officialUrl(1),'Reading drama metadata…');
+    return;
+  }
+  if(album && total){
+    if(current>total) current=total;
+    updateMeta(); renderEpisodes();
+    setStatus(`Confirmed by TikTok page: ${dramaTitle||'Short Drama'} • ${total} episodes • ending at EP ${String(total).padStart(2,'0')}.`,'ok');
+    clearTimeout(resolveTimer);
+  }else if(album){
+    setStatus(`Album ${album} found. Waiting for TikTok's episode ranges…`,'warn');
+  }
 }
+window.addEventListener('message',e=>{
+  const d=e.data;
+  if(!d || d.__ARON_TIKTOK_BRIDGE__!==true)return;
+  applyMeta(d);
+});
+
+async function tryOembed(url){
+  try{
+    const r=await fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(url));
+    if(!r.ok)return null;
+    return await r.json();
+  }catch(e){return null}
+}
+async function smartResolve(){
+  const v=$('#source').value.trim(); if(!v)return;
+  lastShare=v; album=''; total=0; current=1; dramaTitle=''; updateMeta(); renderEpisodes();
+  setStatus('Smart resolving… waiting for TikTok metadata.','warn');
+
+  const direct=parseShortDrama(v);
+  if(direct){
+    album=direct.album; current=direct.ep; updateMeta();
+    loadFrame(officialUrl(current),'Reading drama metadata…');
+  }else{
+    const oe=await tryOembed(v);
+    if(oe?.title) dramaTitle=oe.title;
+    // First load the original share link. The extension can inspect any TikTok page/frame
+    // and return a Short Drama link when TikTok renders one.
+    loadFrame(v,'Finding Short Drama ID…');
+
+    // If TikTok oEmbed returned HTML, render it invisibly as a second resolver surface.
+    if(oe?.html){
+      const holder=document.createElement('div');
+      holder.id='aron-oembed-resolver';
+      holder.style.cssText='position:fixed;width:2px;height:2px;overflow:hidden;opacity:.01;pointer-events:none;left:-20px;top:-20px';
+      holder.innerHTML=oe.html.replace(/<script[\s\S]*?<\/script>/gi,'');
+      document.body.appendChild(holder);
+      if(!document.querySelector('script[data-aron-embed]')){
+        const s=document.createElement('script');s.src='https://www.tiktok.com/embed.js';s.async=true;s.dataset.aronEmbed='1';document.body.appendChild(s);
+      }
+    }
+  }
+
+  clearTimeout(resolveTimer);
+  resolveTimer=setTimeout(()=>{
+    if(!album){
+      setStatus(bridgeSeen
+        ? 'Bridge is connected, but TikTok did not expose a Short Drama album ID on this page.'
+        : 'No bridge metadata received. Install/enable the included ARON TikTok Bridge extension, then retry.','warn');
+    }else if(!total){
+      setStatus('Album ID found, but the exact episode ending is still not exposed. ARON will not guess.','warn');
+    }
+  },12000);
+}
+$('#smartBtn').onclick=smartResolve;
+$('#source').addEventListener('keydown',e=>{if(e.key==='Enter')smartResolve()});
+$('#prevBtn').onclick=()=>{if(album&&current>1)loadEpisode(current-1)};
+$('#nextBtn').onclick=()=>{if(album&&total&&current<total)loadEpisode(current+1)};
+$('#retryBtn').onclick=()=>{if(album)loadFrame(officialUrl(current),'Retrying metadata…');else smartResolve()};
+$('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
+
+const saved=JSON.parse(localStorage.getItem('aronSmartDrama')||'null');
+if(saved?.album){
+  album=saved.album; current=saved.current||1; total=saved.total||0; dramaTitle=saved.title||''; lastShare=saved.share||'';
+  updateMeta();renderEpisodes();
+}
+renderEpisodes();
 </script>
 </body>
 </html>
