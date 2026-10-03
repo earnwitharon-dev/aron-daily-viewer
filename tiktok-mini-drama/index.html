@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V6</title>
+<title>ARON Short Drama V6.1</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V6</b><small>Direct browser probe • visible diagnostics</small></div>
+      <div><b>ARON SHORT DRAMA V6.1</b><small>Direct probe • player-first with automatic fallback</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="extState">Extension NOT detected</span> • <span id="playerState">PLAYER CHECK</span></div>
   </div>
 
   <div class="card loader">
@@ -97,6 +97,7 @@ const $=s=>document.querySelector(s);
 const BASE='https://www.tiktok.com/shortdrama/episode/';
 
 let extensionReady=false;
+let playbackMode='test';
 let sourceLink='', normalVideoId='', dramaId='', totalEpisodes=0, currentEpisode=1, dramaTitle='';
 
 function log(t){
@@ -143,16 +144,43 @@ function mount(ep){
   if(!dramaId)return;
   currentEpisode=ep;
   const url=epUrl(ep);
+
+  $('#nowLabel').textContent='Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'');
+  $('#nowUrl').textContent=url;
+  renderEpisodes();
+
+  // Once TikTok has proven iframe playback is blocked in this browser session,
+  // keep the ARON episode controls but reuse one normal TikTok playback tab.
+  if(playbackMode==='external'){
+    $('#stage').innerHTML='<div class="empty"><div><strong>External TikTok playback</strong>ARON is controlling the episode list here while TikTok plays in the normal browser tab.</div></div>';
+    window.postMessage({
+      __ARON_V61_OPEN_EXTERNAL__:true,
+      url,
+      episode:ep
+    },'*');
+    return;
+  }
+
   const f=document.createElement('iframe');
   f.src=url;
   f.allow='autoplay; fullscreen; picture-in-picture; clipboard-write';
   f.allowFullscreen=true;
   f.referrerPolicy='strict-origin-when-cross-origin';
+
   $('#stage').innerHTML='';
   $('#stage').appendChild(f);
-  $('#nowLabel').textContent='Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'');
-  $('#nowUrl').textContent=url;
-  renderEpisodes();
+
+  $('#playerState').textContent='PLAYER TESTING';
+  setStatus('Trying Episode '+ep+' inside the ARON player first…','warn');
+  log('Player test: '+url);
+
+  // The extension can inspect Edge frame navigation even though the page itself
+  // cannot read a cross-origin TikTok iframe.
+  window.postMessage({
+    __ARON_V61_FRAME_TEST__:true,
+    url,
+    episode:ep
+  },'*');
 }
 function play(ep){
   if(!dramaId)return;
@@ -175,7 +203,8 @@ async function resolve(){
   sourceLink=$('#source').value.trim();
   if(!sourceLink)return;
 
-  normalVideoId='';dramaId='';totalEpisodes=0;currentEpisode=1;dramaTitle='';
+  normalVideoId='';dramaId='';totalEpisodes=0;currentEpisode=1;dramaTitle='';playbackMode='test';
+  $('#playerState').textContent='PLAYER CHECK';
   flow('#flow1','Share link received','ok');
   flow('#flow2','Resolving…','wait');
   flow('#flow3','Waiting','wait');
@@ -249,6 +278,26 @@ window.addEventListener('message',e=>{
     return;
   }
 
+
+  if(d.__ARON_V61_FRAME_RESULT__===true){
+    if(d.status==='ready'){
+      playbackMode='iframe';
+      $('#playerState').textContent='PLAYER INTERNAL';
+      setStatus('TikTok confirmed inside the ARON player.','ok');
+      log('Iframe playback confirmed by Edge frame inspection.');
+      return;
+    }
+
+    if(d.status==='fallback'){
+      playbackMode='external';
+      $('#playerState').textContent='PLAYER EXTERNAL';
+      $('#stage').innerHTML='<div class="empty"><div><strong>TikTok blocked iframe playback</strong>The same episode has been opened in a normal TikTok tab. ARON remains your episode controller.</div></div>';
+      setStatus('TikTok blocked iframe playback. Using one reusable normal TikTok playback tab.','warn');
+      log('Iframe blocked -> external playback tab: '+(d.url||''));
+      return;
+    }
+  }
+
   if(d.__ARON_V60_RESULT__===true){
     if(d.stage==='drama'){
       if(!d.dramaId){
@@ -301,7 +350,7 @@ $('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolve()});
 $('#prevBtn').onclick=()=>{if(currentEpisode>1)play(currentEpisode-1)};
 $('#nextBtn').onclick=()=>{if(totalEpisodes&&currentEpisode<totalEpisodes)play(currentEpisode+1)};
 $('#reloadBtn').onclick=()=>{if(dramaId)play(currentEpisode)};
-$('#openBtn').onclick=()=>{if(dramaId)window.open(epUrl(currentEpisode),'_blank','noopener')};
+$('#openBtn').onclick=()=>{if(dramaId)window.postMessage({__ARON_V61_OPEN_EXTERNAL__:true,url:epUrl(currentEpisode),episode:currentEpisode},'*')};
 $('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
 
 renderEpisodes();
