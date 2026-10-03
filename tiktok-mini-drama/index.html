@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V5.8</title>
+<title>ARON Short Drama V5.9</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
@@ -19,7 +19,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
 .controls{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px}.group{display:flex;gap:7px;flex-wrap:wrap}.now{border-top:1px solid var(--line);padding:12px 14px}.now b{display:block;font-size:14px}.now code{display:block;color:var(--muted);font-size:9.5px;margin-top:4px;word-break:break-all}
 .side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint,.meta{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:10px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}.status.bad{color:#ffc2cb;border-color:rgba(255,157,171,.28)}
 .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}.metric{background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;min-width:0}.metric small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.07em}.metric b{display:block;font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:430px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:10.5px}.ep.active{border-color:var(--accent);color:#c7fff1;box-shadow:0 0 0 2px rgba(49,223,186,.05)}.ep.end{border-color:rgba(49,223,186,.38)}
+.episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:430px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:10.5px}.ep.active{border-color:var(--accent);color:#c7fff1}.ep.end{border-color:rgba(49,223,186,.38)}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#687b80;margin-right:6px}.dot.ok{background:var(--accent);box-shadow:0 0 9px rgba(49,223,186,.7)}
 @media(max-width:950px){.app{padding:8px}.flow{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stage{height:68vh;min-height:480px}.episodes{grid-template-columns:repeat(5,1fr);max-height:270px}}
 @media(max-width:520px){.flow{grid-template-columns:1fr}.stage{height:72vh;min-height:520px}.episodes{grid-template-columns:repeat(4,1fr)}}
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V5.8</b><small>V2 captures Short Drama POST ID → V3 concat only</small></div>
+      <div><b>ARON SHORT DRAMA V5.9</b><small>fixed V2 → V3 handoff</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="probeText">V2 Drama Probe waiting</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="probeText">Probe waiting</span></div>
   </div>
 
   <div class="card loader">
@@ -43,17 +43,16 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
   <div class="flow">
     <div id="flow1" class="flowStep"><small>V2 • SHARE LINK</small><b>Waiting</b></div>
     <div id="flow2" class="flowStep"><small>V2 • NORMAL VIDEO ID</small><b>Waiting</b></div>
-    <div id="flow3" class="flowStep clickable" role="button" tabindex="0"><small>V2 • SHORT DRAMA POST ID → V3 /1</small><b>Waiting</b></div>
+    <div id="flow3" class="flowStep clickable"><small>V2 • SHORT DRAMA ID → V3 /1</small><b>Waiting</b></div>
     <div id="flow4" class="flowStep"><small>EP1 • EXACT ENDING</small><b>Waiting</b></div>
   </div>
 
   <div class="layout">
     <main class="card viewer">
       <div class="stageWrap">
-        <div id="stage" class="stage">
-          <div class="empty"><div><strong>One deterministic capture.</strong>V2 opens the resolved TikTok post and reads the existing <code>/shortdrama/episode/ID/...</code> link. V3 only adds that ID to the fixed URL.</div></div>
-        </div>
+        <div id="stage" class="stage"><div class="empty"><div><strong>V5.9</strong>Original share link is probed in a real logged-in TikTok tab. Once the existing Short Drama ID is seen, V3 builds Episode 1 immediately.</div></div></div>
       </div>
+
       <div class="controls">
         <div class="group">
           <button id="prevBtn" class="btn ghost">← Previous</button>
@@ -61,9 +60,11 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
         </div>
         <div class="group">
           <button id="reloadBtn" class="btn ghost">↻ Reload</button>
+          <button id="openBtn" class="btn ghost">↗ Open Current</button>
           <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
         </div>
       </div>
+
       <div class="now">
         <b id="nowLabel">Nothing loaded</b>
         <code id="nowUrl">—</code>
@@ -71,29 +72,19 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
     </main>
 
     <aside class="card side">
-      <h2>CAPTURED DATA</h2>
+      <h2>LIVE CAPTURED DATA</h2>
       <div class="metaGrid">
         <div class="metric"><small>Normal Video ID</small><b id="videoView">—</b></div>
-        <div class="metric"><small>Short Drama POST ID</small><b id="dramaView">—</b></div>
+        <div class="metric"><small>Short Drama ID</small><b id="dramaView">—</b></div>
         <div class="metric"><small>Total Episodes</small><b id="totalView">Unknown</b></div>
-        <div class="metric"><small>Ending</small><b id="endingView">Unknown</b></div>
+        <div class="metric"><small>Ending</small><b id="endView">Unknown</b></div>
       </div>
-      <div class="meta"><small>EPISODE 1 URL</small><br><b id="ep1View" style="color:var(--text)">Waiting…</b></div>
+      <div class="meta"><small>EP1 URL</small><br><b id="ep1View" style="color:var(--text)">Waiting…</b></div>
       <div class="meta"><small>TITLE</small><br><b id="titleView" style="color:var(--text)">Waiting…</b></div>
-      <div id="status" class="status">
-        V2 first resolves the normal TikTok post, then captures the Short Drama POST ID already present in that TikTok page. No ID guessing.
-      </div>
+      <div id="status" class="status">Ready.</div>
 
       <h2>CONFIRMED EPISODES</h2>
       <div id="episodes" class="episodes"></div>
-
-      <div class="hint" style="margin-top:10px">
-        Sample confirmed from your files:<br>
-        Normal video ID: <b>7685616651613785364</b><br>
-        Short Drama POST ID: <b>7685616589894521876</b><br><br>
-        V3 then builds:<br>
-        <b>https://www.tiktok.com/shortdrama/episode/7685616589894521876/1</b>
-      </div>
     </aside>
   </div>
 </div>
@@ -102,14 +93,12 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:aut
 const $=s=>document.querySelector(s);
 const BASE='https://www.tiktok.com/shortdrama/episode/';
 
+let sourceLink='';
 let normalVideoId='';
-let dramaPostId='';
+let dramaId='';
 let totalEpisodes=0;
 let currentEpisode=1;
 let dramaTitle='';
-let fallbackWindow=null;
-let frameReady=false;
-let frameTimer=null;
 
 function flow(id,text,state='ok'){
   const el=$(id);
@@ -117,176 +106,135 @@ function flow(id,text,state='ok'){
   if(state)el.classList.add(state);
   el.querySelector('b').textContent=text;
 }
-function setStatus(text,kind=''){
+function setStatus(t,k=''){
   const s=$('#status');
-  s.className='status'+(kind?' '+kind:'');
-  s.textContent=text;
+  s.className='status'+(k?' '+k:'');
+  s.textContent=t;
 }
-function episodeUrl(ep=1){
-  return dramaPostId ? BASE+dramaPostId+'/'+Math.max(1,ep) : '';
+function epUrl(ep=1){
+  return dramaId ? BASE+dramaId+'/'+Math.max(1,ep) : '';
 }
-function updateMeta(){
+function update(){
   $('#videoView').textContent=normalVideoId||'—';
-  $('#dramaView').textContent=dramaPostId||'—';
+  $('#dramaView').textContent=dramaId||'—';
   $('#totalView').textContent=totalEpisodes?String(totalEpisodes):'Unknown';
-  $('#endingView').textContent=totalEpisodes?'EP '+String(totalEpisodes).padStart(2,'0'):'Unknown';
-  $('#ep1View').textContent=dramaPostId?episodeUrl(1):'Waiting…';
+  $('#endView').textContent=totalEpisodes?'EP '+String(totalEpisodes).padStart(2,'0'):'Unknown';
+  $('#ep1View').textContent=dramaId?epUrl(1):'Waiting…';
   $('#titleView').textContent=dramaTitle||'Waiting…';
 }
 function renderEpisodes(){
   const box=$('#episodes');
   box.innerHTML='';
   if(!totalEpisodes){
-    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">Waiting for Episode 1 to confirm the exact series ending.</div>';
+    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">No guessed episodes. Waiting for EP1 metadata.</div>';
     return;
   }
   for(let i=1;i<=totalEpisodes;i++){
     const b=document.createElement('button');
     b.className='ep'+(i===currentEpisode?' active':'')+(i===totalEpisodes?' end':'');
     b.textContent='EP '+String(i).padStart(2,'0');
-    b.onclick=()=>testEpisode(i);
+    b.onclick=()=>play(i);
     box.appendChild(b);
   }
 }
-function mount(ep,label){
+function mount(ep){
+  const url=epUrl(ep);
   const f=document.createElement('iframe');
-  f.src=episodeUrl(ep);
+  f.src=url;
   f.allow='autoplay; fullscreen; picture-in-picture; clipboard-write';
   f.allowFullscreen=true;
   f.referrerPolicy='strict-origin-when-cross-origin';
-  f.title=label;
   $('#stage').innerHTML='';
   $('#stage').appendChild(f);
-  $('#nowLabel').textContent=label;
-  $('#nowUrl').textContent=episodeUrl(ep);
+  $('#nowLabel').textContent='Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'');
+  $('#nowUrl').textContent=url;
 }
-function reserveFallback(){
-  try{
-    const w=window.open('about:blank','ARON_TIKTOK_EPISODE');
-    if(w){
-      try{
-        w.document.write('<!doctype html><title>ARON TikTok</title><body style="background:#071014;color:#fff;font-family:Segoe UI,Arial;padding:30px"><h3>Testing inside ARON player…</h3></body>');
-        w.document.close();
-        w.blur();
-        window.focus();
-      }catch(e){}
-    }
-    return w;
-  }catch(e){return null}
-}
-function testEpisode(ep){
-  if(!dramaPostId)return;
-  if(totalEpisodes && (ep<1||ep>totalEpisodes))return;
-
+function play(ep){
+  if(!dramaId)return;
+  if(totalEpisodes&&(ep<1||ep>totalEpisodes))return;
   currentEpisode=ep;
-  frameReady=false;
-  clearTimeout(frameTimer);
-  fallbackWindow=reserveFallback();
-
-  mount(ep,'Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'')+' • checking player');
+  mount(ep);
   renderEpisodes();
-
-  frameTimer=setTimeout(()=>{
-    if(frameReady){
-      try{if(fallbackWindow&&!fallbackWindow.closed)fallbackWindow.close()}catch(e){}
-      fallbackWindow=null;
-      return;
-    }
-    try{
-      if(fallbackWindow&&!fallbackWindow.closed){
-        fallbackWindow.location.replace(episodeUrl(ep));
-        fallbackWindow.focus();
-        setStatus('TikTok did not confirm iframe playback. Opened the exact episode URL in a normal tab.','warn');
-      }
-    }catch(e){}
-  },5000);
 }
+function startV3(){
+  flow('#flow3',epUrl(1));
+  update();
+  setStatus('Short Drama ID handed to V3. Building exact Episode 1 URL now.','ok');
+  mount(1);
 
-async function resolveOembed(link){
+  // Probe the real EP1 in a normal inactive TikTok tab for count/title.
+  window.postMessage({
+    __ARON_V59_PROBE_EP1__:true,
+    dramaId,
+    url:epUrl(1)
+  },'*');
+}
+async function oembed(link){
   try{
     const r=await fetch('https://www.tiktok.com/oembed?url='+encodeURIComponent(link));
     if(!r.ok)return null;
     return await r.json();
   }catch(e){return null}
 }
-function extractNormalVideo(data,source){
+function normalFromOembed(data,src){
   const h=data?.html||'';
   const id=(h.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1] ||
-           ((h.match(/cite=["']([^"']+)["']/i)||[])[1]||source).match(/\/video\/(\d{10,25})/i)?.[1] || '';
-  const cite=(h.match(/cite=["']([^"']+)["']/i)||[])[1]||source;
-  return {id,url: cite};
-}
-function startV3(){
-  currentEpisode=1;
-  flow('#flow3',episodeUrl(1));
-  updateMeta();
-
-  setStatus('V2 captured the Short Drama POST ID. V3 only built BASE + ID + /1. Probing Episode 1 for exact ending…','ok');
-
-  window.postMessage({
-    __ARON_V58_PROBE_EP1__:true,
-    dramaPostId,
-    url:episodeUrl(1)
-  },'*');
-
-  // player-first attempt
-  mount(1,'Episode 1 • detecting ending');
+    ((h.match(/cite=["']([^"']+)["']/i)||[])[1]||src).match(/\/video\/(\d{10,25})/i)?.[1] || '';
+  return id;
 }
 async function resolve(){
-  const src=$('#source').value.trim();
-  if(!src)return;
+  sourceLink=$('#source').value.trim();
+  if(!sourceLink)return;
 
   normalVideoId='';
-  dramaPostId='';
+  dramaId='';
   totalEpisodes=0;
   currentEpisode=1;
   dramaTitle='';
-  $('#dot').classList.remove('ok');
-  $('#probeText').textContent='V2 Drama Probe waiting';
 
+  $('#dot').classList.remove('ok');
+  $('#probeText').textContent='Probe waiting';
   flow('#flow1','Share link received');
   flow('#flow2','Resolving','wait');
   flow('#flow3','Waiting','wait');
   flow('#flow4','Waiting','wait');
-  updateMeta();
+  update();
   renderEpisodes();
-  setStatus('V2 resolving TikTok share link…','warn');
 
-  const direct=src.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
+  const direct=sourceLink.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
   if(direct){
-    dramaPostId=direct[1];
+    dramaId=direct[1];
     flow('#flow2','Direct Short Drama URL');
-    updateMeta();
+    update();
     startV3();
     return;
   }
 
-  const data=await resolveOembed(src);
+  setStatus('V2 resolving normal TikTok video ID…','warn');
+  const data=await oembed(sourceLink);
   if(!data){
-    setStatus('TikTok oEmbed could not resolve this share link.','bad');
+    setStatus('TikTok oEmbed failed.','bad');
     return;
   }
 
   dramaTitle=data.title||'';
-  const v=extractNormalVideo(data,src);
-  normalVideoId=v.id;
+  normalVideoId=normalFromOembed(data,sourceLink);
 
   if(!normalVideoId){
-    setStatus('V2 could not capture the normal TikTok video ID.','bad');
+    setStatus('Normal TikTok video ID not found.','bad');
     return;
   }
 
   flow('#flow2',normalVideoId);
-  updateMeta();
+  update();
 
-  setStatus('Normal video resolved. V2 is now reading that TikTok post for its existing /shortdrama/episode/ID/... link…','ok');
+  setStatus('Normal video ID captured. Opening ORIGINAL share link in logged-in TikTok probe to capture the Short Drama ID…','ok');
 
-  // Deterministic V2 capture. The extension opens the normal post and returns only
-  // the ID already present in an actual /shortdrama/episode/ID/EP link.
+  // IMPORTANT: original share link, not oEmbed canonical video URL.
   window.postMessage({
-    __ARON_V58_CAPTURE_DRAMA_ID__:true,
-    normalVideoId,
-    postUrl:v.url
+    __ARON_V59_CAPTURE_DRAMA__:true,
+    sourceLink,
+    normalVideoId
   },'*');
 }
 
@@ -294,68 +242,46 @@ window.addEventListener('message',e=>{
   const d=e.data;
   if(!d)return;
 
-  if(d.__ARON_V58_RESULT__===true){
+  if(d.__ARON_V59_RESULT__===true){
     $('#dot').classList.add('ok');
-    $('#probeText').textContent='V2 Drama Probe connected';
+    $('#probeText').textContent='Probe connected';
 
-    if(d.stage==='drama-id'){
-      if(!d.dramaPostId){
-        setStatus('The resolved TikTok post did not expose a Short Drama episode link.','warn');
+    if(d.stage==='drama'){
+      if(!d.dramaId){
+        setStatus(d.message||'Short Drama ID not found.','warn');
         return;
       }
-      dramaPostId=String(d.dramaPostId);
-      updateMeta();
+      dramaId=String(d.dramaId);
+      update();
       startV3();
       return;
     }
 
     if(d.stage==='episodes'){
-      if(d.dramaPostId && String(d.dramaPostId)!==String(dramaPostId))return;
-
+      if(d.dramaId && String(d.dramaId)!==String(dramaId))return;
       if(d.title)dramaTitle=String(d.title);
-      if(d.totalEpisodes && Number(d.totalEpisodes)>0){
-        totalEpisodes=Number(d.totalEpisodes);
-        flow('#flow4',totalEpisodes+' episodes • END EP'+String(totalEpisodes).padStart(2,'0'));
-        updateMeta();
+
+      const n=Number(d.totalEpisodes||0);
+      if(n>0){
+        totalEpisodes=n;
+        flow('#flow4',n+' episodes • END EP'+String(n).padStart(2,'0'));
+        update();
         renderEpisodes();
-        setStatus(`Episode 1 confirmed ${totalEpisodes} episodes. No guessed episodes were added.`,'ok');
-      }else if(d.message){
-        setStatus(d.message,'warn');
+        setStatus('EP1 confirmed '+n+' episodes.','ok');
+      }else{
+        setStatus(d.message||'EP1 loaded but total episode count is not exposed yet.','warn');
       }
-      return;
-    }
-  }
-
-  if(d.__ARON_V58_FRAME_STATUS__===true){
-    if(d.dramaPostId && dramaPostId && String(d.dramaPostId)!==String(dramaPostId))return;
-
-    if(d.status==='ready'){
-      frameReady=true;
-      clearTimeout(frameTimer);
-      try{if(fallbackWindow&&!fallbackWindow.closed)fallbackWindow.close()}catch(e){}
-      fallbackWindow=null;
-      setStatus('TikTok episode loaded inside ARON player.','ok');
-    }else if(d.status==='blocked'){
-      frameReady=false;
-      clearTimeout(frameTimer);
-      try{
-        if(fallbackWindow&&!fallbackWindow.closed){
-          fallbackWindow.location.replace(episodeUrl(currentEpisode));
-          fallbackWindow.focus();
-        }
-      }catch(e){}
-      setStatus('TikTok blocked iframe playback. Opened the exact episode URL in a normal tab.','warn');
     }
   }
 });
 
 $('#resolveBtn').onclick=resolve;
 $('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolve()});
-$('#flow3').onclick=()=>{if(dramaPostId)testEpisode(1)};
-$('#flow3').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&dramaPostId){e.preventDefault();testEpisode(1)}});
-$('#prevBtn').onclick=()=>{if(dramaPostId&&currentEpisode>1)testEpisode(currentEpisode-1)};
-$('#nextBtn').onclick=()=>{if(dramaPostId&&totalEpisodes&&currentEpisode<totalEpisodes)testEpisode(currentEpisode+1)};
-$('#reloadBtn').onclick=()=>{if(dramaPostId)testEpisode(currentEpisode)};
+$('#flow3').onclick=()=>{if(dramaId)play(1)};
+$('#prevBtn').onclick=()=>{if(currentEpisode>1)play(currentEpisode-1)};
+$('#nextBtn').onclick=()=>{if(totalEpisodes&&currentEpisode<totalEpisodes)play(currentEpisode+1)};
+$('#reloadBtn').onclick=()=>{if(dramaId)play(currentEpisode)};
+$('#openBtn').onclick=()=>{if(dramaId)window.open(epUrl(currentEpisode),'_blank','noopener')};
 $('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
 
 renderEpisodes();
