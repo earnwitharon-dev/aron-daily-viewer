@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071014">
-<title>ARON Short Drama V5.7</title>
+<title>ARON Short Drama V5.8</title>
 <style>
 :root{--bg:#061014;--panel:#0d171d;--line:#20333c;--text:#eef8f6;--muted:#8fa5aa;--accent:#31dfba;--accent2:#89f4df;--warn:#ffd98a;--bad:#ff9dab}
 *{box-sizing:border-box}html,body{min-height:100%}
 body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(49,223,186,.15),transparent 31%),radial-gradient(circle at 88% 0%,rgba(74,105,255,.10),transparent 27%),var(--bg)}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:auto;padding:12px}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1480px;margin:auto;padding:12px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(137,244,223,.26);background:linear-gradient(145deg,rgba(49,223,186,.21),rgba(49,223,186,.02))}.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.badge{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
 .card{background:linear-gradient(180deg,rgba(15,27,33,.96),rgba(8,17,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.37)}
 .loader{padding:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:12px}.input{width:100%;background:#071217;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px 14px;outline:none}.input:focus{border-color:rgba(49,223,186,.65);box-shadow:0 0 0 3px rgba(49,223,186,.07)}
 .btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#03241b}.ghost{background:#081318;color:var(--text);border:1px solid var(--line)}
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.flowStep{padding:10px;border:1px solid var(--line);background:#081318;border-radius:13px;min-width:0}.flowStep small{display:block;color:var(--muted);font-size:8px;letter-spacing:.08em}.flowStep b{display:block;font-size:10.5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.flowStep.ok{border-color:rgba(49,223,186,.45)}.flowStep.ok b{color:#c5faed}.flowStep.wait b{color:var(--warn)}.flowStep.clickable{cursor:pointer;transition:.15s}.flowStep.clickable:hover{transform:translateY(-1px);border-color:rgba(49,223,186,.75);background:rgba(49,223,186,.06)}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 355px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:10px}.stage{height:min(78vh,860px);min-height:570px;background:#000;border-radius:15px;overflow:hidden;position:relative}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:6px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 365px;gap:12px}.viewer{overflow:hidden}.stageWrap{padding:10px}.stage{height:min(78vh,860px);min-height:570px;background:#000;border-radius:15px;overflow:hidden;position:relative}.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:6px}
 .controls{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding:10px}.group{display:flex;gap:7px;flex-wrap:wrap}.now{border-top:1px solid var(--line);padding:12px 14px}.now b{display:block;font-size:14px}.now code{display:block;color:var(--muted);font-size:9.5px;margin-top:4px;word-break:break-all}
 .side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.status,.hint,.meta{font-size:10px;line-height:1.55;color:var(--muted);background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:10px}.status.ok{color:#bff7e8;border-color:rgba(49,223,186,.32)}.status.warn{color:var(--warn);border-color:rgba(255,217,138,.30)}.status.bad{color:#ffc2cb;border-color:rgba(255,157,171,.28)}
 .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}.metric{background:#071217;border:1px solid var(--line);border-radius:11px;padding:10px;min-width:0}.metric small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.07em}.metric b{display:block;font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .episodes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:430px;overflow:auto}.ep{background:#081318;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 5px;text-align:center;font-weight:800;font-size:10.5px}.ep.active{border-color:var(--accent);color:#c7fff1;box-shadow:0 0 0 2px rgba(49,223,186,.05)}.ep.end{border-color:rgba(49,223,186,.38)}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#687b80;margin-right:6px}.dot.ok{background:var(--accent);box-shadow:0 0 9px rgba(49,223,186,.7)}
-@media(max-width:940px){.app{padding:8px}.flow{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stage{height:68vh;min-height:480px}.episodes{grid-template-columns:repeat(5,1fr);max-height:270px}}
+@media(max-width:950px){.app{padding:8px}.flow{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr}.loader{grid-template-columns:1fr}.badge{display:none}.side{order:2}.stage{height:68vh;min-height:480px}.episodes{grid-template-columns:repeat(5,1fr);max-height:270px}}
 @media(max-width:520px){.flow{grid-template-columns:1fr}.stage{height:72vh;min-height:520px}.episodes{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -30,9 +30,9 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#89f4df" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dfba" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON SHORT DRAMA V5.7</b><small>V2 captures POST ID → V3 fixed URL + POST ID + /1</small></div>
+      <div><b>ARON SHORT DRAMA V5.8</b><small>V2 captures Short Drama POST ID → V3 concat only</small></div>
     </div>
-    <div class="badge"><span id="dot" class="dot"></span><span id="probeText">EP Count Probe waiting</span></div>
+    <div class="badge"><span id="dot" class="dot"></span><span id="probeText">V2 Drama Probe waiting</span></div>
   </div>
 
   <div class="card loader">
@@ -42,19 +42,18 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
 
   <div class="flow">
     <div id="flow1" class="flowStep"><small>V2 • SHARE LINK</small><b>Waiting</b></div>
-    <div id="flow2" class="flowStep"><small>V2 • CAPTURED POST ID</small><b>Waiting</b></div>
-    <div id="flow3" class="flowStep clickable" role="button" tabindex="0"><small>V3 • FIXED URL + POST ID + /1</small><b>Waiting</b></div>
-    <div id="flow4" class="flowStep"><small>EP1 • DETECT ENDING</small><b>Waiting</b></div>
+    <div id="flow2" class="flowStep"><small>V2 • NORMAL VIDEO ID</small><b>Waiting</b></div>
+    <div id="flow3" class="flowStep clickable" role="button" tabindex="0"><small>V2 • SHORT DRAMA POST ID → V3 /1</small><b>Waiting</b></div>
+    <div id="flow4" class="flowStep"><small>EP1 • EXACT ENDING</small><b>Waiting</b></div>
   </div>
 
   <div class="layout">
     <main class="card viewer">
       <div class="stageWrap">
         <div id="stage" class="stage">
-          <div class="empty"><div><strong>No second ID lookup.</strong>Once V2 captures the POST ID, V3 only concatenates the fixed Short Drama URL and <code>/1</code>.</div></div>
+          <div class="empty"><div><strong>One deterministic capture.</strong>V2 opens the resolved TikTok post and reads the existing <code>/shortdrama/episode/ID/...</code> link. V3 only adds that ID to the fixed URL.</div></div>
         </div>
       </div>
-
       <div class="controls">
         <div class="group">
           <button id="prevBtn" class="btn ghost">← Previous</button>
@@ -65,7 +64,6 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
           <button id="fullBtn" class="btn ghost">⛶ Fullscreen</button>
         </div>
       </div>
-
       <div class="now">
         <b id="nowLabel">Nothing loaded</b>
         <code id="nowUrl">—</code>
@@ -74,30 +72,26 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
 
     <aside class="card side">
       <h2>CAPTURED DATA</h2>
-
       <div class="metaGrid">
-        <div class="metric"><small>V2 POST ID</small><b id="postView">—</b></div>
+        <div class="metric"><small>Normal Video ID</small><b id="videoView">—</b></div>
+        <div class="metric"><small>Short Drama POST ID</small><b id="dramaView">—</b></div>
         <div class="metric"><small>Total Episodes</small><b id="totalView">Unknown</b></div>
         <div class="metric"><small>Ending</small><b id="endingView">Unknown</b></div>
-        <div class="metric"><small>Current</small><b id="currentView">—</b></div>
       </div>
-
       <div class="meta"><small>EPISODE 1 URL</small><br><b id="ep1View" style="color:var(--text)">Waiting…</b></div>
       <div class="meta"><small>TITLE</small><br><b id="titleView" style="color:var(--text)">Waiting…</b></div>
-
       <div id="status" class="status">
-        V5.7 does not search for another ID after V2.
+        V2 first resolves the normal TikTok post, then captures the Short Drama POST ID already present in that TikTok page. No ID guessing.
       </div>
 
       <h2>CONFIRMED EPISODES</h2>
       <div id="episodes" class="episodes"></div>
 
       <div class="hint" style="margin-top:10px">
-        Fixed rule:<br><br>
-        <b>https://www.tiktok.com/shortdrama/episode/</b><br>
-        + <b>V2 captured POST ID</b><br>
-        + <b>/1</b><br><br>
-        Example:<br>
+        Sample confirmed from your files:<br>
+        Normal video ID: <b>7685616651613785364</b><br>
+        Short Drama POST ID: <b>7685616589894521876</b><br><br>
+        V3 then builds:<br>
         <b>https://www.tiktok.com/shortdrama/episode/7685616589894521876/1</b>
       </div>
     </aside>
@@ -108,7 +102,8 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:1460px;margin:aut
 const $=s=>document.querySelector(s);
 const BASE='https://www.tiktok.com/shortdrama/episode/';
 
-let postId='';
+let normalVideoId='';
+let dramaPostId='';
 let totalEpisodes=0;
 let currentEpisode=1;
 let dramaTitle='';
@@ -128,25 +123,23 @@ function setStatus(text,kind=''){
   s.textContent=text;
 }
 function episodeUrl(ep=1){
-  return postId ? BASE+postId+'/'+Math.max(1,ep) : '';
+  return dramaPostId ? BASE+dramaPostId+'/'+Math.max(1,ep) : '';
 }
 function updateMeta(){
-  $('#postView').textContent=postId||'—';
+  $('#videoView').textContent=normalVideoId||'—';
+  $('#dramaView').textContent=dramaPostId||'—';
   $('#totalView').textContent=totalEpisodes?String(totalEpisodes):'Unknown';
   $('#endingView').textContent=totalEpisodes?'EP '+String(totalEpisodes).padStart(2,'0'):'Unknown';
-  $('#currentView').textContent=postId?'EP '+String(currentEpisode).padStart(2,'0'):'—';
-  $('#ep1View').textContent=postId?episodeUrl(1):'Waiting…';
+  $('#ep1View').textContent=dramaPostId?episodeUrl(1):'Waiting…';
   $('#titleView').textContent=dramaTitle||'Waiting…';
 }
 function renderEpisodes(){
   const box=$('#episodes');
   box.innerHTML='';
-
   if(!totalEpisodes){
-    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">Episode 1 is the detector page. ARON will not invent the ending.</div>';
+    box.innerHTML='<div class="hint" style="grid-column:1/-1;margin:0">Waiting for Episode 1 to confirm the exact series ending.</div>';
     return;
   }
-
   for(let i=1;i<=totalEpisodes;i++){
     const b=document.createElement('button');
     b.className='ep'+(i===currentEpisode?' active':'')+(i===totalEpisodes?' end':'');
@@ -162,7 +155,6 @@ function mount(ep,label){
   f.allowFullscreen=true;
   f.referrerPolicy='strict-origin-when-cross-origin';
   f.title=label;
-
   $('#stage').innerHTML='';
   $('#stage').appendChild(f);
   $('#nowLabel').textContent=label;
@@ -173,7 +165,7 @@ function reserveFallback(){
     const w=window.open('about:blank','ARON_TIKTOK_EPISODE');
     if(w){
       try{
-        w.document.write('<!doctype html><title>ARON TikTok Check</title><body style="background:#071014;color:white;font-family:Segoe UI,Arial;padding:30px"><h3>Testing episode inside ARON…</h3></body>');
+        w.document.write('<!doctype html><title>ARON TikTok</title><body style="background:#071014;color:#fff;font-family:Segoe UI,Arial;padding:30px"><h3>Testing inside ARON player…</h3></body>');
         w.document.close();
         w.blur();
         window.focus();
@@ -183,17 +175,15 @@ function reserveFallback(){
   }catch(e){return null}
 }
 function testEpisode(ep){
-  if(!postId)return;
+  if(!dramaPostId)return;
   if(totalEpisodes && (ep<1||ep>totalEpisodes))return;
 
   currentEpisode=ep;
   frameReady=false;
   clearTimeout(frameTimer);
-
   fallbackWindow=reserveFallback();
 
   mount(ep,'Episode '+ep+(totalEpisodes?' of '+totalEpisodes:'')+' • checking player');
-  updateMeta();
   renderEpisodes();
 
   frameTimer=setTimeout(()=>{
@@ -202,12 +192,11 @@ function testEpisode(ep){
       fallbackWindow=null;
       return;
     }
-
     try{
       if(fallbackWindow&&!fallbackWindow.closed){
         fallbackWindow.location.replace(episodeUrl(ep));
         fallbackWindow.focus();
-        setStatus('TikTok did not confirm iframe playback. Opened the same exact episode URL in a normal tab.','warn');
+        setStatus('TikTok did not confirm iframe playback. Opened the exact episode URL in a normal tab.','warn');
       }
     }catch(e){}
   },5000);
@@ -220,95 +209,53 @@ async function resolveOembed(link){
     return await r.json();
   }catch(e){return null}
 }
-
-/*
-  V2 CAPTURE RULE:
-  1. Prefer a Short Drama episode ID if TikTok already exposes one in resolved HTML.
-     This produces the ID used by:
-       /shortdrama/episode/POST_ID/1
-  2. Only if absent, fall back to normal data-video-id / cite video ID.
-*/
-function extractV2PostId(data,source){
-  const html=data?.html||'';
-
-  const shortDramaPatterns=[
-    /shortdrama\/episode\/(\d{10,25})\/\d+/i,
-    /shortdrama\\u002Fepisode\\u002F(\d{10,25})\\u002F\d+/i,
-    /shortdrama\\\/episode\\\/(\d{10,25})\\\/\d+/i,
-    /shortdrama%2Fepisode%2F(\d{10,25})%2F\d+/i
-  ];
-
-  for(const re of shortDramaPatterns){
-    const m=html.match(re);
-    if(m)return m[1];
-  }
-
-  const direct=(html.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1];
-  if(direct)return direct;
-
-  const cite=(html.match(/cite=["']([^"']+)["']/i)||[])[1]||'';
-
-  for(const re of shortDramaPatterns){
-    const m=cite.match(re);
-    if(m)return m[1];
-  }
-
-  const fromVideo=(cite.match(/\/video\/(\d{10,25})/i)||[])[1];
-  if(fromVideo)return fromVideo;
-
-  const sourceShort=source.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
-  if(sourceShort)return sourceShort[1];
-
-  return (source.match(/\/video\/(\d{10,25})/i)||[])[1]||'';
+function extractNormalVideo(data,source){
+  const h=data?.html||'';
+  const id=(h.match(/data-video-id=["'](\d{10,25})["']/i)||[])[1] ||
+           ((h.match(/cite=["']([^"']+)["']/i)||[])[1]||source).match(/\/video\/(\d{10,25})/i)?.[1] || '';
+  const cite=(h.match(/cite=["']([^"']+)["']/i)||[])[1]||source;
+  return {id,url: cite};
 }
-
 function startV3(){
-  if(!postId)return;
-
   currentEpisode=1;
   flow('#flow3',episodeUrl(1));
   updateMeta();
 
-  setStatus(
-    'V2 POST ID captured. V3 performed only fixed URL + POST ID + /1. Starting Episode 1 count probe.',
-    'ok'
-  );
+  setStatus('V2 captured the Short Drama POST ID. V3 only built BASE + ID + /1. Probing Episode 1 for exact ending…','ok');
 
   window.postMessage({
-    __ARON_V57_EP_PROBE_REQUEST__:true,
-    postId,
+    __ARON_V58_PROBE_EP1__:true,
+    dramaPostId,
     url:episodeUrl(1)
   },'*');
 
-  // Try Episode 1 in our player immediately.
+  // player-first attempt
   mount(1,'Episode 1 • detecting ending');
 }
-
-async function resolveAndPlay(){
+async function resolve(){
   const src=$('#source').value.trim();
   if(!src)return;
 
-  postId='';
+  normalVideoId='';
+  dramaPostId='';
   totalEpisodes=0;
   currentEpisode=1;
   dramaTitle='';
-
   $('#dot').classList.remove('ok');
-  $('#probeText').textContent='EP Count Probe waiting';
+  $('#probeText').textContent='V2 Drama Probe waiting';
 
   flow('#flow1','Share link received');
   flow('#flow2','Resolving','wait');
   flow('#flow3','Waiting','wait');
   flow('#flow4','Waiting','wait');
-
   updateMeta();
   renderEpisodes();
-  setStatus('V2 resolving TikTok share link and capturing POST ID…','warn');
+  setStatus('V2 resolving TikTok share link…','warn');
 
-  const directShort=src.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
-  if(directShort){
-    postId=directShort[1];
-    flow('#flow2',postId);
+  const direct=src.match(/shortdrama\/episode\/(\d{10,25})\/\d+/i);
+  if(direct){
+    dramaPostId=direct[1];
+    flow('#flow2','Direct Short Drama URL');
     updateMeta();
     startV3();
     return;
@@ -316,52 +263,71 @@ async function resolveAndPlay(){
 
   const data=await resolveOembed(src);
   if(!data){
-    setStatus('V2 could not resolve this TikTok share link.','bad');
+    setStatus('TikTok oEmbed could not resolve this share link.','bad');
     return;
   }
 
   dramaTitle=data.title||'';
-  postId=extractV2PostId(data,src);
+  const v=extractNormalVideo(data,src);
+  normalVideoId=v.id;
 
-  if(!postId){
-    setStatus('V2 resolved the link but did not capture a POST ID.','bad');
+  if(!normalVideoId){
+    setStatus('V2 could not capture the normal TikTok video ID.','bad');
     return;
   }
 
-  flow('#flow2',postId);
+  flow('#flow2',normalVideoId);
   updateMeta();
 
-  // NO FURTHER ID DISCOVERY AFTER THIS.
-  startV3();
+  setStatus('Normal video resolved. V2 is now reading that TikTok post for its existing /shortdrama/episode/ID/... link…','ok');
+
+  // Deterministic V2 capture. The extension opens the normal post and returns only
+  // the ID already present in an actual /shortdrama/episode/ID/EP link.
+  window.postMessage({
+    __ARON_V58_CAPTURE_DRAMA_ID__:true,
+    normalVideoId,
+    postUrl:v.url
+  },'*');
 }
 
 window.addEventListener('message',e=>{
   const d=e.data;
   if(!d)return;
 
-  if(d.__ARON_V57_EP_PROBE_RESULT__===true){
+  if(d.__ARON_V58_RESULT__===true){
     $('#dot').classList.add('ok');
-    $('#probeText').textContent='EP Count Probe connected';
+    $('#probeText').textContent='V2 Drama Probe connected';
 
-    if(d.postId && String(d.postId)!==String(postId))return;
-
-    if(d.title)dramaTitle=String(d.title);
-
-    if(d.totalEpisodes && Number(d.totalEpisodes)>0){
-      totalEpisodes=Number(d.totalEpisodes);
-      flow('#flow4',totalEpisodes+' episodes • END EP'+String(totalEpisodes).padStart(2,'0'));
+    if(d.stage==='drama-id'){
+      if(!d.dramaPostId){
+        setStatus('The resolved TikTok post did not expose a Short Drama episode link.','warn');
+        return;
+      }
+      dramaPostId=String(d.dramaPostId);
       updateMeta();
-      renderEpisodes();
-      setStatus(`Episode 1 confirmed ${totalEpisodes} episodes.`,'ok');
+      startV3();
+      return;
     }
 
-    if(d.message && !d.totalEpisodes){
-      setStatus(d.message,'warn');
+    if(d.stage==='episodes'){
+      if(d.dramaPostId && String(d.dramaPostId)!==String(dramaPostId))return;
+
+      if(d.title)dramaTitle=String(d.title);
+      if(d.totalEpisodes && Number(d.totalEpisodes)>0){
+        totalEpisodes=Number(d.totalEpisodes);
+        flow('#flow4',totalEpisodes+' episodes • END EP'+String(totalEpisodes).padStart(2,'0'));
+        updateMeta();
+        renderEpisodes();
+        setStatus(`Episode 1 confirmed ${totalEpisodes} episodes. No guessed episodes were added.`,'ok');
+      }else if(d.message){
+        setStatus(d.message,'warn');
+      }
+      return;
     }
   }
 
-  if(d.__ARON_V57_FRAME_STATUS__===true){
-    if(d.postId && postId && String(d.postId)!==String(postId))return;
+  if(d.__ARON_V58_FRAME_STATUS__===true){
+    if(d.dramaPostId && dramaPostId && String(d.dramaPostId)!==String(dramaPostId))return;
 
     if(d.status==='ready'){
       frameReady=true;
@@ -378,23 +344,18 @@ window.addEventListener('message',e=>{
           fallbackWindow.focus();
         }
       }catch(e){}
-      setStatus('TikTok blocked iframe playback. Opened the exact episode in a normal tab.','warn');
+      setStatus('TikTok blocked iframe playback. Opened the exact episode URL in a normal tab.','warn');
     }
   }
 });
 
-$('#resolveBtn').onclick=resolveAndPlay;
-$('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolveAndPlay()});
-$('#flow3').onclick=()=>{if(postId)testEpisode(1)};
-$('#flow3').addEventListener('keydown',e=>{
-  if((e.key==='Enter'||e.key===' ')&&postId){
-    e.preventDefault();
-    testEpisode(1);
-  }
-});
-$('#prevBtn').onclick=()=>{if(postId&&currentEpisode>1)testEpisode(currentEpisode-1)};
-$('#nextBtn').onclick=()=>{if(postId&&totalEpisodes&&currentEpisode<totalEpisodes)testEpisode(currentEpisode+1)};
-$('#reloadBtn').onclick=()=>{if(postId)testEpisode(currentEpisode)};
+$('#resolveBtn').onclick=resolve;
+$('#source').addEventListener('keydown',e=>{if(e.key==='Enter')resolve()});
+$('#flow3').onclick=()=>{if(dramaPostId)testEpisode(1)};
+$('#flow3').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&dramaPostId){e.preventDefault();testEpisode(1)}});
+$('#prevBtn').onclick=()=>{if(dramaPostId&&currentEpisode>1)testEpisode(currentEpisode-1)};
+$('#nextBtn').onclick=()=>{if(dramaPostId&&totalEpisodes&&currentEpisode<totalEpisodes)testEpisode(currentEpisode+1)};
+$('#reloadBtn').onclick=()=>{if(dramaPostId)testEpisode(currentEpisode)};
 $('#fullBtn').onclick=()=>$('#stage').requestFullscreen?.();
 
 renderEpisodes();
