@@ -5,72 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#071115">
-<title>ARON Daily Viewer V4</title>
+<title>ARON Daily Viewer V4.2</title>
 <style>
-:root{
- --bg:#061014;--panel:#0d191e;--panel2:#0a151a;--line:#20333a;
- --text:#eef9f6;--muted:#8ea4a7;--accent:#31dcb7;--accent2:#88f4dd;
- --blue:#67b7ff;--danger:#ff7f87;--warn:#e8c56a;
-}
-*{box-sizing:border-box}html,body{min-height:100%}
-body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-background:
-radial-gradient(circle at 10% 0%,rgba(49,220,183,.14),transparent 30%),
-radial-gradient(circle at 88% 2%,rgba(74,103,255,.10),transparent 26%),var(--bg)}
-button,input{font:inherit}button{cursor:pointer}
-.shell{width:min(1420px,100%);margin:auto;padding:16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;border:1px solid rgba(136,244,221,.25);
-background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}
-.brand b{display:block;font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.online{font-size:10px;color:var(--muted);padding:7px 10px;border:1px solid var(--line);border-radius:999px}
-.card{background:linear-gradient(180deg,rgba(14,26,32,.96),rgba(8,18,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 75px rgba(0,0,0,.38)}
-.searchbox{padding:12px;margin-bottom:13px}
-.tabs{display:flex;gap:7px;margin-bottom:10px}
-.tab{border:1px solid var(--line);background:#071216;color:var(--muted);border-radius:10px;padding:8px 11px;font-size:10px;font-weight:800}
-.tab.active{background:rgba(49,220,183,.12);color:var(--accent2);border-color:rgba(49,220,183,.35)}
-.searchrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px}
-.input{width:100%;background:#071216;color:var(--text);border:1px solid var(--line);outline:none;border-radius:12px;padding:13px 14px}
-.input:focus{border-color:rgba(49,220,183,.63);box-shadow:0 0 0 3px rgba(49,220,183,.07)}
-.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}
-.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04231b}
-.ghost{background:#081317;color:var(--text);border:1px solid var(--line)}
-.tip{font-size:9.5px;color:var(--muted);line-height:1.5;margin-top:9px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:13px}
-.viewer{overflow:hidden}.screen{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center}
-.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.empty{text-align:center;color:var(--muted);max-width:520px;padding:28px;line-height:1.55}
-.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:7px}
-.controls{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}
-.group{display:flex;gap:7px;flex-wrap:wrap}.info{padding:12px 14px 14px;border-top:1px solid var(--line)}
-.info h1{font-size:15px;margin:0 0 4px}.meta{font-size:9.5px;color:var(--muted);word-break:break-all;line-height:1.55}
-.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}
-.help{font-size:10px;line-height:1.55;color:var(--muted);border:1px solid var(--line);background:#071216;border-radius:11px;padding:10px;margin-bottom:11px}
-.field{margin-bottom:10px}.field label{display:block;font-size:9.5px;font-weight:800;color:var(--muted);margin:0 0 5px 2px}
-.history{display:grid;gap:7px}.history button{text-align:left;color:var(--text);background:#071216;border:1px solid var(--line);padding:9px;border-radius:10px}
-.history small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.sharebox{display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:12px}.notice{font-size:9.5px;color:var(--muted);margin-top:10px;line-height:1.45}
-.resultsWrap{display:none;margin-bottom:13px;padding:12px}.resultsWrap.show{display:block}
-.resultsHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
-.resultsHead b{font-size:12px}.status{font-size:9px;color:var(--muted)}
-.results{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.result{overflow:hidden;border:1px solid var(--line);background:#071216;border-radius:13px;display:flex;flex-direction:column;min-width:0}
-.thumb{aspect-ratio:16/9;background:linear-gradient(145deg,#0b1a20,#061014);overflow:hidden;position:relative;display:grid;place-items:center}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumbFallback{font-size:10px;color:#6e8588;text-align:center;padding:10px}
-.best{position:absolute;left:7px;top:7px;background:rgba(4,35,27,.92);border:1px solid rgba(49,220,183,.45);color:var(--accent2);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}
-.match{position:absolute;right:7px;bottom:7px;background:rgba(3,12,15,.88);border:1px solid rgba(255,255,255,.14);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}
-.resultBody{padding:9px;display:flex;flex-direction:column;gap:7px;flex:1}
-.rtitle{font-size:10.5px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.rmeta{font-size:8.5px;color:var(--muted)}
-.ractions{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:auto}.rwatch{width:100%;font-size:10px;padding:9px}.ropen{padding:9px 10px;font-size:10px}
-.errorbox{border:1px solid rgba(255,127,135,.28);background:rgba(255,127,135,.07);color:#ffc4c8;border-radius:12px;padding:11px;font-size:10px;line-height:1.55}
-.goodbox{border:1px solid rgba(49,220,183,.26);background:rgba(49,220,183,.06);color:#bdf6e8;border-radius:12px;padding:10px;font-size:10px;line-height:1.5}
-.cinema .top,.cinema .searchbox,.cinema .resultsWrap,.cinema .side{display:none}.cinema .shell{max-width:none;padding:0}.cinema .layout{display:block}.cinema .viewer{border-radius:0;border:0}.cinema .screen{height:calc(100dvh - 105px);aspect-ratio:auto}
-@media(max-width:1000px){.results{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:850px){.shell{padding:9px}.layout{grid-template-columns:1fr}.searchrow{grid-template-columns:1fr}.side{order:2}.online{display:none}.brand b{font-size:13px}.controls .btn{padding:10px 11px;font-size:12px}.results{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.results{grid-template-columns:1fr 1fr}.resultBody{padding:8px}.rtitle{font-size:10px}}
+:root{--bg:#061014;--panel:#0d191e;--line:#20333a;--text:#eef9f6;--muted:#8ea4a7;--accent:#31dcb7;--accent2:#88f4dd;--danger:#ff7f87}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(49,220,183,.14),transparent 30%),#061014;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border:1px solid rgba(136,244,221,.25);border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}.brand b{font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.statuspill{font-size:10px;color:var(--muted);padding:7px 10px;border:1px solid var(--line);border-radius:999px}.card{background:linear-gradient(180deg,rgba(14,26,32,.96),rgba(8,18,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 75px rgba(0,0,0,.38)}.searchbox{padding:12px;margin-bottom:13px}.tabs{display:flex;gap:7px;margin-bottom:10px}.tab{border:1px solid var(--line);background:#071216;color:var(--muted);border-radius:10px;padding:8px 11px;font-size:10px;font-weight:800}.tab.active{background:rgba(49,220,183,.12);color:var(--accent2);border-color:rgba(49,220,183,.35)}.searchrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.input{width:100%;background:#071216;color:var(--text);border:1px solid var(--line);outline:none;border-radius:12px;padding:13px 14px}.input:focus{border-color:rgba(49,220,183,.63);box-shadow:0 0 0 3px rgba(49,220,183,.07)}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04231b}.ghost{background:#081317;color:var(--text);border:1px solid var(--line)}.tip{font-size:9.5px;color:var(--muted);line-height:1.5;margin-top:9px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:13px}.viewer{overflow:hidden}.screen{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center}.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.screen .dailymotion-player-root,.screen .dailymotion-player-wrapper{width:100%!important;height:100%!important;position:absolute!important;inset:0!important}.empty{text-align:center;color:var(--muted);max-width:520px;padding:28px;line-height:1.55}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:7px}.controls{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}.group{display:flex;gap:7px;flex-wrap:wrap}.info{padding:12px 14px 14px;border-top:1px solid var(--line)}.info h1{font-size:15px;margin:0 0 4px}.meta{font-size:9.5px;color:var(--muted);word-break:break-all;line-height:1.55}.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.help,.goodbox,.errorbox{font-size:10px;line-height:1.55;border-radius:11px;padding:10px;margin-bottom:11px}.help{color:var(--muted);border:1px solid var(--line);background:#071216}.goodbox{color:#bdf6e8;border:1px solid rgba(49,220,183,.26);background:rgba(49,220,183,.06)}.errorbox{color:#ffc4c8;border:1px solid rgba(255,127,135,.28);background:rgba(255,127,135,.07)}.field{margin-bottom:10px}.field label{display:block;font-size:9.5px;font-weight:800;color:var(--muted);margin:0 0 5px 2px}.history{display:grid;gap:7px}.history button{text-align:left;color:var(--text);background:#071216;border:1px solid var(--line);padding:9px;border-radius:10px}.history small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.sharebox{display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:12px}.notice{font-size:9.5px;color:var(--muted);margin-top:10px;line-height:1.45}.resultsWrap{display:none;margin-bottom:13px;padding:12px}.resultsWrap.show{display:block}.resultsHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.resultsHead b{font-size:12px}.searchStatus{font-size:9px;color:var(--muted)}.results{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.result{overflow:hidden;border:1px solid var(--line);background:#071216;border-radius:13px;display:flex;flex-direction:column;min-width:0}.thumb{aspect-ratio:16/9;background:#020607;position:relative;display:grid;place-items:center;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover}.best{position:absolute;left:7px;top:7px;background:rgba(4,35,27,.92);border:1px solid rgba(49,220,183,.45);color:var(--accent2);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}.match{position:absolute;right:7px;bottom:7px;background:rgba(3,12,15,.88);border:1px solid rgba(255,255,255,.14);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}.resultBody{padding:9px;display:flex;flex-direction:column;gap:7px;flex:1}.rtitle{font-size:10.5px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.rmeta{font-size:8.5px;color:var(--muted)}.ractions{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:auto}.rwatch{font-size:10px;padding:9px}.ropen{font-size:10px;padding:9px 10px}.cinema .top,.cinema .searchbox,.cinema .resultsWrap,.cinema .side{display:none}.cinema .shell{max-width:none;padding:0}.cinema .layout{display:block}.cinema .viewer{border-radius:0;border:0}.cinema .screen{height:calc(100dvh - 105px);aspect-ratio:auto}
+@media(max-width:1000px){.results{grid-template-columns:repeat(3,1fr)}}@media(max-width:850px){.shell{padding:9px}.layout{grid-template-columns:1fr}.side{order:2}.results{grid-template-columns:repeat(2,1fr)}.statuspill{display:none}}@media(max-width:480px){.results{grid-template-columns:1fr 1fr}.resultBody{padding:8px}.rtitle{font-size:10px}}
 </style>
 </head>
 <body>
@@ -78,9 +18,9 @@ background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#88f4dd" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dcb7" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON DAILY VIEWER V4</b><small>Dailymotion title search bridge + official player</small></div>
+      <div><b>ARON DAILY VIEWER V4.2</b><small>Official Dailymotion search + continuity-safe player</small></div>
     </div>
-    <div class="online" id="bridgeState">Bridge checking…</div>
+    <div id="sdkState" class="statuspill">Dailymotion SDK loading…</div>
   </div>
 
   <div class="card searchbox">
@@ -92,17 +32,15 @@ background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}
     <div id="titleMode">
       <div class="searchrow">
         <input id="titleInput" class="input" placeholder="Paste the title you saw on TikTok">
-        <button id="searchBtn" class="btn primary">SEARCH</button>
-        <button id="sampleBtn" class="btn ghost">TEST</button>
+        <button id="searchBtn" class="btn primary">SEARCH DAILYMOTION</button>
       </div>
-      <div class="tip">ARON asks the search bridge for Dailymotion's public search page, extracts public video titles/IDs, then enriches them with Dailymotion oEmbed metadata. Playback stays inside the official Dailymotion player.</div>
+      <div class="tip">V4.1 uses Dailymotion's official JavaScript SDK and the public video search API. No HTML scraping and no Cloudflare search bridge.</div>
     </div>
 
     <div id="linkMode" style="display:none">
       <div class="searchrow">
         <input id="urlInput" class="input" value="https://www.dailymotion.com/video/xbf1yae" placeholder="Paste Dailymotion link or video ID">
         <button id="watchBtn" class="btn primary">WATCH</button>
-        <button class="btn ghost" disabled style="opacity:.45">DIRECT</button>
       </div>
     </div>
   </div>
@@ -110,197 +48,324 @@ background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}
   <section id="resultsWrap" class="card resultsWrap">
     <div class="resultsHead">
       <b id="resultsTitle">Search results</b>
-      <span id="searchStatus" class="status"></span>
+      <span id="searchStatus" class="searchStatus"></span>
     </div>
     <div id="results" class="results"></div>
   </section>
 
   <div class="layout">
     <main class="card viewer">
-      <div id="screen" class="screen"><div class="empty"><strong>Ready.</strong>Search using the title you saw on TikTok, or open a Dailymotion link directly.</div></div>
+      <div id="screen" class="screen"><div id="dmPlayerHost" style="position:absolute;inset:0;width:100%;height:100%"></div><div id="playerEmpty" class="empty"><strong>Ready.</strong>Configure your Dailymotion Public API Key once, then search by title.</div></div>
       <div class="controls">
-        <div class="group">
-          <button id="cinemaBtn" class="btn ghost">Cinema</button>
-          <button id="fullBtn" class="btn ghost">Fullscreen</button>
-        </div>
-        <div class="group">
-          <button id="shareBtn" class="btn ghost">Share Video</button>
-          <button id="dmBtn" class="btn ghost">Open Dailymotion</button>
-        </div>
+        <div class="group"><button id="cinemaBtn" class="btn ghost">Cinema</button><button id="fullBtn" class="btn ghost">Fullscreen</button></div>
+        <div class="group"><button id="shareBtn" class="btn ghost">Share Video</button><button id="dmBtn" class="btn ghost">Open Dailymotion</button></div>
       </div>
-      <div class="info"><h1 id="title">Nothing playing</h1><div id="meta" class="meta">Waiting for a Dailymotion video.</div></div>
+      <div class="info"><h1 id="title">Nothing playing</h1><div id="meta" class="meta">Waiting for a Dailymotion video.</div><div id="continuityState" class="meta" style="margin-top:5px">Continuity guard idle.</div></div>
     </main>
 
     <aside class="card side">
+      <h2>DAILYMOTION PUBLIC API KEY</h2>
+      <div class="field"><label>Public API Key</label><input id="apiKey" class="input" type="password" autocomplete="off" placeholder="Paste Public API Key"></div>
+      <button id="saveApiKey" class="btn primary" style="width:100%;margin-bottom:11px">Save & initialize</button>
+      <div id="apiInfo" class="help">Create a Public API Key in Dailymotion Studio → Organization → API keys. Only the public key is stored locally in this browser.</div>
+
       <h2>PLAYER</h2>
       <div class="field"><label>Dailymotion Player ID</label><input id="playerId" class="input" value="xbzld" placeholder="Your Player ID"></div>
       <button id="savePlayer" class="btn ghost" style="width:100%;margin-bottom:11px">Save Player ID</button>
-      <div class="help">A valid Dailymotion Player ID is required for supported embeds. Replace the sample ID with your own Dailymotion Studio Player ID for long-term use.</div>
 
-      <h2>SEARCH BRIDGE</h2>
-      <div id="bridgeInfo" class="goodbox">Checking worker connection…</div>
-
-      <h2 style="margin-top:13px">SHARE CURRENT VIDEO</h2>
+      <h2>SHARE CURRENT VIDEO</h2>
       <div class="sharebox"><input id="shareUrl" class="input" readonly placeholder="Load a video first"><button id="copyShare" class="btn ghost">Copy</button></div>
 
       <h2>RECENT</h2>
       <div id="history" class="history"></div>
-      <div class="notice">A matching title does not guarantee the Dailymotion upload is the same title/version shown on TikTok. Check the thumbnail, uploader and title before playing.</div>
+      <div class="notice">Search results are public Dailymotion metadata. V4.2 preserves Dailymotion commercials and platform controls; it only protects the content resume position if the player unexpectedly returns to 0.</div>
     </aside>
   </div>
 </div>
 
+<script src="https://api.dmcdn.net/all.js"></script>
 <script>
-const SEARCH_BRIDGE="https://aron-daily-search.anthony-a-reyes.workers.dev";
-const BUILD="v4-20261004-050905";
 const $=s=>document.querySelector(s), input=$('#urlInput'), pid=$('#playerId'), screen=$('#screen');
-let currentId='', currentInfo=null;
+let currentId='', currentInfo=null, dmReady=false, playerInstance=null, playerLibPromise=null, playerLibId='', adActive=false, manualSeek=false, lastGoodTime=0, continuityTimer=null, restoreLock=false, videoEnded=false;
+
 const savedPlayer=localStorage.getItem('aron_player_id'); if(savedPlayer)pid.value=savedPlayer;
+const savedKey=localStorage.getItem('aron_dm_public_key'); if(savedKey)$('#apiKey').value=savedKey;
 
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function extractId(v){
- v=(v||'').trim();
- if(/^[A-Za-z0-9_-]{5,}$/.test(v)&&!v.includes('.'))return v;
- try{
-  const u=new URL(v),host=u.hostname.replace(/^www\./,'').toLowerCase();
-  if(host==='dai.ly')return u.pathname.split('/').filter(Boolean)[0]||null;
-  if(host.endsWith('dailymotion.com')){
-   const p=u.pathname.split('/').filter(Boolean),i=p.indexOf('video');
-   if(i>=0&&p[i+1])return p[i+1].split('_')[0];
-  }
- }catch(e){}
- const m=v.match(/(?:video\/|dai\.ly\/)([A-Za-z0-9_-]+)/i);return m?m[1].split('_')[0]:null
-}
 function canonical(id){return `https://www.dailymotion.com/video/${encodeURIComponent(id)}`}
-function embedUrl(id){return `https://geo.dailymotion.com/player/${encodeURIComponent(pid.value.trim())}.html?video=${encodeURIComponent(id)}`}
 function pageShare(id){const u=new URL(location.href);u.search='';u.hash='';u.searchParams.set('v',id);return u.toString()}
+function fmtDuration(sec){sec=Number(sec)||0;const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`}
+function extractId(v){v=(v||'').trim();if(/^[A-Za-z0-9_-]{5,}$/.test(v)&&!v.includes('.'))return v;try{const u=new URL(v),host=u.hostname.replace(/^www\./,'').toLowerCase();if(host==='dai.ly')return u.pathname.split('/').filter(Boolean)[0]||null;if(host.endsWith('dailymotion.com')){const p=u.pathname.split('/').filter(Boolean),i=p.indexOf('video');if(i>=0&&p[i+1])return p[i+1].split('_')[0]}}catch(e){}const m=v.match(/(?:video\/|dai\.ly\/)([A-Za-z0-9_-]+)/i);return m?m[1].split('_')[0]:null}
 
-async function bridgeHealth(){
- if(!SEARCH_BRIDGE.startsWith('https://')){
-   $('#bridgeState').textContent='Bridge not configured';
-   $('#bridgeInfo').className='errorbox';
-   $('#bridgeInfo').textContent='Search bridge URL is not configured. Run the V4 deploy script.';
-   return;
- }
+function normalizeTitle(s){return String(s||'').toLowerCase().normalize('NFKD').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\b(full|movie|movies|episode|episodes|ep|english|sub|subs|subtitle|subtitles|hd|drama|short|vertical|2024|2025|2026|2027)\b/g,' ').replace(/\s+/g,' ').trim()}
+function similarity(a,b){a=normalizeTitle(a);b=normalizeTitle(b);if(!a||!b)return 0;if(a===b)return 1;if(a.includes(b)||b.includes(a))return .94;const A=new Set(a.split(' ')),B=new Set(b.split(' '));let i=0;A.forEach(x=>{if(B.has(x))i++});return i/(new Set([...A,...B]).size||1)}
+
+function initDM(){
+ const key=$('#apiKey').value.trim();
+ if(!key){dmReady=false;$('#sdkState').textContent='API key required';$('#apiInfo').className='help';$('#apiInfo').textContent='Paste a Dailymotion Public API Key to enable title search.';return}
+ if(!window.DM||typeof DM.init!=='function'){dmReady=false;$('#sdkState').textContent='SDK unavailable';$('#apiInfo').className='errorbox';$('#apiInfo').textContent='Dailymotion SDK did not load. Check browser/network restrictions.';return}
  try{
-   const r=await fetch(`${SEARCH_BRIDGE}/health?build=${encodeURIComponent(BUILD)}`,{cache:'no-store'});
-   if(!r.ok)throw new Error(`HTTP ${r.status}`);
-   const d=await r.json();
-   $('#bridgeState').textContent='Search bridge online';
-   $('#bridgeInfo').className='goodbox';
-   $('#bridgeInfo').textContent=`Worker online • ${d.service||'ARON Search Bridge'} • ${BUILD}`;
+   DM.init({apiKey:key,status:false,cookie:false});
+   dmReady=true;
+   $('#sdkState').textContent='Official search ready';
+   $('#apiInfo').className='goodbox';
+   $('#apiInfo').textContent='Dailymotion SDK initialized. Search is ready.';
  }catch(e){
-   $('#bridgeState').textContent='Bridge offline';
-   $('#bridgeInfo').className='errorbox';
-   $('#bridgeInfo').textContent=`Search bridge unreachable: ${e.message}`;
+   dmReady=false;
+   $('#sdkState').textContent='SDK init failed';
+   $('#apiInfo').className='errorbox';
+   $('#apiInfo').textContent='Dailymotion SDK initialization failed: '+(e.message||e);
  }
 }
 
 async function searchDM(){
  const q=$('#titleInput').value.trim(); if(!q)return;
+ if(!dmReady){initDM();if(!dmReady)return}
+ $('#resultsWrap').classList.add('show');$('#resultsTitle').textContent=`Results for “${q}”`;$('#searchStatus').textContent='Searching official API';$('#results').innerHTML='<div class="help">Searching Dailymotion…</div>';
  localStorage.setItem('aron_last_title_search',q);
- $('#resultsWrap').classList.add('show');
- $('#results').innerHTML='<div class="help">Searching Dailymotion public results…</div>';
- $('#resultsTitle').textContent=`Results for “${q}”`;
- $('#searchStatus').textContent='Searching';
- if(!SEARCH_BRIDGE.startsWith('https://')){
-   $('#results').innerHTML='<div class="errorbox">V4 search bridge is not configured yet. Run the deploy script first.</div>';
-   return;
- }
- const url=`${SEARCH_BRIDGE}/search?q=${encodeURIComponent(q)}&player=${encodeURIComponent(pid.value.trim())}`;
  try{
-   const r=await fetch(url,{cache:'no-store'});
-   const data=await r.json().catch(()=>({}));
-   if(!r.ok||!data.ok)throw new Error(data.error||`HTTP ${r.status}`);
-   renderResults(data.results||[],data);
+   const response=await new Promise((resolve,reject)=>{
+     let finished=false;
+     const timer=setTimeout(()=>{if(!finished){finished=true;reject(new Error('Dailymotion search timed out.'))}},15000);
+     DM.api('/videos','get',{
+       search:q,
+       sort:'relevance',
+       availability:1,
+       limit:20,
+       fields:'id,title,thumbnail_360_url,duration,owner.screenname,url'
+     },r=>{
+       if(finished)return;finished=true;clearTimeout(timer);
+       if(!r||r.error)reject(new Error(r?.error?.message||'Dailymotion API returned an error.'));
+       else resolve(r);
+     });
+   });
+   const list=(response.list||[]).map(v=>({...v,match_score:similarity(q,v.title)})).sort((a,b)=>b.match_score-a.match_score);
+   renderResults(list);
  }catch(e){
    $('#searchStatus').textContent='Search failed';
-   const fallback=`https://www.dailymotion.com/search/${encodeURIComponent(q)}/top-results`;
-   $('#results').innerHTML=`<div class="errorbox">Search bridge error: ${esc(e.message)}<br><br><button class="btn ghost" id="openFallback">Open this search on Dailymotion</button></div>`;
-   setTimeout(()=>{const b=$('#openFallback');if(b)b.onclick=()=>window.open(fallback,'_blank','noopener')},0);
+   $('#results').innerHTML=`<div class="errorbox">${esc(e.message||e)}</div>`;
  }
 }
-function renderResults(list,data){
- const box=$('#results'); box.innerHTML='';
- $('#searchStatus').textContent=`${list.length} public video matches`;
- if(!list.length){
-   box.innerHTML='<div class="help">No public video matches were extracted. Try a shorter title or remove punctuation / extra words.</div>';
-   return;
- }
+function renderResults(list){
+ const box=$('#results');box.innerHTML='';$('#searchStatus').textContent=`${list.length} public video matches`;
+ if(!list.length){box.innerHTML='<div class="help">No matching public videos returned by Dailymotion.</div>';return}
  list.forEach((v,i)=>{
-  const card=document.createElement('article');card.className='result';
-  const score=Math.round((v.match_score||0)*100);
-  const image=v.thumbnail_url?`<img src="${esc(v.thumbnail_url)}" alt="" loading="lazy">`:`<div class="thumbFallback">Dailymotion<br>${esc(v.id)}</div>`;
-  card.innerHTML=`
-   <div class="thumb">${image}${i===0&&score>=50?'<span class="best">BEST TITLE MATCH</span>':''}<span class="match">${score}%</span></div>
-   <div class="resultBody">
-    <div class="rtitle">${esc(v.title||v.id)}</div>
-    <div class="rmeta">${esc(v.author_name||'Dailymotion')} • ${esc(v.id)}</div>
-    <div class="ractions">
-      <button class="btn primary rwatch">WATCH</button>
-      <button class="btn ghost ropen" title="Open original">↗</button>
-    </div>
-   </div>`;
-  card.querySelector('.rwatch').onclick=()=>load(v.id,v);
-  card.querySelector('.ropen').onclick=()=>window.open(canonical(v.id),'_blank','noopener');
-  box.appendChild(card);
- });
-}
-async function getOEmbed(id){
- try{
-  const u=`https://www.dailymotion.com/services/oembed?url=${encodeURIComponent(canonical(id))}&player=${encodeURIComponent(pid.value.trim())}`;
-  const r=await fetch(u); if(!r.ok)return null; return await r.json();
- }catch(e){return null}
-}
-function saveHistory(id,info){
- let h=JSON.parse(localStorage.getItem('aron_history')||'[]').filter(x=>x.id!==id);
- h.unshift({id,title:info?.title||id,at:Date.now()});h=h.slice(0,12);
- localStorage.setItem('aron_history',JSON.stringify(h));renderHistory()
-}
-function renderHistory(){
- const h=JSON.parse(localStorage.getItem('aron_history')||'[]'),box=$('#history');
- if(!h.length){box.innerHTML='<div class="help">No recent videos yet.</div>';return}
- box.innerHTML='';
- h.forEach(x=>{
-  const b=document.createElement('button');
-  b.innerHTML=`<b>${esc(x.title||x.id)}</b><small>${new Date(x.at).toLocaleString()}</small>`;
-  b.onclick=()=>{input.value=canonical(x.id);load(x.id,{id:x.id,title:x.title})};box.appendChild(b)
+   const score=Math.round((v.match_score||0)*100),card=document.createElement('article');card.className='result';
+   const image=v.thumbnail_360_url?`<img src="${esc(v.thumbnail_360_url)}" alt="" loading="lazy">`:'<div class="help">No thumbnail</div>';
+   const owner=v['owner.screenname']||'Dailymotion';
+   card.innerHTML=`<div class="thumb">${image}${i===0&&score>=50?'<span class="best">BEST TITLE MATCH</span>':''}<span class="match">${score}%</span></div><div class="resultBody"><div class="rtitle">${esc(v.title||v.id)}</div><div class="rmeta">${esc(owner)}${v.duration?` • ${fmtDuration(v.duration)}`:''}</div><div class="ractions"><button class="btn primary rwatch">WATCH</button><button class="btn ghost ropen">↗</button></div></div>`;
+   card.querySelector('.rwatch').onclick=()=>load(v.id,{...v,author_name:owner});
+   card.querySelector('.ropen').onclick=()=>window.open(canonical(v.id),'_blank','noopener');
+   box.appendChild(card)
  })
 }
-async function load(force,info){
- const id=force||extractId(input.value);
- if(!id){alert('Hindi ma-detect ang Dailymotion video ID.');return}
- if(!pid.value.trim()){alert('Enter a valid Dailymotion Player ID first.');return}
- currentId=id;currentInfo=info||await getOEmbed(id)||{id,title:`Dailymotion • ${id}`};
- input.value=canonical(id);
- const f=document.createElement('iframe');
- f.src=embedUrl(id);f.allow='autoplay; fullscreen; picture-in-picture; web-share';f.allowFullscreen=true;
- f.referrerPolicy='strict-origin-when-cross-origin';f.title=currentInfo?.title||`Dailymotion video ${id}`;
- screen.innerHTML='';screen.appendChild(f);
- $('#title').textContent=currentInfo?.title||`Dailymotion • ${id}`;
- $('#meta').textContent=[currentInfo?.author_name,canonical(id)].filter(Boolean).join(' • ');
- $('#shareUrl').value=pageShare(id);saveHistory(id,currentInfo);
- if(innerWidth<851)screen.scrollIntoView({behavior:'smooth',block:'start'})
+
+function saveHistory(id,info){let h=JSON.parse(localStorage.getItem('aron_history')||'[]').filter(x=>x.id!==id);h.unshift({id,title:info?.title||id,at:Date.now()});h=h.slice(0,12);localStorage.setItem('aron_history',JSON.stringify(h));renderHistory()}
+function renderHistory(){const h=JSON.parse(localStorage.getItem('aron_history')||'[]'),box=$('#history');if(!h.length){box.innerHTML='<div class="help">No recent videos yet.</div>';return}box.innerHTML='';h.forEach(x=>{const b=document.createElement('button');b.innerHTML=`<b>${esc(x.title||x.id)}</b><small>${new Date(x.at).toLocaleString()}</small>`;b.onclick=()=>load(x.id,{id:x.id,title:x.title});box.appendChild(b)})}
+function positionKey(id){return `aron_dm_position_${id}`}
+function getSavedPosition(id){const n=Number(localStorage.getItem(positionKey(id))||0);return Number.isFinite(n)?n:0}
+function savePosition(id,t){if(id&&Number.isFinite(t)&&t>0)localStorage.setItem(positionKey(id),String(Math.floor(t*10)/10))}
+function setContinuity(msg){const el=$('#continuityState');if(el)el.textContent=msg}
+
+async function ensurePlayerLibrary(){
+  const playerId=pid.value.trim();
+  if(!playerId)throw new Error('Enter a valid Dailymotion Player ID first.');
+  if(playerInstance&&playerLibId===playerId)return;
+  if(playerLibPromise&&playerLibId===playerId)return playerLibPromise;
+
+  if(playerLibId&&playerLibId!==playerId){
+    localStorage.setItem('aron_player_id',playerId);
+    throw new Error('Player ID changed. Refresh the page once, then play again.');
+  }
+
+  playerLibId=playerId;
+  playerLibPromise=new Promise((resolve,reject)=>{
+    if(window.dailymotion&&typeof window.dailymotion.createPlayer==='function'){resolve();return}
+    const s=document.createElement('script');
+    s.src=`https://geo.dailymotion.com/libs/player/${encodeURIComponent(playerId)}.js`;
+    s.async=true;
+    s.referrerPolicy='strict-origin-when-cross-origin';
+    s.onload=()=>resolve();
+    s.onerror=()=>reject(new Error('Dailymotion Player Library failed to load.'));
+    document.body.appendChild(s);
+  });
+  return playerLibPromise;
 }
 
-$('#titleTab').onclick=()=>{$('#titleTab').classList.add('active');$('#linkTab').classList.remove('active');$('#titleMode').style.display='block';$('#linkMode').style.display='none'}
-$('#linkTab').onclick=()=>{$('#linkTab').classList.add('active');$('#titleTab').classList.remove('active');$('#titleMode').style.display='none';$('#linkMode').style.display='block'}
+function bindPlayerEvents(player){
+  const ev=window.dailymotion?.events;
+  if(!ev)return;
+
+  player.on(ev.AD_START, ()=>{
+    adActive=true;
+    setContinuity('Commercial break playing — content position protected.');
+  });
+
+  player.on(ev.AD_END, ()=>{
+    adActive=false;
+    setContinuity('Commercial ended — checking content position…');
+    setTimeout(checkUnexpectedReset,1000);
+  });
+
+  player.on(ev.VIDEO_TIMECHANGE, state=>{
+    const t=Number(state?.videoTime);
+    if(!Number.isFinite(t))return;
+    if(state?.adIsPlaying||adActive)return;
+
+    if(t>0.5){
+      lastGoodTime=t;
+      savePosition(currentId,t);
+      setContinuity(`Content position saved at ${fmtDuration(Math.floor(t))}.`);
+    }
+
+    if(t<2&&lastGoodTime>12&&!manualSeek&&!restoreLock&&!videoEnded){
+      setTimeout(checkUnexpectedReset,600);
+    }
+  });
+
+  player.on(ev.VIDEO_SEEKSTART, ()=>{manualSeek=true});
+  player.on(ev.VIDEO_SEEKEND, state=>{
+    const t=Number(state?.videoTime);
+    if(Number.isFinite(t)){
+      lastGoodTime=t;
+      savePosition(currentId,t);
+    }
+    setTimeout(()=>{manualSeek=false},1200);
+  });
+
+  player.on(ev.PLAYER_VIDEOCHANGE, state=>{
+    videoEnded=false;
+    if(state?.videoId&&currentId&&state.videoId!==currentId)return;
+    const saved=getSavedPosition(currentId);
+    if(saved>lastGoodTime)lastGoodTime=saved;
+  });
+
+  player.on(ev.VIDEO_END, ()=>{
+    videoEnded=true;
+    lastGoodTime=0;
+    localStorage.removeItem(positionKey(currentId));
+    setContinuity('Video completed — resume position cleared.');
+  });
+
+  player.on(ev.VIDEO_PLAY, state=>{
+    if(videoEnded&&Number(state?.videoTime||0)<2){
+      videoEnded=false;
+      lastGoodTime=0;
+      localStorage.removeItem(positionKey(currentId));
+    }
+  });
+
+  player.on(ev.PLAYER_ERROR, ()=>{
+    setContinuity(`Player reported an error. Saved content position: ${fmtDuration(Math.floor(lastGoodTime||0))}.`);
+  });
+
+  if(ev.PLAYER_HEAVYADSINTERVENTION){
+    player.on(ev.PLAYER_HEAVYADSINTERVENTION, ()=>{
+      setContinuity('Browser interrupted a heavy ad frame. Content position is still saved.');
+    });
+  }
+}
+
+async function checkUnexpectedReset(){
+  if(!playerInstance||!currentId||adActive||manualSeek||restoreLock||videoEnded)return;
+  try{
+    const state=await playerInstance.getState();
+    if(!state||state.videoId!==currentId||state.adIsPlaying)return;
+
+    const now=Number(state.videoTime||0);
+    const saved=Math.max(lastGoodTime,getSavedPosition(currentId));
+    const duration=Number(state.videoDuration||0);
+
+    if(saved>12&&now<2&&duration>saved+5){
+      restoreLock=true;
+      setContinuity(`Unexpected reset detected. Restoring ${fmtDuration(Math.floor(saved))}…`);
+      await playerInstance.seek(saved);
+      setTimeout(()=>{
+        restoreLock=false;
+        setContinuity(`Restored to ${fmtDuration(Math.floor(saved))}.`);
+      },1200);
+    }
+  }catch(e){
+    restoreLock=false;
+  }
+}
+
+async function createOrLoadPlayer(id){
+  await ensurePlayerLibrary();
+  const resume=Math.max(0,getSavedPosition(id));
+
+  if(!playerInstance){
+    $('#playerEmpty')?.remove();
+    playerInstance=await window.dailymotion.createPlayer('dmPlayerHost',{
+      video:id,
+      params:resume>5?{startTime:resume}:{}
+    });
+    bindPlayerEvents(playerInstance);
+  }else{
+    await playerInstance.loadContent({video:id});
+    if(resume>5){
+      setTimeout(async()=>{
+        try{
+          const state=await playerInstance.getState();
+          if(!state.adIsPlaying&&Number(state.videoTime||0)<2){
+            await playerInstance.seek(resume);
+          }
+        }catch(e){}
+      },1000);
+    }
+  }
+
+  lastGoodTime=resume;
+  adActive=false;
+  manualSeek=false;
+  restoreLock=false;
+  videoEnded=false;
+
+  clearInterval(continuityTimer);
+  continuityTimer=setInterval(checkUnexpectedReset,4000);
+}
+
+async function load(force,info){
+  const id=force||extractId(input.value);
+  if(!id){alert('Hindi ma-detect ang Dailymotion video ID.');return}
+  if(!pid.value.trim()){alert('Enter a valid Dailymotion Player ID first.');return}
+
+  currentId=id;
+  currentInfo=info||{id,title:`Dailymotion • ${id}`};
+  input.value=canonical(id);
+  $('#title').textContent=currentInfo?.title||`Dailymotion • ${id}`;
+  $('#meta').textContent=[currentInfo?.author_name,canonical(id)].filter(Boolean).join(' • ');
+  $('#shareUrl').value=pageShare(id);
+  saveHistory(id,currentInfo);
+
+  try{
+    setContinuity('Loading official Dailymotion Player Library…');
+    await createOrLoadPlayer(id);
+    setContinuity(lastGoodTime>5?`Resume protection active near ${fmtDuration(Math.floor(lastGoodTime))}.`:'Continuity guard active.');
+  }catch(e){
+    setContinuity(`Player load failed: ${e.message||e}`);
+    alert(e.message||e);
+    return;
+  }
+
+  if(innerWidth<851)screen.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+$('#saveApiKey').onclick=()=>{const k=$('#apiKey').value.trim();if(!k){alert('Paste your Dailymotion Public API Key first.');return}localStorage.setItem('aron_dm_public_key',k);initDM()};
+$('#savePlayer').onclick=()=>{const next=pid.value.trim();localStorage.setItem('aron_player_id',next);if(playerLibId&&playerLibId!==next){alert('Player ID saved. Refresh the page once so Dailymotion can load the new Player Library configuration.')}else{alert('Player ID saved.')}};
+$('#titleTab').onclick=()=>{$('#titleTab').classList.add('active');$('#linkTab').classList.remove('active');$('#titleMode').style.display='block';$('#linkMode').style.display='none'};
+$('#linkTab').onclick=()=>{$('#linkTab').classList.add('active');$('#titleTab').classList.remove('active');$('#titleMode').style.display='none';$('#linkMode').style.display='block'};
 $('#searchBtn').onclick=searchDM;$('#titleInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchDM()});
-$('#sampleBtn').onclick=()=>{$('#titleInput').value='Testing Love married to a crippled billionaire';searchDM()};
-const lastSearch=localStorage.getItem('aron_last_title_search');if(lastSearch)$('#titleInput').value=lastSearch;
 $('#watchBtn').onclick=()=>load();input.addEventListener('keydown',e=>{if(e.key==='Enter')load()});
-$('#savePlayer').onclick=()=>{localStorage.setItem('aron_player_id',pid.value.trim());bridgeHealth();if(currentId)load(currentId,currentInfo)};
 $('#dmBtn').onclick=()=>{const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
-$('#fullBtn').onclick=()=>screen.requestFullscreen?.();
-$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'Exit Cinema':'Cinema'};
+$('#fullBtn').onclick=async()=>{try{if(playerInstance&&playerInstance.setFullscreen){await playerInstance.setFullscreen(true)}else{screen.requestFullscreen?.()}}catch(e){screen.requestFullscreen?.()}};$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'Exit Cinema':'Cinema'};
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){return false}}
 $('#copyShare').onclick=async()=>{const t=$('#shareUrl').value;if(!t)return;if(await copyText(t)){const b=$('#copyShare'),o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,900)}else prompt('Copy this link:',t)};
-$('#shareBtn').onclick=async()=>{if(!currentId){load();if(!currentId)return}const url=pageShare(currentId);if(navigator.share){try{await navigator.share({title:currentInfo?.title||'ARON Daily Viewer',url});return}catch(e){}}if(await copyText(url))alert('Share link copied.');else prompt('Copy this link:',url)};
-renderHistory();bridgeHealth();
-const params=new URLSearchParams(location.search),qv=params.get('v'),qp=params.get('player'),qs=params.get('q');
-if(qp){pid.value=qp;localStorage.setItem('aron_player_id',qp)}
-if(qs){$('#titleInput').value=qs;setTimeout(searchDM,180)}
-if(qv){input.value=canonical(qv);setTimeout(()=>load(qv),180)}
+$('#shareBtn').onclick=async()=>{if(!currentId)return;const url=pageShare(currentId);if(navigator.share){try{await navigator.share({title:currentInfo?.title||'ARON Daily Viewer',url});return}catch(e){}}if(await copyText(url))alert('Share link copied.');else prompt('Copy this link:',url)};
+
+const lastSearch=localStorage.getItem('aron_last_title_search');if(lastSearch)$('#titleInput').value=lastSearch;
+renderHistory();
+window.addEventListener('load',()=>{setTimeout(initDM,400);const p=new URLSearchParams(location.search),v=p.get('v');if(v)setTimeout(()=>load(v),500)});
 </script>
 </body>
 </html>
