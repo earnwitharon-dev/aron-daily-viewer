@@ -5,12 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#071115">
-<title>ARON Daily Viewer V4.2</title>
+<title>ARON Viewer V5</title>
 <style>
 :root{--bg:#061014;--panel:#0d191e;--line:#20333a;--text:#eef9f6;--muted:#8ea4a7;--accent:#31dcb7;--accent2:#88f4dd;--danger:#ff7f87}
 *{box-sizing:border-box}html,body{min-height:100%}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(49,220,183,.14),transparent 30%),#061014;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border:1px solid rgba(136,244,221,.25);border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(49,220,183,.2),rgba(49,220,183,.02))}.brand b{font-size:15px;letter-spacing:.07em}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.statuspill{font-size:10px;color:var(--muted);padding:7px 10px;border:1px solid var(--line);border-radius:999px}.card{background:linear-gradient(180deg,rgba(14,26,32,.96),rgba(8,18,22,.97));border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 75px rgba(0,0,0,.38)}.searchbox{padding:12px;margin-bottom:13px}.tabs{display:flex;gap:7px;margin-bottom:10px}.tab{border:1px solid var(--line);background:#071216;color:var(--muted);border-radius:10px;padding:8px 11px;font-size:10px;font-weight:800}.tab.active{background:rgba(49,220,183,.12);color:var(--accent2);border-color:rgba(49,220,183,.35)}.searchrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.input{width:100%;background:#071216;color:var(--text);border:1px solid var(--line);outline:none;border-radius:12px;padding:13px 14px}.input:focus{border-color:rgba(49,220,183,.63);box-shadow:0 0 0 3px rgba(49,220,183,.07)}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04231b}.ghost{background:#081317;color:var(--text);border:1px solid var(--line)}.tip{font-size:9.5px;color:var(--muted);line-height:1.5;margin-top:9px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:13px}.viewer{overflow:hidden}.screen{aspect-ratio:16/9;background:#000;position:relative;display:grid;place-items:center}.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.screen .dailymotion-player-root,.screen .dailymotion-player-wrapper{width:100%!important;height:100%!important;position:absolute!important;inset:0!important}.empty{text-align:center;color:var(--muted);max-width:520px;padding:28px;line-height:1.55}.empty strong{display:block;color:var(--text);font-size:20px;margin-bottom:7px}.controls{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line)}.group{display:flex;gap:7px;flex-wrap:wrap}.info{padding:12px 14px 14px;border-top:1px solid var(--line)}.info h1{font-size:15px;margin:0 0 4px}.meta{font-size:9.5px;color:var(--muted);word-break:break-all;line-height:1.55}.side{padding:12px;height:max-content}.side h2{font-size:11px;letter-spacing:.09em;margin:3px 3px 9px}.help,.goodbox,.errorbox{font-size:10px;line-height:1.55;border-radius:11px;padding:10px;margin-bottom:11px}.help{color:var(--muted);border:1px solid var(--line);background:#071216}.goodbox{color:#bdf6e8;border:1px solid rgba(49,220,183,.26);background:rgba(49,220,183,.06)}.errorbox{color:#ffc4c8;border:1px solid rgba(255,127,135,.28);background:rgba(255,127,135,.07)}.field{margin-bottom:10px}.field label{display:block;font-size:9.5px;font-weight:800;color:var(--muted);margin:0 0 5px 2px}.history{display:grid;gap:7px}.history button{text-align:left;color:var(--text);background:#071216;border:1px solid var(--line);padding:9px;border-radius:10px}.history small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.sharebox{display:grid;grid-template-columns:1fr auto;gap:6px;margin-bottom:12px}.notice{font-size:9.5px;color:var(--muted);margin-top:10px;line-height:1.45}.resultsWrap{display:none;margin-bottom:13px;padding:12px}.resultsWrap.show{display:block}.resultsHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.resultsHead b{font-size:12px}.searchStatus{font-size:9px;color:var(--muted)}.results{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.result{overflow:hidden;border:1px solid var(--line);background:#071216;border-radius:13px;display:flex;flex-direction:column;min-width:0}.thumb{aspect-ratio:16/9;background:#020607;position:relative;display:grid;place-items:center;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover}.best{position:absolute;left:7px;top:7px;background:rgba(4,35,27,.92);border:1px solid rgba(49,220,183,.45);color:var(--accent2);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}.match{position:absolute;right:7px;bottom:7px;background:rgba(3,12,15,.88);border:1px solid rgba(255,255,255,.14);font-size:8px;font-weight:900;border-radius:999px;padding:5px 7px}.resultBody{padding:9px;display:flex;flex-direction:column;gap:7px;flex:1}.rtitle{font-size:10.5px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.rmeta{font-size:8.5px;color:var(--muted)}.ractions{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:auto}.rwatch{font-size:10px;padding:9px}.ropen{font-size:10px;padding:9px 10px}.cinema .top,.cinema .searchbox,.cinema .resultsWrap,.cinema .side{display:none}.cinema .shell{max-width:none;padding:0}.cinema .layout{display:block}.cinema .viewer{border-radius:0;border:0}.cinema .screen{height:calc(100dvh - 105px);aspect-ratio:auto}
 @media(max-width:1000px){.results{grid-template-columns:repeat(3,1fr)}}@media(max-width:850px){.shell{padding:9px}.layout{grid-template-columns:1fr}.side{order:2}.results{grid-template-columns:repeat(2,1fr)}.statuspill{display:none}}@media(max-width:480px){.results{grid-template-columns:1fr 1fr}.resultBody{padding:8px}.rtitle{font-size:10px}}
+
+.sourcebadge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:8px;font-weight:900;letter-spacing:.7px}
+.sourcebadge.tt{color:#ffd8e2;border-color:#54303d;background:#211018}
+.sourcebadge.dm{color:#c8f8ec;border-color:#28564c;background:#0b211d}
+.tiktok-frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.sourceLine{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:5px}
+
 </style>
 </head>
 <body>
@@ -18,29 +25,40 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#88f4dd" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dcb7" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON DAILY VIEWER V4.2</b><small>Official Dailymotion search + continuity-safe player</small></div>
+      <div><b>ARON VIEWER V5</b><small>TikTok + Dailymotion multi-source viewer</small></div>
     </div>
-    <div id="sdkState" class="statuspill">Dailymotion SDK loading…</div>
+    <div id="sdkState" class="statuspill">Multi-source ready</div>
   </div>
 
   <div class="card searchbox">
     <div class="tabs">
-      <button id="titleTab" class="tab active">SEARCH BY TITLE</button>
-      <button id="linkTab" class="tab">OPEN LINK / ID</button>
+      <button id="autoTab" class="tab active">AUTO DETECT</button>
+      <button id="dmSearchTab" class="tab">DAILYMOTION SEARCH</button>
+      <button id="directTab" class="tab">DIRECT LINK / ID</button>
     </div>
 
-    <div id="titleMode">
+    <div id="autoMode">
       <div class="searchrow">
-        <input id="titleInput" class="input" placeholder="Paste the title you saw on TikTok">
+        <input id="unifiedInput" class="input" placeholder="Paste TikTok link, TikTok Post ID, Dailymotion link, or a title" value="https://vt.tiktok.com/ZSb9HW2xv/">
+        <button id="goBtn" class="btn primary">OPEN / SEARCH</button>
+      </div>
+      <div class="tip">
+        TikTok canonical URLs use the numeric Post ID. Short <b>vt.tiktok.com</b> links are resolved through TikTok's official oEmbed endpoint when available.
+        Plain text is treated as a Dailymotion title search.
+      </div>
+    </div>
+
+    <div id="dmSearchMode" style="display:none">
+      <div class="searchrow">
+        <input id="titleInput" class="input" placeholder="Search a title on Dailymotion">
         <button id="searchBtn" class="btn primary">SEARCH DAILYMOTION</button>
       </div>
-      <div class="tip">V4.1 uses Dailymotion's official JavaScript SDK and the public video search API. No HTML scraping and no Cloudflare search bridge.</div>
     </div>
 
-    <div id="linkMode" style="display:none">
+    <div id="directMode" style="display:none">
       <div class="searchrow">
-        <input id="urlInput" class="input" value="https://www.dailymotion.com/video/xbf1yae" placeholder="Paste Dailymotion link or video ID">
-        <button id="watchBtn" class="btn primary">WATCH</button>
+        <input id="urlInput" class="input" value="https://www.dailymotion.com/video/xbf1yae" placeholder="TikTok / Dailymotion URL or ID">
+        <button id="watchBtn" class="btn primary">OPEN</button>
       </div>
     </div>
   </div>
@@ -55,21 +73,21 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
 
   <div class="layout">
     <main class="card viewer">
-      <div id="screen" class="screen"><div id="dmPlayerHost" style="position:absolute;inset:0;width:100%;height:100%"></div><div id="playerEmpty" class="empty"><strong>Ready.</strong>Configure your Dailymotion Public API Key once, then search by title.</div></div>
+      <div id="screen" class="screen"><div id="dmPlayerHost" style="position:absolute;inset:0;width:100%;height:100%"></div><div id="playerEmpty" class="empty"><strong>Ready.</strong>Paste a TikTok link/Post ID, Dailymotion link, or search title above.</div></div>
       <div class="controls">
         <div class="group"><button id="cinemaBtn" class="btn ghost">Cinema</button><button id="fullBtn" class="btn ghost">Fullscreen</button></div>
         <div class="group"><button id="shareBtn" class="btn ghost">Share Video</button><button id="dmBtn" class="btn ghost">Open Dailymotion</button></div>
       </div>
-      <div class="info"><h1 id="title">Nothing playing</h1><div id="meta" class="meta">Waiting for a Dailymotion video.</div><div id="continuityState" class="meta" style="margin-top:5px">Continuity guard idle.</div></div>
+      <div class="info"><h1 id="title">Nothing playing</h1><div id="meta" class="meta">Waiting for a Dailymotion video.</div><div id="continuityState" class="meta" style="margin-top:5px">No media loaded.</div></div>
     </main>
 
     <aside class="card side">
-      <h2>DAILYMOTION PUBLIC API KEY</h2>
+      <h2>DAILYMOTION SEARCH API</h2>
       <div class="field"><label>Public API Key</label><input id="apiKey" class="input" type="password" autocomplete="off" placeholder="Paste Public API Key"></div>
       <button id="saveApiKey" class="btn primary" style="width:100%;margin-bottom:11px">Save & initialize</button>
       <div id="apiInfo" class="help">Create a Public API Key in Dailymotion Studio → Organization → API keys. Only the public key is stored locally in this browser.</div>
 
-      <h2>PLAYER</h2>
+      <h2>DAILYMOTION PLAYER</h2>
       <div class="field"><label>Dailymotion Player ID</label><input id="playerId" class="input" value="xbzld" placeholder="Your Player ID"></div>
       <button id="savePlayer" class="btn ghost" style="width:100%;margin-bottom:11px">Save Player ID</button>
 
@@ -78,7 +96,7 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
 
       <h2>RECENT</h2>
       <div id="history" class="history"></div>
-      <div class="notice">Search results are public Dailymotion metadata. V4.2 preserves Dailymotion commercials and platform controls; it only protects the content resume position if the player unexpectedly returns to 0.</div>
+      <div class="notice">TikTok uses TikTok's official Post-ID player. Dailymotion uses its official player. Platform ads, availability, login requirements, region rules and other controls remain controlled by each platform.</div>
     </aside>
   </div>
 </div>
@@ -86,14 +104,14 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
 <script src="https://api.dmcdn.net/all.js"></script>
 <script>
 const $=s=>document.querySelector(s), input=$('#urlInput'), pid=$('#playerId'), screen=$('#screen');
-let currentId='', currentInfo=null, dmReady=false, playerInstance=null, playerLibPromise=null, playerLibId='', adActive=false, manualSeek=false, lastGoodTime=0, continuityTimer=null, restoreLock=false, videoEnded=false;
+let currentId='', currentInfo=null, currentSource='', dmReady=false, playerInstance=null, playerLibPromise=null, playerLibId='', adActive=false, manualSeek=false, lastGoodTime=0, continuityTimer=null, restoreLock=false, videoEnded=false, tiktokFrame=null, tiktokReady=false, tiktokLastTime=0;
 
 const savedPlayer=localStorage.getItem('aron_player_id'); if(savedPlayer)pid.value=savedPlayer;
 const savedKey=localStorage.getItem('aron_dm_public_key'); if(savedKey)$('#apiKey').value=savedKey;
 
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function canonical(id){return `https://www.dailymotion.com/video/${encodeURIComponent(id)}`}
-function pageShare(id){const u=new URL(location.href);u.search='';u.hash='';u.searchParams.set('v',id);return u.toString()}
+function pageShare(id){const u=new URL(location.href);u.search='';u.hash='';u.searchParams.set(currentSource==='tiktok'?'tt':'v',id);return u.toString()}
 function fmtDuration(sec){sec=Number(sec)||0;const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`}
 function extractId(v){v=(v||'').trim();if(/^[A-Za-z0-9_-]{5,}$/.test(v)&&!v.includes('.'))return v;try{const u=new URL(v),host=u.hostname.replace(/^www\./,'').toLowerCase();if(host==='dai.ly')return u.pathname.split('/').filter(Boolean)[0]||null;if(host.endsWith('dailymotion.com')){const p=u.pathname.split('/').filter(Boolean),i=p.indexOf('video');if(i>=0&&p[i+1])return p[i+1].split('_')[0]}}catch(e){}const m=v.match(/(?:video\/|dai\.ly\/)([A-Za-z0-9_-]+)/i);return m?m[1].split('_')[0]:null}
 
@@ -160,8 +178,162 @@ function renderResults(list){
  })
 }
 
-function saveHistory(id,info){let h=JSON.parse(localStorage.getItem('aron_history')||'[]').filter(x=>x.id!==id);h.unshift({id,title:info?.title||id,at:Date.now()});h=h.slice(0,12);localStorage.setItem('aron_history',JSON.stringify(h));renderHistory()}
-function renderHistory(){const h=JSON.parse(localStorage.getItem('aron_history')||'[]'),box=$('#history');if(!h.length){box.innerHTML='<div class="help">No recent videos yet.</div>';return}box.innerHTML='';h.forEach(x=>{const b=document.createElement('button');b.innerHTML=`<b>${esc(x.title||x.id)}</b><small>${new Date(x.at).toLocaleString()}</small>`;b.onclick=()=>load(x.id,{id:x.id,title:x.title});box.appendChild(b)})}
+function saveHistory(id,info){
+  let h=JSON.parse(localStorage.getItem('aron_history')||'[]').filter(x=>!(x.id===id&&x.source===(info?.source||currentSource)));
+  h.unshift({id,title:info?.title||id,source:info?.source||currentSource||'dailymotion',at:Date.now()});
+  h=h.slice(0,18);
+  localStorage.setItem('aron_history',JSON.stringify(h));
+  renderHistory();
+}
+function renderHistory(){
+  const h=JSON.parse(localStorage.getItem('aron_history')||'[]'),box=$('#history');
+  if(!h.length){box.innerHTML='<div class="help">No recent videos yet.</div>';return}
+  box.innerHTML='';
+  h.forEach(x=>{
+    const b=document.createElement('button');
+    const tag=x.source==='tiktok'?'TIKTOK':'DAILYMOTION';
+    b.innerHTML=`<b>${esc(x.title||x.id)}</b><small>${tag} • ${new Date(x.at).toLocaleString()}</small>`;
+    b.onclick=()=>x.source==='tiktok'?loadTikTok(x.id,{title:x.title}):load(x.id,{id:x.id,title:x.title,source:'dailymotion'});
+    box.appendChild(b)
+  })
+}
+
+function isTikTokHost(host){host=(host||'').replace(/^www\./,'').toLowerCase();return host==='tiktok.com'||host.endsWith('.tiktok.com')}
+function extractTikTokPostId(v){
+  v=(v||'').trim();
+  if(/^\d{15,24}$/.test(v))return v;
+  try{
+    const u=new URL(v);
+    if(isTikTokHost(u.hostname)){
+      const m=u.pathname.match(/\/video\/(\d{15,24})/i);
+      if(m)return m[1];
+      const p=u.pathname.match(/\/player\/v1\/(\d{15,24})/i);
+      if(p)return p[1];
+    }
+  }catch(e){}
+  const m=v.match(/(?:\/video\/|\/player\/v1\/)(\d{15,24})/i);
+  return m?m[1]:null;
+}
+function isTikTokShortLink(v){
+  try{
+    const u=new URL((v||'').trim());
+    const h=u.hostname.replace(/^www\./,'').toLowerCase();
+    return h==='vt.tiktok.com'||h==='vm.tiktok.com';
+  }catch(e){return false}
+}
+async function resolveTikTokShortLink(shortUrl){
+  setContinuity('Resolving TikTok short link to Post ID…');
+  const endpoint=`https://www.tiktok.com/oembed?url=${encodeURIComponent(shortUrl)}`;
+  try{
+    const r=await fetch(endpoint,{cache:'no-store'});
+    if(!r.ok)throw new Error(`TikTok oEmbed HTTP ${r.status}`);
+    const d=await r.json();
+    const html=String(d.html||'');
+    const id=(html.match(/data-video-id=["'](\d{15,24})["']/i)||[])[1]
+      || extractTikTokPostId(d.author_url||'')
+      || extractTikTokPostId(d.html||'');
+    if(id)return {id,meta:d};
+    throw new Error('TikTok returned metadata but no Post ID.');
+  }catch(e){
+    throw new Error('TikTok short-link auto-resolve was blocked or unavailable. Open the short link once, then paste the canonical /video/{PostID} URL or the numeric Post ID.');
+  }
+}
+function tiktokPositionKey(id){return `aron_tt_position_${id}`}
+function saveTikTokPosition(id,t){if(id&&Number.isFinite(t)&&t>0)localStorage.setItem(tiktokPositionKey(id),String(Math.floor(t*10)/10))}
+function getTikTokPosition(id){const n=Number(localStorage.getItem(tiktokPositionKey(id))||0);return Number.isFinite(n)?n:0}
+function sendTikTok(type,value){
+  if(!tiktokFrame?.contentWindow)return;
+  tiktokFrame.contentWindow.postMessage({"x-tiktok-player":true,type,value},'*');
+}
+function bindTikTokMessages(){
+  if(window.__aronTikTokBound)return;
+  window.__aronTikTokBound=true;
+  window.addEventListener('message',event=>{
+    const d=event.data;
+    if(!d||d['x-tiktok-player']!==true||currentSource!=='tiktok')return;
+    if(d.type==='onPlayerReady'){
+      tiktokReady=true;
+      const resume=getTikTokPosition(currentId);
+      setContinuity(resume>5?`TikTok ready. Resume point ${fmtDuration(Math.floor(resume))} saved.`:'TikTok player ready.');
+      if(resume>5)setTimeout(()=>sendTikTok('seekTo',resume),600);
+    }else if(d.type==='onCurrentTime'){
+      const t=Number(d.value?.currentTime);
+      if(Number.isFinite(t)&&t>0){
+        tiktokLastTime=t;
+        saveTikTokPosition(currentId,t);
+        setContinuity(`TikTok position saved at ${fmtDuration(Math.floor(t))}.`);
+      }
+    }else if(d.type==='onStateChange'&&Number(d.value)===0){
+      localStorage.removeItem(tiktokPositionKey(currentId));
+      tiktokLastTime=0;
+      setContinuity('TikTok post completed.');
+    }else if(d.type==='onPlayerError'){
+      setContinuity(`TikTok player error: ${d.value?.errorType||'playback unavailable'}.`);
+    }
+  });
+}
+function tiktokCanonical(id){return `https://www.tiktok.com/player/v1/${encodeURIComponent(id)}`}
+async function loadTikTok(postId,meta=null){
+  if(!postId)throw new Error('TikTok Post ID not found.');
+  currentSource='tiktok';
+  currentId=postId;
+  currentInfo={id:postId,title:meta?.title||`TikTok Post ${postId}`,author_name:meta?.author_name||'TikTok'};
+  clearInterval(continuityTimer);
+  continuityTimer=null;
+  if(playerInstance){
+    try{await playerInstance.pause()}catch(e){}
+  }
+
+  screen.innerHTML='';
+  const f=document.createElement('iframe');
+  f.className='tiktok-frame';
+  f.src=`https://www.tiktok.com/player/v1/${encodeURIComponent(postId)}?controls=1&progress_bar=1&play_button=1&volume_control=1&fullscreen_button=1&timestamp=1&loop=0&autoplay=0&music_info=1&description=1&rel=0&native_context_menu=1&closed_caption=1`;
+  f.allow='autoplay; fullscreen; encrypted-media; picture-in-picture';
+  f.allowFullscreen=true;
+  f.referrerPolicy='strict-origin-when-cross-origin';
+  f.title=currentInfo.title;
+  screen.appendChild(f);
+  tiktokFrame=f;tiktokReady=false;tiktokLastTime=getTikTokPosition(postId);
+  bindTikTokMessages();
+
+  $('#title').textContent=currentInfo.title;
+  $('#meta').innerHTML=`<span class="sourcebadge tt">TIKTOK</span> ${esc(currentInfo.author_name)} • Post ID ${esc(postId)}`;
+  $('#shareUrl').value=`https://www.tiktok.com/player/v1/${postId}`;
+  setContinuity('TikTok official Post-ID player loading…');
+  saveHistory(postId,{...currentInfo,source:'tiktok'});
+
+  if(innerWidth<851)screen.scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function handleUnifiedInput(raw){
+  const v=(raw||'').trim();
+  if(!v)return;
+
+  const ttId=extractTikTokPostId(v);
+  if(ttId){await loadTikTok(ttId);return}
+
+  if(isTikTokShortLink(v)){
+    try{
+      const r=await resolveTikTokShortLink(v);
+      await loadTikTok(r.id,r.meta);
+    }catch(e){
+      setContinuity(e.message||e);
+      if(confirm((e.message||e)+'\n\nOpen the short TikTok link now?'))window.open(v,'_blank','noopener');
+    }
+    return;
+  }
+
+  const dmId=extractId(v);
+  if(dmId){
+    await load(dmId,{id:dmId,title:`Dailymotion • ${dmId}`,source:'dailymotion'});
+    return;
+  }
+
+  // Plain text becomes a Dailymotion title search.
+  $('#titleInput').value=v;
+  switchMode('dmsearch');
+  await searchDM();
+}
+
 function positionKey(id){return `aron_dm_position_${id}`}
 function getSavedPosition(id){const n=Number(localStorage.getItem(positionKey(id))||0);return Number.isFinite(n)?n:0}
 function savePosition(id,t){if(id&&Number.isFinite(t)&&t>0)localStorage.setItem(positionKey(id),String(Math.floor(t*10)/10))}
@@ -330,11 +502,12 @@ async function load(force,info){
   if(!id){alert('Hindi ma-detect ang Dailymotion video ID.');return}
   if(!pid.value.trim()){alert('Enter a valid Dailymotion Player ID first.');return}
 
+  currentSource='dailymotion';
   currentId=id;
-  currentInfo=info||{id,title:`Dailymotion • ${id}`};
+  currentInfo=info||{id,title:`Dailymotion • ${id}`,source:'dailymotion'};
   input.value=canonical(id);
   $('#title').textContent=currentInfo?.title||`Dailymotion • ${id}`;
-  $('#meta').textContent=[currentInfo?.author_name,canonical(id)].filter(Boolean).join(' • ');
+  $('#meta').innerHTML=`<span class="sourcebadge dm">DAILYMOTION</span> `+esc([currentInfo?.author_name,canonical(id)].filter(Boolean).join(' • '));
   $('#shareUrl').value=pageShare(id);
   saveHistory(id,currentInfo);
 
@@ -353,19 +526,30 @@ async function load(force,info){
 
 $('#saveApiKey').onclick=()=>{const k=$('#apiKey').value.trim();if(!k){alert('Paste your Dailymotion Public API Key first.');return}localStorage.setItem('aron_dm_public_key',k);initDM()};
 $('#savePlayer').onclick=()=>{const next=pid.value.trim();localStorage.setItem('aron_player_id',next);if(playerLibId&&playerLibId!==next){alert('Player ID saved. Refresh the page once so Dailymotion can load the new Player Library configuration.')}else{alert('Player ID saved.')}};
-$('#titleTab').onclick=()=>{$('#titleTab').classList.add('active');$('#linkTab').classList.remove('active');$('#titleMode').style.display='block';$('#linkMode').style.display='none'};
-$('#linkTab').onclick=()=>{$('#linkTab').classList.add('active');$('#titleTab').classList.remove('active');$('#titleMode').style.display='none';$('#linkMode').style.display='block'};
 $('#searchBtn').onclick=searchDM;$('#titleInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchDM()});
-$('#watchBtn').onclick=()=>load();input.addEventListener('keydown',e=>{if(e.key==='Enter')load()});
-$('#dmBtn').onclick=()=>{const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
-$('#fullBtn').onclick=async()=>{try{if(playerInstance&&playerInstance.setFullscreen){await playerInstance.setFullscreen(true)}else{screen.requestFullscreen?.()}}catch(e){screen.requestFullscreen?.()}};$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'Exit Cinema':'Cinema'};
+$('#watchBtn').onclick=()=>handleUnifiedInput(input.value);input.addEventListener('keydown',e=>{if(e.key==='Enter')handleUnifiedInput(input.value)});
+$('#dmBtn').onclick=()=>{if(currentSource==='tiktok'&&currentId){window.open(`https://www.tiktok.com/player/v1/${currentId}`,'_blank','noopener');return}const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
+$('#fullBtn').onclick=async()=>{try{if(currentSource==='dailymotion'&&playerInstance&&playerInstance.setFullscreen){await playerInstance.setFullscreen(true)}else{screen.requestFullscreen?.()}}catch(e){screen.requestFullscreen?.()}};$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'Exit Cinema':'Cinema'};
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){return false}}
 $('#copyShare').onclick=async()=>{const t=$('#shareUrl').value;if(!t)return;if(await copyText(t)){const b=$('#copyShare'),o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,900)}else prompt('Copy this link:',t)};
 $('#shareBtn').onclick=async()=>{if(!currentId)return;const url=pageShare(currentId);if(navigator.share){try{await navigator.share({title:currentInfo?.title||'ARON Daily Viewer',url});return}catch(e){}}if(await copyText(url))alert('Share link copied.');else prompt('Copy this link:',url)};
 
+function switchMode(mode){
+  $('#autoTab').classList.toggle('active',mode==='auto');
+  $('#dmSearchTab').classList.toggle('active',mode==='dmsearch');
+  $('#directTab').classList.toggle('active',mode==='direct');
+  $('#autoMode').style.display=mode==='auto'?'block':'none';
+  $('#dmSearchMode').style.display=mode==='dmsearch'?'block':'none';
+  $('#directMode').style.display=mode==='direct'?'block':'none';
+}
+$('#autoTab').onclick=()=>switchMode('auto');
+$('#dmSearchTab').onclick=()=>switchMode('dmsearch');
+$('#directTab').onclick=()=>switchMode('direct');
+$('#goBtn').onclick=()=>handleUnifiedInput($('#unifiedInput').value);
+$('#unifiedInput').addEventListener('keydown',e=>{if(e.key==='Enter')handleUnifiedInput($('#unifiedInput').value)});
 const lastSearch=localStorage.getItem('aron_last_title_search');if(lastSearch)$('#titleInput').value=lastSearch;
 renderHistory();
-window.addEventListener('load',()=>{setTimeout(initDM,400);const p=new URLSearchParams(location.search),v=p.get('v');if(v)setTimeout(()=>load(v),500)});
+window.addEventListener('load',()=>{setTimeout(initDM,400);const p=new URLSearchParams(location.search),v=p.get('v'),tt=p.get('tt');if(tt)setTimeout(()=>loadTikTok(tt),500);else if(v)setTimeout(()=>load(v),500)});
 </script>
 </body>
 </html>
