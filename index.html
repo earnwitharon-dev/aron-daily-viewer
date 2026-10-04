@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#071115">
-<title>ARON Viewer V5</title>
+<title>ARON Viewer V5.1</title>
 <style>
 :root{--bg:#061014;--panel:#0d191e;--line:#20333a;--text:#eef9f6;--muted:#8ea4a7;--accent:#31dcb7;--accent2:#88f4dd;--danger:#ff7f87}
 *{box-sizing:border-box}html,body{min-height:100%}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(49,220,183,.14),transparent 30%),#061014;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -25,7 +25,7 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
   <div class="top">
     <div class="brand">
       <div class="logo"><svg width="27" height="27" viewBox="0 0 40 40" fill="none"><path d="M20 5 35 32H5L20 5Z" stroke="#88f4dd" stroke-width="2"/><path d="M20 12 28 27H12L20 12Z" stroke="#31dcb7" stroke-width="1.2" opacity=".72"/></svg></div>
-      <div><b>ARON VIEWER V5</b><small>TikTok + Dailymotion multi-source viewer</small></div>
+      <div><b>ARON VIEWER V5.1</b><small>TikTok post embed + Dailymotion multi-source viewer</small></div>
     </div>
     <div id="sdkState" class="statuspill">Multi-source ready</div>
   </div>
@@ -96,7 +96,7 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
 
       <h2>RECENT</h2>
       <div id="history" class="history"></div>
-      <div class="notice">TikTok uses TikTok's official Post-ID player. Dailymotion uses its official player. Platform ads, availability, login requirements, region rules and other controls remain controlled by each platform.</div>
+      <div class="notice">TikTok first uses the official Post-ID player. If TikTok itself returns INVALID_VIDEO, V5.1 falls back to TikTok's official oEmbed post markup when available. Dailymotion continues to use its official player.</div>
     </aside>
   </div>
 </div>
@@ -104,7 +104,7 @@ button,input{font:inherit}button{cursor:pointer}.shell{width:min(1420px,100%);ma
 <script src="https://api.dmcdn.net/all.js"></script>
 <script>
 const $=s=>document.querySelector(s), input=$('#urlInput'), pid=$('#playerId'), screen=$('#screen');
-let currentId='', currentInfo=null, currentSource='', dmReady=false, playerInstance=null, playerLibPromise=null, playerLibId='', adActive=false, manualSeek=false, lastGoodTime=0, continuityTimer=null, restoreLock=false, videoEnded=false, tiktokFrame=null, tiktokReady=false, tiktokLastTime=0;
+let currentId='', currentInfo=null, currentSource='', dmReady=false, playerInstance=null, playerLibPromise=null, playerLibId='', adActive=false, manualSeek=false, lastGoodTime=0, continuityTimer=null, restoreLock=false, videoEnded=false, tiktokFrame=null, tiktokReady=false, tiktokLastTime=0, currentTikTokEmbedHtml='', currentTikTokOriginalUrl='';
 
 const savedPlayer=localStorage.getItem('aron_player_id'); if(savedPlayer)pid.value=savedPlayer;
 const savedKey=localStorage.getItem('aron_dm_public_key'); if(savedKey)$('#apiKey').value=savedKey;
@@ -232,12 +232,62 @@ async function resolveTikTokShortLink(shortUrl){
     const id=(html.match(/data-video-id=["'](\d{15,24})["']/i)||[])[1]
       || extractTikTokPostId(d.author_url||'')
       || extractTikTokPostId(d.html||'');
-    if(id)return {id,meta:d};
+    if(id)return {id,meta:{...d,original_url:shortUrl}};
     throw new Error('TikTok returned metadata but no Post ID.');
   }catch(e){
     throw new Error('TikTok short-link auto-resolve was blocked or unavailable. Open the short link once, then paste the canonical /video/{PostID} URL or the numeric Post ID.');
   }
 }
+
+function cleanTikTokEmbedHtml(raw){
+  return String(raw||'').replace(/<script[\s\S]*?<\/script>/gi,'').trim();
+}
+function renderTikTokOEmbedFallback(rawHtml, postId){
+  const cleaned=cleanTikTokEmbedHtml(rawHtml);
+  if(!cleaned)return false;
+
+  const doc=new DOMParser().parseFromString(cleaned,'text/html');
+  const block=doc.querySelector('blockquote.tiktok-embed');
+  if(!block)return false;
+
+  screen.innerHTML='';
+  const holder=document.createElement('div');
+  holder.style.cssText='position:absolute;inset:0;overflow:auto;background:#000;padding:8px;display:flex;align-items:flex-start;justify-content:center';
+  holder.appendChild(document.importNode(block,true));
+  screen.appendChild(holder);
+
+  const s=document.createElement('script');
+  s.src='https://www.tiktok.com/embed.js';
+  s.async=true;
+  screen.appendChild(s);
+
+  tiktokFrame=null;
+  tiktokReady=false;
+  setContinuity('TikTok player mode rejected this post. Showing TikTok official post embed instead.');
+  return true;
+}
+function showTikTokUnavailable(postId){
+  screen.innerHTML='';
+  const box=document.createElement('div');
+  box.className='empty';
+  const openUrl=currentTikTokOriginalUrl||`https://www.tiktok.com/player/v1/${encodeURIComponent(postId)}`;
+  box.innerHTML=`<strong>TikTok cannot embed this post.</strong>
+    TikTok returned INVALID_VIDEO for its player and did not provide a usable post embed here.
+    <br><br><button id="openTikTokFallback" class="btn primary">OPEN IN TIKTOK</button>`;
+  screen.appendChild(box);
+  const b=$('#openTikTokFallback');
+  if(b)b.onclick=()=>window.open(openUrl,'_blank','noopener');
+  setContinuity('TikTok embedding is unavailable for this post. Open-in-TikTok fallback is ready.');
+}
+async function getTikTokOEmbed(url){
+  if(!url)return null;
+  try{
+    const r=await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`,{cache:'no-store'});
+    if(!r.ok)return null;
+    return await r.json();
+  }catch(e){return null}
+}
+
 function tiktokPositionKey(id){return `aron_tt_position_${id}`}
 function saveTikTokPosition(id,t){if(id&&Number.isFinite(t)&&t>0)localStorage.setItem(tiktokPositionKey(id),String(Math.floor(t*10)/10))}
 function getTikTokPosition(id){const n=Number(localStorage.getItem(tiktokPositionKey(id))||0);return Number.isFinite(n)?n:0}
@@ -268,7 +318,15 @@ function bindTikTokMessages(){
       tiktokLastTime=0;
       setContinuity('TikTok post completed.');
     }else if(d.type==='onPlayerError'){
-      setContinuity(`TikTok player error: ${d.value?.errorType||'playback unavailable'}.`);
+      const err=d.value?.errorType||'playback unavailable';
+      setContinuity(`TikTok player error: ${err}.`);
+      if(err==='INVALID_VIDEO'){
+        setTimeout(()=>{
+          if(!renderTikTokOEmbedFallback(currentTikTokEmbedHtml,currentId)){
+            showTikTokUnavailable(currentId);
+          }
+        },250);
+      }
     }
   });
 }
@@ -276,8 +334,11 @@ function tiktokCanonical(id){return `https://www.tiktok.com/player/v1/${encodeUR
 async function loadTikTok(postId,meta=null){
   if(!postId)throw new Error('TikTok Post ID not found.');
   currentSource='tiktok';
+  $('#dmBtn').textContent='Open TikTok';
   currentId=postId;
   currentInfo={id:postId,title:meta?.title||`TikTok Post ${postId}`,author_name:meta?.author_name||'TikTok'};
+  currentTikTokEmbedHtml=meta?.html||'';
+  currentTikTokOriginalUrl=meta?.original_url||meta?.url||meta?.author_url||'';
   clearInterval(continuityTimer);
   continuityTimer=null;
   if(playerInstance){
@@ -298,7 +359,7 @@ async function loadTikTok(postId,meta=null){
 
   $('#title').textContent=currentInfo.title;
   $('#meta').innerHTML=`<span class="sourcebadge tt">TIKTOK</span> ${esc(currentInfo.author_name)} • Post ID ${esc(postId)}`;
-  $('#shareUrl').value=`https://www.tiktok.com/player/v1/${postId}`;
+  $('#shareUrl').value=currentTikTokOriginalUrl||`https://www.tiktok.com/player/v1/${postId}`;
   setContinuity('TikTok official Post-ID player loading…');
   saveHistory(postId,{...currentInfo,source:'tiktok'});
 
@@ -309,7 +370,11 @@ async function handleUnifiedInput(raw){
   if(!v)return;
 
   const ttId=extractTikTokPostId(v);
-  if(ttId){await loadTikTok(ttId);return}
+  if(ttId){
+    const meta=await getTikTokOEmbed(v);
+    await loadTikTok(ttId,meta?{...meta,original_url:v}:{original_url:v});
+    return
+  }
 
   if(isTikTokShortLink(v)){
     try{
@@ -503,6 +568,7 @@ async function load(force,info){
   if(!pid.value.trim()){alert('Enter a valid Dailymotion Player ID first.');return}
 
   currentSource='dailymotion';
+  $('#dmBtn').textContent='Open Dailymotion';
   currentId=id;
   currentInfo=info||{id,title:`Dailymotion • ${id}`,source:'dailymotion'};
   input.value=canonical(id);
@@ -528,7 +594,7 @@ $('#saveApiKey').onclick=()=>{const k=$('#apiKey').value.trim();if(!k){alert('Pa
 $('#savePlayer').onclick=()=>{const next=pid.value.trim();localStorage.setItem('aron_player_id',next);if(playerLibId&&playerLibId!==next){alert('Player ID saved. Refresh the page once so Dailymotion can load the new Player Library configuration.')}else{alert('Player ID saved.')}};
 $('#searchBtn').onclick=searchDM;$('#titleInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchDM()});
 $('#watchBtn').onclick=()=>handleUnifiedInput(input.value);input.addEventListener('keydown',e=>{if(e.key==='Enter')handleUnifiedInput(input.value)});
-$('#dmBtn').onclick=()=>{if(currentSource==='tiktok'&&currentId){window.open(`https://www.tiktok.com/player/v1/${currentId}`,'_blank','noopener');return}const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
+$('#dmBtn').onclick=()=>{if(currentSource==='tiktok'&&currentId){window.open(currentTikTokOriginalUrl||`https://www.tiktok.com/player/v1/${currentId}`,'_blank','noopener');return}const id=currentId||extractId(input.value);if(id)window.open(canonical(id),'_blank','noopener')};
 $('#fullBtn').onclick=async()=>{try{if(currentSource==='dailymotion'&&playerInstance&&playerInstance.setFullscreen){await playerInstance.setFullscreen(true)}else{screen.requestFullscreen?.()}}catch(e){screen.requestFullscreen?.()}};$('#cinemaBtn').onclick=()=>{document.body.classList.toggle('cinema');$('#cinemaBtn').textContent=document.body.classList.contains('cinema')?'Exit Cinema':'Cinema'};
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true}catch(e){return false}}
 $('#copyShare').onclick=async()=>{const t=$('#shareUrl').value;if(!t)return;if(await copyText(t)){const b=$('#copyShare'),o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,900)}else prompt('Copy this link:',t)};
